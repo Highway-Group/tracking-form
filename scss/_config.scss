@@ -1,0 +1,60 @@
+$color-white: #fff;
+$dark-blue1: #42477A;
+$dark-blue2: #434776;
+$dark-blue3: #2C294D;
+$dark-blue-rgba: rgba(66, 71, 122, 0.5);
+$bronze: #BF8A77;
+
+$xs: 0px;
+$sm: 768px;
+$md: 992px;
+$lg: 1200px;
+$xl: 1400px;
+
+$max_xs:575.98px;
+$max_sm:767.98px;
+$max_md:991.98px;
+$max_lg:1199.98px;
+$max_xl:1399.98px;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+body {
+    font-family: 'factor-a', sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+}
+
+.container_min {
+    padding: 0 80px;
+}
+
+.descr {
+    margin-bottom: 15px;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--color-dark-blue-rgba);
+}
+
+.value {
+    color: var(--color-dark-blue3);
+}
+
+.value span {
+    text-transform: lowercase;
+}
+
+.bronze {
+    color: var(--color-bronze);
+}

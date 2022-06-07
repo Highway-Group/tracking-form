@@ -1,0 +1,41 @@
+.btns {
+    display: flex;
+}
+
+.btn {
+    padding: 30px 124px;
+    border: none;
+    font-family: 'factor-a', sans-serif;
+    color: var(--color-white);
+    line-height: 18px;
+    background-color: var(--color-dark-blue2);
+    background-repeat: no-repeat;
+    outline: none;
+    cursor: pointer;
+    &.btn_close-min {
+        display: block;
+        padding: 22px;
+        background-image: url('../images/close.svg');
+        background-position: center;
+        margin-left: auto;
+        margin-bottom: 20px;
+    }
+    &.btn_trace {
+        flex: 0 1 auto;
+    }
+    &.btn_close {
+        font-size: 14px;
+        background-image: url('../images/close.svg');
+        background-position: 28% center;
+        padding: 30px 60px 30px 105px;
+    }
+    &.btn_complaints {
+        background-color: var(--color-white);
+        color: var(--color-dark-blue1);
+        font-size: 14px;
+        text-align: left;
+        background-image: url('../images/complaints.svg');
+        background-position: left center;
+        padding: 18px 50px;
+    }
+}

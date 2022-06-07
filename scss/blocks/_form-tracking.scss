@@ -1,0 +1,23 @@
+.form-tracking {
+    margin-bottom: 50px;
+    &__wrapper {
+        display: flex;
+    }
+    &__label {
+        display: block;
+        color: var(--color-dark-blue1);
+        font-size: 16px;
+        line-height: 18px;
+        margin-bottom: 20px;
+    }
+    &__input {
+        outline: none;
+        padding: 26px 30px;
+        font-size: 18px;
+        line-height: 22px;
+        font-weight: 400;
+        flex: 1 1 auto;
+        border: 1px solid rgba(108, 117, 125, 0.15);
+        color: var(--color-dark-blue1);
+    }
+}

@@ -1,1 +1,11 @@
-@import '../node_modules/bootstrap/scss/bootstrap.scss'
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+// переменные и контейнер
+@import 'config';
+@import 'fonts';
+
+// blocks
+@import 'blocks/btns';
+@import 'blocks/form-tracking';
+@import 'blocks/cycle';
+
