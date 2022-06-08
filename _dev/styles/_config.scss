@@ -5,17 +5,17 @@ $dark-blue3: #2C294D;
 $dark-blue-rgba: rgba(66, 71, 122, 0.5);
 $bronze: #BF8A77;
 
-$xs: 0px;
-$sm: 768px;
-$md: 992px;
-$lg: 1200px;
-$xl: 1400px;
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;
 
-$max_xs:575.98px;
-$max_sm:767.98px;
-$max_md:991.98px;
-$max_lg:1199.98px;
-$max_xl:1399.98px;
+$max_sm:575.98px;
+$max_md:767.98px;
+$max_lg:991.98px;
+$max_xl:1199.98px;
+$max_xxl:1399.98px;
 
 * {
     margin: 0;
@@ -30,12 +30,6 @@ body {
     line-height: 18px;
 }
 
-.container {
-    width: 1200px;
-    margin: 0 auto;
-    margin-bottom: 80px;
-}
-
 .container_min {
     padding: 0 80px;
 }
@@ -44,11 +38,11 @@ body {
     margin-bottom: 15px;
     font-size: 12px;
     line-height: 14px;
-    color: var(--color-dark-blue-rgba);
+    color: $dark-blue1;
 }
 
 .value {
-    color: var(--color-dark-blue3);
+    color: $dark-blue3;
 }
 
 .value span {
@@ -56,5 +50,5 @@ body {
 }
 
 .bronze {
-    color: var(--color-bronze);
+    color: $bronze;
 }

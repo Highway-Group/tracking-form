@@ -1,35 +1,32 @@
-@for $i from 0 through 60 {
-
+@for $i from 6 through 60 {
     .lh-#{$i}{
         line-height: $i +px;
     }
 
-    .m-,
-    .ma-{
-
+    .m-{
         &#{$i} {
             margin: $i +px !important;
         }
 
-        &-xs-#{$i}{
+        &-sm-#{$i}{
             @media(max-width: $sm) {
                 margin: $i +px !important;
             }
         }
     
-        &-sm-#{$i}{
+        &-md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 margin: $i +px !important;
             }
         }
     
-        &-md-#{$i}{
+        &-lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 margin: $i +px !important;
             }
         }
     
-        &-lg-#{$i}{
+        &-xl-#{$i}{
             @media(min-width: $lg) {
                 margin: $i +px !important;
             }
@@ -42,25 +39,25 @@
             margin-right: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 margin-right: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 margin-right: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 margin-right: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 margin-right: $i +px !important;
             }
@@ -73,31 +70,30 @@
             margin-left: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 margin-left: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 margin-left: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 margin-left: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 margin-left: $i +px !important;
             }
         }
     }
-
 
     .mt-{
 
@@ -105,25 +101,25 @@
             margin-top: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 margin-top: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 margin-top: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 margin-top: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 margin-top: $i +px !important;
             }
@@ -136,25 +132,25 @@
             margin-bottom: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 margin-bottom: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 margin-bottom: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 margin-bottom: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 margin-bottom: $i +px !important;
             }
@@ -167,34 +163,30 @@
             padding: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 padding: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 padding: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 padding: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 padding: $i +px !important;
             }
         }
     }
-
-    .pa-#{$i} {
-        padding: $i +px !important;
-    } 
 
     .pt-{
 
@@ -202,25 +194,25 @@
             padding-top: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 padding-top: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 padding-top: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 padding-top: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 padding-top: $i +px !important;
             }
@@ -233,25 +225,25 @@
             padding-bottom: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 padding-bottom: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 padding-bottom: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 padding-bottom: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 padding-bottom: $i +px !important;
             }
@@ -264,25 +256,25 @@
             padding-left: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 padding-left: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 padding-left: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 padding-left: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 padding-left: $i +px !important;
             }
@@ -295,29 +287,28 @@
             padding-right: $i +px !important;
         }
 
-        &xs-#{$i}{
+        &sm-#{$i}{
             @media(max-width: $sm) {
                 padding-right: $i +px !important;
             }
         }
     
-        &sm-#{$i}{
+        &md-#{$i}{
             @media(min-width: $sm) and (max-width: $md) {
                 padding-right: $i +px !important;
             }
         }
     
-        &md-#{$i}{
+        &lg-#{$i}{
             @media(min-width: $md) and (max-width: $lg) {
                 padding-right: $i +px !important;
             }
         }
     
-        &lg-#{$i}{
+        &xl-#{$i}{
             @media(min-width: $lg) {
                 padding-right: $i +px !important;
             }
         }
     } 
-
 } 

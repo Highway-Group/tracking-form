@@ -25,7 +25,7 @@ var config = {
 var IS_PROD = false; // если переменная равна "true", то обработовать файлы для продакшена                                                
 
 gulp.task('styles', function() {
-    var result = gulp.src('scss/main.scss') //берем файл
+    var result = gulp.src('_dev/styles/main.scss') //берем файл
         .pipe(sourcemaps.init()) // инициализируем создание Source Maps
         .pipe(sass().on('error', sass.logError)) //компилируем файл из sass в css
         // .pipe(cssimport({
@@ -57,7 +57,7 @@ gulp.task('styles', function() {
         .pipe(sourcemaps.write('.', {
             includeContent: false,
         })) // записываем карту файла для удобного дебага
-        .pipe(gulp.dest('css')) // выгружаем результирующий файл в указанную дирректорию
+        .pipe(gulp.dest('styles')) // выгружаем результирующий файл в указанную дирректорию
         .pipe(reload({stream: true}));
     return result;
 });
@@ -99,7 +99,7 @@ gulp.task('styles', function() {
 // ОБРАБОТКА SCRIPT.JS
 gulp.task('scripts', function() {
     var result = gulp.src([
-            'js/script.js' 
+            '_dev/scripts/script.js' 
         ], {
             sourcemaps: false
         })
@@ -111,7 +111,7 @@ gulp.task('scripts', function() {
 
     result
         // .pipe(rename({suffix: '.min'})) // дописываем суффикс .min
-        .pipe(gulp.dest('js')) // Выгружаем в папку scripts
+        .pipe(gulp.dest('scripts')) // Выгружаем в папку scripts
         .pipe(reload({stream: true}));
 
     return result;
@@ -124,8 +124,8 @@ gulp.task('webserver', function () {
  
 gulp.task('watch', function() {
     // наблюдаем за выбранными файлами и запускаем соответствующий таск для обработки файлов
-    gulp.watch('scss/**/*', gulp.parallel('styles'));
-    gulp.watch('js/**/*', gulp.parallel('scripts'));
+    gulp.watch('_dev/styles/**/*', gulp.parallel('styles'));
+    gulp.watch('_dev/scripts/**/*', gulp.parallel('scripts'));
 });
 
 gulp.task('build-styles', gulp.series('styles'));
