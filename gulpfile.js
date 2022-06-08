@@ -24,42 +24,6 @@ var config = {
 
 var IS_PROD = false; // если переменная равна "true", то обработовать файлы для продакшена                                                
 
-//var PATHS = {
-//    azuresTheme: 'styles/themes/amanda/code/',
-//};
-
-// ОБЪЕДИНЕНИЕ CSS БИБЛИОТЕК
-gulp.task('build-css', function() {
-    // порядок файлов важен!!!
-    var result = gulp.src([
-        'node_modules/bootstrap/scss/bootstrap.scss'
-        // 'styles/sources/lib/datatables.scss',
-        // 'styles/sources/lib/jquery-ui-1.12.1.custom/jquery-ui.css',
-        // 'scripts/sources/libs/select2/dist/css/select2.css',
-        // 'styles/sources/lib/sweetalert.css',
-        // 'styles/sources/lib/spinkit.css',
-        // 'styles/sources/lib/owl.carousel.min.css',
-        // 'styles/sources/lib/jquery.fancybox.css',
-    ], {
-        sourcemaps: false
-    });
-
-    if (IS_PROD == true) {
-        result = result
-            .pipe(cleancss({ level: { 1: { specialComments: 0 } } })) //удалаем комментарии из css
-            .pipe(cssnano({
-                zindex: false,
-                discardUnused: false,
-            })); //сжимаем файл
-    }
-
-    result
-        .pipe(concat('libs.min.css'))
-        .pipe(gulp.dest('css'))
-    return result;
-});
-
-
 gulp.task('styles', function() {
     var result = gulp.src('scss/main.scss') //берем файл
         .pipe(sourcemaps.init()) // инициализируем создание Source Maps
@@ -157,18 +121,18 @@ gulp.task('scripts', function() {
 gulp.task('webserver', function () {
     browserSync(config);
 });
-
+ 
 gulp.task('watch', function() {
     // наблюдаем за выбранными файлами и запускаем соответствующий таск для обработки файлов
     gulp.watch('scss/**/*', gulp.parallel('styles'));
     gulp.watch('js/**/*', gulp.parallel('scripts'));
 });
 
-gulp.task('build-styles', gulp.series('build-css', 'styles'));
+gulp.task('build-styles', gulp.series('styles'));
 // gulp.task('build-scripts', gulp.series('build-js', 'scripts'));
 
 
 // это таск по умолчанию. запускается из папки проекта командой "gulp".
-gulp.task('default', gulp.series('build-css', 'styles', 'scripts', gulp.parallel('webserver', 'watch')));
+gulp.task('default', gulp.series('styles', 'scripts', gulp.parallel('webserver', 'watch')));
 // можно запустить отдельные таски. для этого после команды "gulp"
 // перечисляются таски, которые нужно запустить.
