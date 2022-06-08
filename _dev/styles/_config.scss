@@ -3,7 +3,10 @@ $dark-blue1: #42477A;
 $dark-blue2: #434776;
 $dark-blue3: #2C294D;
 $dark-blue-rgba: rgba(66, 71, 122, 0.5);
+$gray-rgba: rgba(108, 117, 125, 0.15);
+$border-gray: 1px solid $gray-rgba;
 $bronze: #BF8A77;
+$red: #E94D37;
 
 $sm: 576px;
 $md: 768px;
@@ -28,10 +31,33 @@ body {
     font-family: 'factor-a', sans-serif;
     font-size: 16px;
     line-height: 18px;
+    @media (max-width: $max_md) {
+        font-size: 12px;
+    }
+}
+
+.container {
+    @media (max-width: $max_lg) {
+        max-width: 100%;
+        padding: 0;
+    }
 }
 
 .container_min {
-    padding: 0 80px;
+    padding: 0 80px 80px;
+    position: relative;
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 16px;
+        width: 4px;
+        background-color: $bronze;
+    }
+    @media (max-width: $max_md) {
+        padding: 0 30px 70px;
+    }
 }
 
 .descr {
@@ -39,6 +65,11 @@ body {
     font-size: 12px;
     line-height: 14px;
     color: $dark-blue1;
+    @media (max-width: $max_md) {
+        font-size: 10px;
+        color: $dark-blue-rgba;
+        margin-bottom: 10px;
+    }
 }
 
 .value {

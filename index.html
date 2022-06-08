@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Форма отслеживания груза</title>
     <link rel="stylesheet" href="styles/style.min.css">
-    <script src="scripts/script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,44 +15,40 @@
                 <label class="form-tracking__label" for="search">
                     Отследите статус вашего груза
                 </label>
-                <div class="form-tracking__wrapper">
-                    <input class="form-tracking__input" type="text" name="search" id="search">
-                    <button class="btn btn_trace">отследить</button>
+                <div class="form-tracking__wrapper row  m-0">
+                    <input class="form-tracking__input col-md-8" placeholder="Отследить артикул" type="text" name="search" id="search">
+                    <button class="btn btn_trace col-md-4">отследить</button>
                 </div>
-                
+                <div class="fail-descr">Отправлений не найдено</div>
             </form>
-            <div>
+            <div class="form-tracking__content">
                 <h1></h1>
                 <h2 class="form-tracking__label">артикул № 12122323232323232</h2>
-                <div class="mb-50">
-                    <div class="params-cargo params-cargo1">
-                        <div class="param-cargo param-cargo_header">параметры груза</div>
-                        <div class="param-cargo">
-                            <div class="descr">пункт назначения:</div>
-                            <div class="value">Санкт-петербург</div>
-                        </div>
-                        <div class="param-cargo">
-                            <div class="descr">кол-во мест</div>
-                            <div class="value">26</div>
-                        </div>
+                <div class="params-cargo row">
+                    <div class="param-cargo param-cargo_header col-lg-4">параметры груза</div>
+                    <div class="param-cargo col-lg-4">
+                        <div class="descr">пункт назначения:</div>
+                        <div class="value">Санкт-петербург</div>
                     </div>
-                    <div class="params-cargo params-cargo2">
-                        <div class="param-cargo">
-                            <div class="descr">Способ:</div>
-                            <div class="value">АВИА</div>
-                        </div>
-                        <div class="param-cargo">
-                            <div class="descr">вес</div>
-                            <div class="value">100 <span>кг</span></div>
-                        </div>
-                        <div class="param-cargo">
-                            <div class="descr">объем</div>
-                            <div class="value">1,3</div>
-                        </div>
+                    <div class="param-cargo col-6 col-lg-4">
+                        <div class="descr">кол-во мест</div>
+                        <div class="value">26</div>
+                    </div>
+                    <div class="param-cargo col-6 col-lg-4">
+                        <div class="descr">Способ:</div>
+                        <div class="value">АВИА</div>
+                    </div>
+                    <div class="param-cargo col-6 col-lg-4">
+                        <div class="descr">вес</div>
+                        <div class="value">100 <span>кг</span></div>
+                    </div>
+                    <div class="param-cargo col-6 col-lg-4">
+                        <div class="descr">объем</div>
+                        <div class="value">1,3</div>
                     </div>
                 </div>
                 <h2 class="form-tracking__label">история движения груза:</h2>
-                <ul class="statuses d-flex">
+                <ul class="statuses d-none d-md-block">
                     <li class="statuses__item">
                     <div class="statuses__wrapper">
                             <span class="statuses__text"><span class="statuses__icon statuses__icon_1"></span> Выехал со склада в Китае</span>
@@ -92,6 +87,63 @@
                         </div>
                     </li>
                 </ul>
+                <ul class="statuses d-block d-md-none">
+                    <li class="statuses__item">
+                        <div class="statuses__wrapper d-flex align-items-start">
+                                <span class="statuses__icon statuses__icon_1"></span> 
+                                <div>
+                                    <div class="statuses__text">Выехал со склада в Китае</div>
+                                    <div class="statuses__date">30.05.2022</div>
+                                </div>
+                        </div>
+                    </li>
+                    <li class="statuses__item">
+                        <div class="statuses__wrapper d-flex">
+                            <span class="statuses__icon statuses__icon_2"></span> 
+                            <div>
+                                <div class="statuses__text">Таможенное оформление</div>
+                                <div class="statuses__date">30.05.2022</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="statuses__item">
+                        <div class="statuses__wrapper d-flex">
+                            <span class="statuses__icon statuses__icon_3"></span> 
+                            <div>
+                                <div class="statuses__text"> Прибыл на склад в Москве</div>
+                                <div class="statuses__date">30.05.2022</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="statuses__item">
+                        <div class="statuses__wrapper d-flex">
+                            <span class="statuses__icon statuses__icon_4"></span>
+                            <div>
+                                <div class="statuses__text">Выехал со склада в Москве</div>
+                                <div class="statuses__date">30.05.2022</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="statuses__item statuses__item_current">
+                        <div class="descr">текущий статус</div>
+                        <div class="statuses__wrapper d-flex">
+                            <span class="statuses__icon statuses__icon_5"></span>
+                            <div>
+                                <div class="statuses__text">Сдан в транспортную компанию</div>
+                                <div class="statuses__date">30.05.2022</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="statuses__item statuses__item_planned">
+                        <div class="statuses__wrapper d-flex">
+                            <span class="statuses__icon statuses__icon_6"></span>
+                            <div>
+                                <div class="statuses__text bronze">планируемая дата выдачи</div>
+                                <div class="statuses__date bronze">30.05.2022</div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
                 <div class="btns">
                     <button class="btn btn_complaints">жалобы <br> и предложения</button>
                     <button class="btn btn_close">закрыть</button>
@@ -99,5 +151,6 @@
             </div>
         </div>
     </div>
+    <script src="scripts/script.min.js"></script>
 </body>
 </html>

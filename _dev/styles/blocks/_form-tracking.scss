@@ -1,5 +1,8 @@
 .form-tracking {
     margin-bottom: 50px;
+    @media (max-width: $max_md) {
+        margin-bottom: 40px;
+    }
     &__wrapper {
         display: flex;
     }
@@ -9,6 +12,11 @@
         font-size: 16px;
         line-height: 18px;
         margin-bottom: 20px;
+        font-weight: 700;
+        @media (max-width: $max_md) {
+            font-size: 12px;
+            max-width: 60%;
+        }
     }
     &__input {
         outline: none;
@@ -19,5 +27,24 @@
         flex: 1 1 auto;
         border: 1px solid rgba(108, 117, 125, 0.15);
         color: $dark-blue1;
+        &::placeholder {
+            text-transform: none;
+        }
+        @media (max-width: $max_md) {
+            margin-bottom: 20px;
+            font-size: 12px;
+            padding: 23px 20px;
+        }
+        // для окрашивания рамки инпута в красный, если не найден груз
+        &.fail {
+            border: 1px solid $red;
+        }
+    }
+    // для текста, если не найден груз
+    .fail-descr {
+        color: $red;
+        text-transform: none;
+        margin-top: 10px;
+        font-weight: 400;
     }
 }

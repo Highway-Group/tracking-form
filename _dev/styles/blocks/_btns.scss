@@ -1,10 +1,14 @@
 .btns {
     display: flex;
+    @media (max-width: $max_md) {
+        flex-direction: column;
+    }
 }
 
 .btn {
     padding: 30px 124px;
     border: none;
+    border-radius: 0;
     font-family: 'factor-a', sans-serif;
     color: $color-white;
     line-height: 18px;
@@ -12,6 +16,12 @@
     background-repeat: no-repeat;
     outline: none;
     cursor: pointer;
+    text-transform: uppercase;
+    font-weight: 700;
+    @media (max-width: $max_md) {
+        font-size: 12px;
+        padding: 23px 90px;
+    }
     &.btn_close-min {
         display: block;
         padding: 22px;
@@ -22,20 +32,34 @@
     }
     &.btn_trace {
         flex: 0 1 auto;
+        padding: 30px;
+        @media (max-width: $max_md) {
+            padding: 23px 90px;
+        }
     }
     &.btn_close {
         font-size: 14px;
         background-image: url('images/close.svg');
         background-position: 28% center;
         padding: 30px 60px 30px 105px;
+        @media (max-width: $max_md) {
+            font-size: 12px;
+            background-position: 36% center;
+            padding-left: 78px;
+            background-size: 10px;
+        }
     }
     &.btn_complaints {
         background-color: $color-white;
         color: $dark-blue1;
         font-size: 14px;
         text-align: left;
-        background-image: url('_dev/styles/images/complaints.svg');
+        background-image: url('images/complaints.svg');
         background-position: left center;
         padding: 18px 50px;
+        @media (max-width: $max_md) {
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
     }
 }
