@@ -44,11 +44,11 @@ gulp.task('styles', function() {
             }
         })); //удалаем комментарии из css
 
-    // if (IS_PROD == true) {
-    //     result = result.pipe(cssnano({
-    //         zindex: false
-    //     })); //сжимаем файл
-    // }
+    if (IS_PROD == true) {
+        result = result.pipe(cssnano({
+            zindex: false
+        })); //сжимаем файл
+    }
 
     result
         .pipe(rename(
