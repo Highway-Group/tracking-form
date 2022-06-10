@@ -51,7 +51,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            @media (max-width: $max_lg) {
+            @media (max-width: $max_xl) {
                 background-size: 150%;
             }
             @media (max-width: $max_md) {
