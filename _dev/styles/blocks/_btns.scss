@@ -50,6 +50,7 @@
             transition: opacity .8s ease-out;
         }
         &:hover {
+            color: $color-white;
             &::after {
                 opacity: 1;
             }
