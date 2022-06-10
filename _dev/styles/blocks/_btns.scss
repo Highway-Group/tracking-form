@@ -24,14 +24,6 @@
         font-size: 12px;
         padding: 23px 90px;
     }
-    &.btn_close-min {
-        display: block;
-        padding: 22px;
-        background-image: url('images/close.svg');
-        background-position: center;
-        margin-left: auto; 
-        margin-bottom: 20px;
-    }
     &.btn_trace {
         flex: 0 1 auto;
         padding: 30px;
@@ -72,7 +64,7 @@
         font-size: 14px;
         background-image: url('images/close.svg');
         background-position: 28% center;
-        padding: 30px 60px 30px 105px;
+        padding: 32px 60px 30px 105px;
         @media (max-width: $max_md) {
             font-size: 12px;
             background-position: 36% center;
