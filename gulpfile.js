@@ -62,6 +62,44 @@ gulp.task('styles', function() {
     return result;
 });
 
+gulp.task('styles-fonts', function() {
+    var result = gulp.src('_dev/styles/fonts.scss') //берем файл
+        .pipe(sourcemaps.init()) // инициализируем создание Source Maps
+        .pipe(sass().on('error', sass.logError)) //компилируем файл из sass в css
+        // .pipe(cssimport({
+        //  skipComments: false,
+        // }))
+        .pipe(autoprefixer([
+            'last 15 versions', '> 1%', 'ie 8', 'ie 7'
+        ], {
+            cascade: true
+        })) // добавлем вендорные префиксы
+        .pipe(cleancss({
+            level: {
+                1: {
+                    specialComments: 0
+                }
+            }
+        })); //удалаем комментарии из css
+
+    // if (IS_PROD == true) {
+    //     result = result.pipe(cssnano({
+    //         zindex: false
+    //     })); //сжимаем файл
+    // }
+
+    result
+        .pipe(rename(
+            'fonts.min.css'
+        ))
+        .pipe(sourcemaps.write('.', {
+            includeContent: false,
+        })) // записываем карту файла для удобного дебага
+        .pipe(gulp.dest('styles')) // выгружаем результирующий файл в указанную дирректорию
+        .pipe(reload({stream: true}));
+    return result;
+});
+
 
 // ОБЪЕДИНЕНИЕ JS БИБЛИОТЕК
 // gulp.task('build-js', function() {
@@ -124,6 +162,7 @@ gulp.task('webserver', function () {
  
 gulp.task('watch', function() {
     // наблюдаем за выбранными файлами и запускаем соответствующий таск для обработки файлов
+    gulp.watch('_dev/styles/fonts.scss', gulp.parallel('styles-fonts'));
     gulp.watch('_dev/styles/**/*', gulp.parallel('styles'));
     gulp.watch('_dev/scripts/**/*', gulp.parallel('scripts'));
 });
@@ -133,6 +172,6 @@ gulp.task('build-styles', gulp.series('styles'));
 
 
 // это таск по умолчанию. запускается из папки проекта командой "gulp".
-gulp.task('default', gulp.series('styles', 'scripts', gulp.parallel('webserver', 'watch')));
+gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', gulp.parallel('webserver', 'watch')));
 // можно запустить отдельные таски. для этого после команды "gulp"
 // перечисляются таски, которые нужно запустить.
