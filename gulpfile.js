@@ -102,51 +102,41 @@ gulp.task('styles-fonts', function() {
 
 
 // ОБЪЕДИНЕНИЕ JS БИБЛИОТЕК
-// gulp.task('build-js', function() {
+ gulp.task('build-js', function() {
     // перечисляем файлы, которые будут добавлены в lib.min.js
     // порядок файлов важен!!!
-    // var result = gulp.src([
-            // 'scripts/sources/libs/jquery/jquery.js',
-            // 'scripts/sources/libs/jquery.inputmask.bundle.js',
-            // 'scripts/sources/libs/jquery-ui-1.12.1.custom/jquery-ui.js',
-            // 'scripts/sources/libs/select2/dist/js/select2.full.min.js',
-            // 'scripts/sources/libs/jquery-toggles/toggles.min.js',
-            // 'scripts/sources/libs/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js',
-            // 'scripts/sources/libs/sweetalert.min.js',
-            // 'scripts/sources/libs/bootstrap.bundle.js',
-            // 'scripts/sources/libs/owl.carousel.min.js',
-            // 'scripts/sources/libs/jquery.fancybox.js',
-            //'scripts/sources/jquery.toast.min.js',
-            //'scripts/sources/jquery.ui.touch.js'      
-        // ], {
-            // sourcemaps: false
-        // })
-        // .pipe(concat('libs.min.js')); // Собираем их в кучу в новом файле libs.min.js
+    var result = gulp.src([
+            'node_modules/jquery/dist/jquery.js',
+            '_dev/scripts/libs/jquery.inputmask.bundle.js',
+            '_dev/scripts/libs/select2/dist/js/select2.full.min.js',
+            '_dev/scripts/libs/sweetalert.min.js',
+            '_dev/scripts/libs/jquery.fancybox.js' 
+        ], { 
+            sourcemaps: false
+        })
+        .pipe(concat('libs.min.js')); // Собираем их в кучу в новом файле libs.min.js
 
-    //if (IS_PROD) {
-        // result = result.pipe(terser()); // Сжимаем JS файл
-    //}
+    result = result.pipe(terser()); // Сжимаем JS файл
 
-//     result
-//         .pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
+    result
+        .pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
 
-//     return result;
-// });
+    return result;
+});
 
 
 // ОБРАБОТКА SCRIPT.JS
 gulp.task('scripts', function() {
     var result = gulp.src([
+            '_dev/scripts/init-crm.js',
             '_dev/scripts/script.js' 
         ], {
             sourcemaps: false
         })
         .pipe(concat('script.min.js'));
-
-    //if (IS_PROD) {
-        //result = result.pipe(terser()); // Сжимаем JS файл
-    //}
-
+ 
+    result = result.pipe(terser()); // Сжимаем JS файл
+   
     result
         // .pipe(rename({suffix: '.min'})) // дописываем суффикс .min
         .pipe(gulp.dest('scripts')) // Выгружаем в папку scripts
@@ -168,10 +158,10 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build-styles', gulp.series('styles'));
-// gulp.task('build-scripts', gulp.series('build-js', 'scripts'));
+gulp.task('build-scripts', gulp.series('build-js', 'scripts'));
 
 
 // это таск по умолчанию. запускается из папки проекта командой "gulp".
-gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', gulp.parallel('webserver', 'watch')));
+gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', 'build-js', gulp.parallel('webserver', 'watch')));
 // можно запустить отдельные таски. для этого после команды "gulp"
 // перечисляются таски, которые нужно запустить.
