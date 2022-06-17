@@ -52,6 +52,100 @@
 
 
 window.addEventListener('load', function() {
+    var query = {};
+    var token_api = '';
+
+    $.ajax({
+        crossOrigin: true,
+        crossDomain: true,
+        method: "POST",
+        type: "POST",
+        cache: false,
+        url: baseurl,
+        data: {
+            // ajax: true,
+            request: 'login',//option,
+            login: 'api_cn@mail.ru',
+            password: '133api',
+        } 
+    }).done(function(msg) {
+        console.log(msg);
+        if(isJson(msg) == true){
+            var result = JSON.parse(msg);
+
+            if(result.result){
+                token_api = result.result;
+            }
+            else{
+                if(!result.success){
+                    query.result = msg;
+                }
+                else{
+                    query.result = result;
+                }
+            }
+
+            if(result.success == false){
+                if(result.message){
+                    var message = result.message;
+                    $.fn.systemMessage({
+                        title: message.title || 'Ошибка!',
+                        text: message.text || 'Для решения проблемы обратитесь к разработчикам.',
+                        type: message.type || 'error'
+                    });
+                }
+                // form[0].disabled = false;
+                // form.removeClass('no_submit');
+                preloader_end();
+                return false;
+            }
+
+            if(result.success == true){
+                if(result.message){
+                    var message = result.message;
+
+                    if(message.title && message.text && message.type){
+                        $.fn.systemMessage({
+                            title: message.title,
+                            text: message.text,
+                            type: message.type
+                        });
+                    }
+                }
+            }
+        }
+        else{
+            query.result = msg;
+        }
+
+        if (!isJson(msg)) {
+            preloader_end();
+            if (!parseInt(msg) && form.find('.mess').length) {
+                $.fn.systemMessage({
+                    title: 'Системное сообщение',
+                    text: msg,
+                    type: 'warning'
+                });
+            }
+        }
+    }).fail(function(response){
+        preloader_end();
+        $.fn.systemMessage({
+            title: 'Ошибка',
+            text: 'Обратитесь к разработчикам',
+            type: 'error'
+        });
+    }).always(function() {
+        setTimeout(function() {
+            // form[0].disabled = false;
+            // form.removeClass('no_submit');
+
+            // if(preloader_end_stop == false){
+                preloader_end();
+            // }
+        }, 10);
+    });
+
     $('body').on('click', '.call-js:not(.readonly):not(select):not([disabled])', function(e) {
         e.preventDefault();
         var name = $(this).attr('data-option');
@@ -181,16 +275,19 @@ window.addEventListener('load', function() {
         query.submitVal = option;
 
         $.ajax({
+            crossOrigin: true,
+            crossDomain: true,
             method: "POST",
             type: "POST",
             cache: false,
-            url: baseurl + action,
+            url: baseurl,
             data: {
-                ajax: true,
-                option: option,
-                query: query
+                request: 'getClientIntransitItemByMark',
+                number_client: query.tracking,
+                token: token_api
             } 
         }).done(function(msg) {
+            console.log(msg);
             if(isJson(msg) == true){
                 var result = JSON.parse(msg);
 

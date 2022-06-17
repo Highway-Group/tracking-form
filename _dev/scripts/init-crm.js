@@ -643,3 +643,12 @@ function recordParamsData(that){
         console.log(error);
     } 
 }
+
+function isJson(answer) {
+    try {
+        JSON.parse(answer);
+        return true;
+    } catch (error) {
+        return false;
+    }
+}
