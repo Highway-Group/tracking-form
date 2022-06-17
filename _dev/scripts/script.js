@@ -25,11 +25,12 @@
 
         switch (option) {
 
-            case 'test': 
+            case 'updateTrackingForm': 
                 try {
                     console.log(params);
                     result = params.result;
-                    
+                    var container = $('.form_tracking_content_js');
+                    container.html(result); 
 
                 } catch (error) {
                     console.log(error);
@@ -138,6 +139,7 @@ window.addEventListener('load', function() {
 
     $('body').on('submit', '.ajax-form:not(.no_submit)', function(e) {
         e.preventDefault();
+        console.log(baseurl);
         preloader_start();
         console.log('ajax-form submit');
         var form = $(this);

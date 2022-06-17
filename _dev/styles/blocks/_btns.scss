@@ -1,3 +1,13 @@
+button{
+    &:focus,
+    &:active,
+    &:visited,
+    &:hover{
+        outline: none;
+        box-shadow: none !important;
+    }
+}
+
 .btns {
     display: flex;
     @media (max-width: $max_md) {
@@ -19,6 +29,10 @@
     text-transform: uppercase;
     font-weight: 700;
     transition: background-color .2s ease-in-out;
+
+    &:hover{
+        color: $color-white;
+    }
     
     @media (max-width: $max_md) {
         font-size: 12px;
@@ -65,6 +79,7 @@
         background-image: url('images/close.svg');
         background-position: 28% center;
         padding: 32px 60px 30px 105px;
+    
         @media (max-width: $max_md) {
             font-size: 12px;
             background-position: 36% center;

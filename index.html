@@ -8,7 +8,12 @@
     <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
     <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
     <script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
-    <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>
+    <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script> 
+    
+    <!-- <link rel="stylesheet" href="styles/fonts.min.css">
+    <link rel="stylesheet" href="styles/style.min.css"> 
+    <script src="scripts/libs.min.js"></script>
+    <script src="scripts/script.min.js"></script> -->
 
     <script>
 		var baseurl = '<?=SITE?>';
@@ -19,18 +24,24 @@
 <body>
     <div class="container">
         <div class="container_min">
-            <form action="" method="get" class="form-tracking">
+
+            <form method="get" class="ajax-form form_check-js form-tracking" data-callback="updateTrackingForm">
                 <label class="form-tracking__label form-tracking__label_1" for="search">
                     Отследите статус<br>вашего груза
                 </label>
-                <div class="form-tracking__wrapper row  m-0">
-                    <input class="form-tracking__input col-md-8" placeholder="Отследить артикул" type="text" name="search" id="search">
-                    <button class="btn btn_trace col-md-4 call-js" data-option="test">отследить</button>
+                <div class="form-tracking__wrapper row">
+                    <div class="col-md-8">
+                        <input class="form-tracking__input w-100 required" placeholder="Отследить артикул" type="text" name="tracking">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" name="submit" class="btn btn_trace w-100" value="searchTracking">отследить</button>
+                    </div>
                 </div>
                 <div class="fail-descr">Отправлений не найдено</div>
             </form>
-            <div class="form-tracking__content">
-                <h1></h1>
+
+            <div class="form-tracking__content form_tracking_content_js">
+                <!-- <h1></h1> -->
                 <h2 class="form-tracking__label">артикул № 12122323232323232</h2>
                 <div class="params-cargo row">
                     <div class="param-cargo param-cargo_header col-lg-4">параметры груза</div>
@@ -152,10 +163,12 @@
                         </div>
                     </li>
                 </ul>
-                <div class="btns">
-                    <button class="btn btn_complaints">жалобы <br> и предложения</button>
-                    <button class="btn btn_close">закрыть</button>
-                </div>
+                
+            </div>
+
+            <div class="btns">
+                <button class="btn btn_complaints">жалобы <br> и предложения</button>
+                <button class="btn btn_close">закрыть</button>
             </div>
         </div>
     </div>
