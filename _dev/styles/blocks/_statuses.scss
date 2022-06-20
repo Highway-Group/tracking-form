@@ -72,7 +72,10 @@
         @media (max-width: $max_md) {
             margin-bottom: 40px;
         }
-        
+        .statuses__text {
+            color: $bronze;
+        }
+
         .statuses__date {
             @media (max-width: $max_md) {
                 color: $bronze;
