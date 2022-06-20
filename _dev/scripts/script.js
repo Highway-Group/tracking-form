@@ -52,99 +52,6 @@
 
 
 window.addEventListener('load', function() {
-    var query = {};
-    var token_api = '';
-    var e1 = $('.e1').text();
-    var e2 = $('.e2').text();
-    var decrypt1 = b64DecodeUnicode(e1);
-    var decrypt2 = b64DecodeUnicode(e2);
-
-    $.ajax({
-        crossOrigin: true,
-        crossDomain: true,
-        method: "POST",
-        type: "POST",
-        cache: false,
-        url: baseurl,
-        data: {
-            //ajax: true,
-            request: 'login',//option,
-            // login: decrypt1,
-            // password: decrypt2,
-            login: 'api_crm@hl-group.ru',
-            password: 'b83cf54810c924db2ccff0a242188ad6', 
-        }  
-    }).done(function(msg) {
-        if(isJson(msg) == true){
-            var result = JSON.parse(msg);
-
-            if(result.result){
-                token_api = result.result;
-            }
-            else{
-                if(!result.success){
-                    query.result = msg;
-                }
-                else{
-                    query.result = result;
-                }
-            }
-
-            if(result.success == false){
-                if(result.message){
-                    var message = result.message;
-                    $.fn.systemMessage({
-                        title: message.title || 'Ошибка!',
-                        text: message.text || 'Для решения проблемы обратитесь к разработчикам.',
-                        type: message.type || 'error'
-                    });
-                }
-
-                preloader_end();
-                return false;
-            }
-
-            if(result.success == true){
-                if(result.message){
-                    var message = result.message;
-
-                    if(message.title && message.text && message.type){
-                        $.fn.systemMessage({
-                            title: message.title,
-                            text: message.text,
-                            type: message.type
-                        });
-                    }
-                }
-            }
-        }
-        else{
-            query.result = msg;
-        }
-
-        if (!isJson(msg)) {
-            preloader_end();
-            if (!parseInt(msg) && form.find('.mess').length) {
-                $.fn.systemMessage({
-                    title: 'Системное сообщение',
-                    text: msg,
-                    type: 'warning'
-                });
-            }
-        }
-    }).fail(function(response){
-        preloader_end();
-        $.fn.systemMessage({
-            title: 'Ошибка',
-            text: 'Обратитесь к разработчикам',
-            type: 'error'
-        });
-    }).always(function() {
-        setTimeout(function() {
-                preloader_end();
-        }, 10);
-    });
-
     $('body').on('click', '.call-js:not(.readonly):not(select):not([disabled])', function(e) {
         e.preventDefault();
         var name = $(this).attr('data-option');
@@ -236,6 +143,7 @@ window.addEventListener('load', function() {
         console.log('form-tracking submit');
         preloader_start();
         var form = $(this);
+        var query = $(this).getFormData();
         form.addClass('no_submit');
 
         if (form[0].disabled) {
@@ -264,12 +172,7 @@ window.addEventListener('load', function() {
                 return null;
             }
         }
-
-        var query = $(this).getFormData();
-        var callback = $(this).attr('data-callback') || $(this).closest;
-        var option = $(this).find('[name="submit"][type="submit"]').val();
-        var preloader_end_stop = false;
-        query.submitVal = option;
+        var token_api = '';
 
         $.ajax({
             crossOrigin: true,
@@ -279,17 +182,13 @@ window.addEventListener('load', function() {
             cache: false,
             url: baseurl,
             data: {
-                request: 'getClientIntransitItemByMark',
-                number_client: query.tracking,
-                token: token_api,
-                html: true, 
-                //number_client: query.search
-            } 
+                request: 'login',//option,
+                login: 'api_crm@hl-group.ru',
+                password: 'b83cf54810c924db2ccff0a242188ad6', 
+            }  
         }).done(function(msg) {
-            console.log(msg);
             if(isJson(msg) == true){
                 var result = JSON.parse(msg);
-                
 
                 if(result.success == false){
                     if(result.message){
@@ -300,21 +199,15 @@ window.addEventListener('load', function() {
                             type: message.type || 'error'
                         });
                     }
-                    form[0].disabled = false;
-                    form.removeClass('no_submit');
+
                     preloader_end();
                     return false;
                 }
 
                 if(result.success == true){
-                    if(result.result){
-                        var container = $('.form_tracking_content_js');
-                        container.html(result.result);
-                    }
-                    
                     if(result.message){
                         var message = result.message;
-    
+
                         if(message.title && message.text && message.type){
                             $.fn.systemMessage({
                                 title: message.title,
@@ -323,15 +216,83 @@ window.addEventListener('load', function() {
                             });
                         }
                     }
+
+                    if(result.result){
+                        token_api = result.result;
+                        console.log(query);
+                        var option = $(this).find('[name="submit"][type="submit"]').val();
+                        query.submitVal = option;
+            
+                        $.ajax({
+                            crossOrigin: true,
+                            crossDomain: true,
+                            method: "POST",
+                            type: "POST",
+                            cache: false,
+                            url: baseurl,
+                            data: {
+                                request: 'getClientIntransitItemByMark',
+                                number_client: query.tracking,
+                                token: token_api,
+                                html: true, 
+                            } 
+                        }).done(function(msg) {
+                            if(isJson(msg) == true){
+                                var result = JSON.parse(msg);
+                
+                                if(result.success == false){
+                                    $('.fail_descr_js').removeClass('d-none');
+                                    if(result.message){
+                                        var message = result.message;
+                                        $.fn.systemMessage({
+                                            title: message.title || 'Ошибка!',
+                                            text: message.text || 'Для решения проблемы обратитесь к разработчикам.',
+                                            type: message.type || 'error'
+                                        });
+                                    }
+                                    form[0].disabled = false;
+                                    form.removeClass('no_submit');
+                                    preloader_end();
+                                    return false;
+                                }
+                
+                                if(result.success == true){
+                                    if(result.result){
+                                        var container = $('.form_tracking_content_js');
+                                        container.html(result.result);
+                                        $('.fail_descr_js').addClass('d-none');
+                                    }
+                                    
+                                    if(result.message){
+                                        var message = result.message;
+                    
+                                        if(message.title && message.text && message.type){
+                                            $.fn.systemMessage({
+                                                title: message.title,
+                                                text: message.text,
+                                                type: message.type
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                                
+                            else if (!isJson(msg)) {
+                                preloader_end();
+                                if (!parseInt(msg) && form.find('.mess').length) {
+                                    $.fn.systemMessage({
+                                        title: 'Системное сообщение',
+                                        text: msg,
+                                        type: 'warning'
+                                    });
+                                }
+                            }
+                        });
+                    }
                 }
             }
 
-            if (callback && typeof callback === 'string'){
-                preloader_end_stop = true;
-                form.getOption(callback, query);
-            }
-                
-            else if (!isJson(msg)) {
+            if (!isJson(msg)) {
                 preloader_end();
                 if (!parseInt(msg) && form.find('.mess').length) {
                     $.fn.systemMessage({
@@ -341,22 +302,18 @@ window.addEventListener('load', function() {
                     });
                 }
             }
-
         }).fail(function(response){
-            preloader_end();
-            $.fn.systemMessage({
-                title: 'Ошибка',
-                text: 'Обратитесь к разработчикам',
-                type: 'error'
-            });
+            setTimeout(function() {
+                form[0].disabled = false;
+                form.removeClass('no_submit');
+                preloader_end();
+            }, 10);
         }).always(function() {
             setTimeout(function() {
                 form[0].disabled = false;
                 form.removeClass('no_submit');
-
-                if(preloader_end_stop == false){
-                    preloader_end();
-                }
+                preloader_end();
+                
             }, 10);
         });
     });
