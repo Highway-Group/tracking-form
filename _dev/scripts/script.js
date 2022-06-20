@@ -280,10 +280,10 @@ window.addEventListener('load', function() {
             url: baseurl,
             data: {
                 request: 'getClientIntransitItemByMark',
-                //number_client: query.tracking,
+                number_client: query.tracking,
                 token: token_api,
                 html: true, 
-                number_client: query.search
+                //number_client: query.search
             } 
         }).done(function(msg) {
             console.log(msg);
