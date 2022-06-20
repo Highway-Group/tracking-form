@@ -71,8 +71,8 @@ window.addEventListener('load', function() {
             request: 'login',//option,
             // login: decrypt1,
             // password: decrypt2,
-            login: 'api_cn@mail.ru',
-            password: '133api', 
+            login: 'api_crm@hl-group.ru',
+            password: 'b83cf54810c924db2ccff0a242188ad6', 
         }  
     }).done(function(msg) {
         console.log(msg);
@@ -285,7 +285,8 @@ window.addEventListener('load', function() {
                 request: 'getClientIntransitItemByMark',
                 number_client: query.tracking,
                 token: token_api,
-                number_client: query.search
+                html: true
+                // number_client: query.search
             } 
         }).done(function(msg) {
             console.log(msg);
@@ -300,7 +301,7 @@ window.addEventListener('load', function() {
                         query.result = msg;
                     }
                     else{
-                        query.result = result;
+                        query.result = result.result;
                     }
                 }
 
