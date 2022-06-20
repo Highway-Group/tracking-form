@@ -98,22 +98,22 @@
         @media (max-width: $max_md) {
             top: auto;
         }
-        &.statuses__icon_status_start_china {
+        &.status_start_china {
             background-image: url('images/status_start_china.svg');
         }
-        &.statuses__icon_status_choky {
+        &.status_choky {
             background-image: url('images/status_choky.svg');
         }
-        &.statuses__icon_status_end_msk {
+        &.status_end_msk {
             background-image: url('images/status_end_msk.svg');
         }
-        &.statuses__icon_status_start_msk {
+        &.status_start_msk {
             background-image: url('images/status_start_msk.svg');
         }
-        &.statuses__icon_status_completed {
+        &.status_completed {
             background-image: url('images/status_completed.svg');
         }
-        &.statuses__icon_status__issued_client {
+        &.status__issued_client {
             background-image: url('images/status__issued_client.svg');
         }
         
