@@ -200,6 +200,8 @@ window.addEventListener('load', function() {
                         });
                     }
 
+                    form[0].disabled = false;
+                    form.removeClass('no_submit');
                     preloader_end();
                     return false;
                 }
@@ -219,9 +221,6 @@ window.addEventListener('load', function() {
 
                     if(result.result){
                         token_api = result.result;
-                        console.log(query);
-                        var option = $(this).find('[name="submit"][type="submit"]').val();
-                        query.submitVal = option;
             
                         $.ajax({
                             crossOrigin: true,
@@ -313,7 +312,6 @@ window.addEventListener('load', function() {
                 form[0].disabled = false;
                 form.removeClass('no_submit');
                 preloader_end();
-                
             }, 10);
         });
     });
