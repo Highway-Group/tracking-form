@@ -52,8 +52,13 @@
 
 
 window.addEventListener('load', function() {
+
     var query = {};
     var token_api = '';
+    var e1 = $('.e1').text();
+    var e2 = $('.e2').text();
+    var decrypt1 = b64DecodeUnicode(e1);
+    var decrypt2 = b64DecodeUnicode(e2);
 
     $.ajax({
         crossOrigin: true,
@@ -63,11 +68,11 @@ window.addEventListener('load', function() {
         cache: false,
         url: baseurl,
         data: {
-            // ajax: true,
+            //ajax: true,
             request: 'login',//option,
-            login: 'api_cn@mail.ru',
-            password: '133api',
-        } 
+            login: decrypt1,
+            password: decrypt2,
+        }  
     }).done(function(msg) {
         console.log(msg);
         if(isJson(msg) == true){
@@ -85,6 +90,7 @@ window.addEventListener('load', function() {
                 }
             }
 
+
             if(result.success == false){
                 if(result.message){
                     var message = result.message;
@@ -94,8 +100,7 @@ window.addEventListener('load', function() {
                         type: message.type || 'error'
                     });
                 }
-                // form[0].disabled = false;
-                // form.removeClass('no_submit');
+
                 preloader_end();
                 return false;
             }
@@ -137,12 +142,7 @@ window.addEventListener('load', function() {
         });
     }).always(function() {
         setTimeout(function() {
-            // form[0].disabled = false;
-            // form.removeClass('no_submit');
-
-            // if(preloader_end_stop == false){
                 preloader_end();
-            // }
         }, 10);
     });
 
@@ -231,11 +231,11 @@ window.addEventListener('load', function() {
         $input.getOption(name, options);
     }); 
 
-    $('body').on('submit', '.ajax-form:not(.no_submit)', function(e) {
+
+    $('body').on('submit', '.form-tracking:not(.no_submit)', function(e) {
         e.preventDefault();
-        console.log(baseurl);
+        console.log('form-tracking submit');
         preloader_start();
-        console.log('ajax-form submit');
         var form = $(this);
         form.addClass('no_submit');
 
@@ -247,8 +247,7 @@ window.addEventListener('load', function() {
         form[0].disabled = true;
 
         var formStatus = {};
-        if (form.hasClass('form_check-js') && !form.hasClass('form-two-submit-js')) {
-
+        if (form.hasClass('form_check-js')) {
             formStatus = checkFormInputs(form);
 
             if (formStatus.countErrors) {
@@ -270,7 +269,6 @@ window.addEventListener('load', function() {
         var query = $(this).getFormData();
         var callback = $(this).attr('data-callback') || $(this).closest;
         var option = $(this).find('[name="submit"][type="submit"]').val();
-        var action = form.attr('action') || '';
         var preloader_end_stop = false;
         query.submitVal = option;
 
@@ -475,4 +473,18 @@ window.addEventListener('load', function() {
         $(this).val($.trim($(this).val()));
     });
     /*маски ввода END*/
+
 });
+
+function b64EncodeUnicode(str) {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+    }));
+}
+
+function b64DecodeUnicode(str) {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+}
