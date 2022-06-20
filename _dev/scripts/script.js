@@ -91,7 +91,6 @@ window.addEventListener('load', function() {
                 }
             }
 
-
             if(result.success == false){
                 if(result.message){
                     var message = result.message;
@@ -283,10 +282,10 @@ window.addEventListener('load', function() {
             url: baseurl,
             data: {
                 request: 'getClientIntransitItemByMark',
-                number_client: query.tracking,
+                //number_client: query.tracking,
                 token: token_api,
-                html: true
-                // number_client: query.search
+                html: true,
+                number_client: query.search
             } 
         }).done(function(msg) {
             console.log(msg);
