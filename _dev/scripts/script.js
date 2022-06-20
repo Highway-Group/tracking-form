@@ -48,11 +48,10 @@
                 break;
         }
     }
-}(jQuery));
+}(jQuery)); 
 
 
 window.addEventListener('load', function() {
-
     var query = {};
     var token_api = '';
     var e1 = $('.e1').text();
@@ -70,8 +69,10 @@ window.addEventListener('load', function() {
         data: {
             //ajax: true,
             request: 'login',//option,
-            login: decrypt1,
-            password: decrypt2,
+            // login: decrypt1,
+            // password: decrypt2,
+            login: 'api_cn@mail.ru',
+            password: '133api', 
         }  
     }).done(function(msg) {
         console.log(msg);
