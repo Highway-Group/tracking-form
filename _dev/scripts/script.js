@@ -272,6 +272,7 @@ window.addEventListener('load', function() {
         var option = $(this).find('[name="submit"][type="submit"]').val();
         var preloader_end_stop = false;
         query.submitVal = option;
+        console.log(query);
 
         $.ajax({
             crossOrigin: true,
@@ -283,7 +284,8 @@ window.addEventListener('load', function() {
             data: {
                 request: 'getClientIntransitItemByMark',
                 number_client: query.tracking,
-                token: token_api
+                token: token_api,
+                number_client: query.search
             } 
         }).done(function(msg) {
             console.log(msg);
