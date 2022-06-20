@@ -98,24 +98,25 @@
         @media (max-width: $max_md) {
             top: auto;
         }
-        &_1 {
-            background-image: url('../styles/images/stage_1.svg');
+        &.statuses__icon_status_start_china {
+            background-image: url('images/status_start_china.svg');
         }
-        &_2 {
-            background-image: url('../styles/images/stage_2.svg');
+        &.statuses__icon_status_choky {
+            background-image: url('images/status_choky.svg');
         }
-        &_3 {
-            background-image: url('../styles/images/stage_3.svg');
+        &.statuses__icon_status_end_msk {
+            background-image: url('images/status_end_msk.svg');
         }
-        &_4 {
-            background-image: url('../styles/images/stage_4.svg');
+        &.statuses__icon_status_start_msk {
+            background-image: url('images/status_start_msk.svg');
         }
-        &_5 {
-            background-image: url('../styles/images/stage_5.svg');
+        &.statuses__icon_status_completed {
+            background-image: url('images/status_completed.svg');
         }
-        &_6 {
-            background-image: url('../styles/images/stage_6.svg');
+        &.statuses__icon_status__issued_client {
+            background-image: url('images/status__issued_client.svg');
         }
+        
     }
 
 }
