@@ -75,7 +75,6 @@ window.addEventListener('load', function() {
             password: 'b83cf54810c924db2ccff0a242188ad6', 
         }  
     }).done(function(msg) {
-        console.log(msg);
         if(isJson(msg) == true){
             var result = JSON.parse(msg);
 
@@ -271,7 +270,6 @@ window.addEventListener('load', function() {
         var option = $(this).find('[name="submit"][type="submit"]').val();
         var preloader_end_stop = false;
         query.submitVal = option;
-        console.log(query);
 
         $.ajax({
             crossOrigin: true,
@@ -284,25 +282,14 @@ window.addEventListener('load', function() {
                 request: 'getClientIntransitItemByMark',
                 //number_client: query.tracking,
                 token: token_api,
-                html: true,
+                html: true, 
                 number_client: query.search
             } 
         }).done(function(msg) {
             console.log(msg);
             if(isJson(msg) == true){
                 var result = JSON.parse(msg);
-
-                if(result.id_result){
-                    query.result = result.id_result;
-                }
-                else{
-                    if(!result.success){
-                        query.result = msg;
-                    }
-                    else{
-                        query.result = result.result;
-                    }
-                }
+                
 
                 if(result.success == false){
                     if(result.message){
@@ -320,6 +307,11 @@ window.addEventListener('load', function() {
                 }
 
                 if(result.success == true){
+                    if(result.result){
+                        var container = $('.form_tracking_content_js');
+                        container.html(result.result);
+                    }
+                    
                     if(result.message){
                         var message = result.message;
     
@@ -332,9 +324,6 @@ window.addEventListener('load', function() {
                         }
                     }
                 }
-            }
-            else{
-                query.result = msg;
             }
 
             if (callback && typeof callback === 'string'){
