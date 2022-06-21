@@ -47,3 +47,26 @@
         font-weight: 400;
     }
 }
+
+.container_tracking_js{
+    &.empty_js{
+        .tracking_btn{
+            visibility: hidden;
+            opacity: 0;
+            transition:0.3s;
+            position:absolute;
+            z-index: -100;
+        }
+    }
+
+    &:not(.empty_js),
+    &.start_js{
+        .fail-descr{
+            visibility: hidden;
+            opacity: 0;
+            transition:0.3s;
+            position:absolute;
+            z-index: -100;
+        }
+    }
+} 

@@ -221,6 +221,7 @@ window.addEventListener('load', function() {
 
                     if(result.result){
                         token_api = result.result;
+                        var container = $('.container_tracking_js');
             
                         $.ajax({
                             crossOrigin: true,
@@ -239,27 +240,14 @@ window.addEventListener('load', function() {
                             if(isJson(msg) == true){
                                 var result = JSON.parse(msg);
                 
-                                if(result.success == false){
-                                    $('.fail_descr_js').removeClass('d-none');
-                                    if(result.message){
-                                        var message = result.message;
-                                        $.fn.systemMessage({
-                                            title: message.title || 'Ошибка!',
-                                            text: message.text || 'Для решения проблемы обратитесь к разработчикам.',
-                                            type: message.type || 'error'
-                                        });
-                                    }
-                                    form[0].disabled = false;
-                                    form.removeClass('no_submit');
-                                    preloader_end();
-                                    return false;
-                                }
-                
                                 if(result.success == true){
+                                    container.removeClass('start_js');
+
                                     if(result.result){
-                                        var container = $('.form_tracking_content_js');
-                                        container.html(result.result);
-                                        $('.fail_descr_js').addClass('d-none');
+                                        $('.form_tracking_content_js', container).html(result.result);
+                                        container.removeClass('empty_js'); 
+                                    }else{
+                                        container.addClass('empty_js');
                                     }
                                     
                                     if(result.message){
@@ -271,8 +259,24 @@ window.addEventListener('load', function() {
                                                 text: message.text,
                                                 type: message.type
                                             });
-                                        }
+                                        } 
                                     }
+                                }else{
+                                    container.addClass('empty_js');
+                                    $('.form_tracking_content_js', container).html('');
+
+                                    // if(result.error_text){
+                                    //     $.fn.systemMessage({
+                                    //         title: 'Ошибка!',
+                                    //         text: result.error_text || 'Для решения проблемы обратитесь к разработчикам.',
+                                    //         type: 'error'
+                                    //     });
+                                    // }
+
+                                    form[0].disabled = false;
+                                    form.removeClass('no_submit');
+                                    preloader_end();
+                                    return false;
                                 }
                             }
                                 

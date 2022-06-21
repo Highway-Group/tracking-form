@@ -7,18 +7,18 @@ var gulp = require('gulp'),
     del = require('del'), // для удаления 
     ftp = require('vinyl-ftp'), // deploy проекта по FTP
     autoprefixer = require('gulp-autoprefixer'), // Подключаем библиотеку для автоматического добавления префиксов
-    sourcemaps = require('gulp-sourcemaps'), // для создания Source Maps файлов
+    sourcemaps = require('gulp-sourcemaps'), // для создания Source Maps файлов 
     cssimport = require('gulp-cssimport'),
     browserSync     = require('browser-sync'),
     reload          = browserSync.reload;
 var terser = require("gulp-terser");
 var config = {
-    proxy: 'tracking-form',
+    proxy: 'tracking',
     tunnel: false,
 	// browser: ["firefox"],  // , "google chrome"
-    host: 'localhost',
+    host: 'tracking',
     port: 9000,
-    logPrefix: 'tracking-form',
+    logPrefix: 'tracking',
     // open:false
 };
 
@@ -26,7 +26,7 @@ var IS_PROD = false; // если переменная равна "true", то о
 
 gulp.task('styles', function() {
     var result = gulp.src('_dev/styles/main.scss') //берем файл
-        .pipe(sourcemaps.init()) // инициализируем создание Source Maps
+        //.pipe(sourcemaps.init()) // инициализируем создание Source Maps
         .pipe(sass().on('error', sass.logError)) //компилируем файл из sass в css
         // .pipe(cssimport({
         //  skipComments: false,
@@ -54,9 +54,9 @@ gulp.task('styles', function() {
         .pipe(rename(
             'style.min.css'
         ))
-        .pipe(sourcemaps.write('.', {
-            includeContent: false,
-        })) // записываем карту файла для удобного дебага
+        // .pipe(sourcemaps.write('.', {
+        //     includeContent: false,
+        // })) // записываем карту файла для удобного дебага
         .pipe(gulp.dest('styles')) // выгружаем результирующий файл в указанную дирректорию
         .pipe(reload({stream: true}));
     return result;
@@ -64,7 +64,7 @@ gulp.task('styles', function() {
 
 gulp.task('styles-fonts', function() {
     var result = gulp.src('_dev/styles/fonts.scss') //берем файл
-        .pipe(sourcemaps.init()) // инициализируем создание Source Maps
+        //.pipe(sourcemaps.init()) // инициализируем создание Source Maps
         .pipe(sass().on('error', sass.logError)) //компилируем файл из sass в css
         // .pipe(cssimport({
         //  skipComments: false,
@@ -92,9 +92,9 @@ gulp.task('styles-fonts', function() {
         .pipe(rename(
             'fonts.min.css'
         ))
-        .pipe(sourcemaps.write('.', {
-            includeContent: false,
-        })) // записываем карту файла для удобного дебага
+        // .pipe(sourcemaps.write('.', {
+        //     includeContent: false,
+        // })) // записываем карту файла для удобного дебага
         .pipe(gulp.dest('styles')) // выгружаем результирующий файл в указанную дирректорию
         .pipe(reload({stream: true}));
     return result;
@@ -131,7 +131,7 @@ gulp.task('scripts', function() {
             '_dev/scripts/init-crm.js',
             '_dev/scripts/script.js' 
         ], {
-            sourcemaps: false
+            //sourcemaps: false
         })
         .pipe(concat('script.min.js'));
  

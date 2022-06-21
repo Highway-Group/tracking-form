@@ -15,20 +15,21 @@
     <script src="scripts/libs.min.js"></script>
     <script src="scripts/script.min.js"></script>  -->
 
-    <script>
+    <script> 
 		var baseurl = 'https://crm.hl-group.ru/api';
 		var message_data;
 	</script>
 </head>
+
 <body>
     <div class="container">
-        <div class="container_min">
+        <div class="container_min container_tracking_js empty_js start_js">
 
             <form method="get" class="form_check-js form-tracking">
                 <label class="form-tracking__label form-tracking__label_1" for="search">
                     Отследите статус<br>вашего груза
                 </label>
-                <div class="form-tracking__wrapper row">
+                <div class="form-tracking__wrapper row"> 
                     <div class="col-md-8 pe-md-0">
                         <input class="form-tracking__input w-100 required" placeholder="Отследить артикул" type="text" name="tracking">
                     </div>
@@ -36,19 +37,21 @@
                         <button type="submit" name="submit" class="btn btn_trace w-100" value="searchTracking">отследить</button>
                     </div>
                 </div>
-                <div class="fail-descr fail_descr_js d-none">Отправлений не найдено</div>
+                <div class="fail-descr">Отправлений не найдено</div>
             </form>
 
             <div class="form-tracking__content form_tracking_content_js">
             </div>
 
-            <div class="btns">
-                <button class="btn btn_complaints">жалобы <br> и предложения</button>
-                <button class="btn btn_close">закрыть</button>
+            <div class="tracking_btn">
+                <div class="btns">
+                    <button class="btn btn_complaints">жалобы <br> и предложения</button>
+                    <button class="btn btn_close">закрыть</button>
+                </div>
+    
+                <div class="e1 d-none">YXBpX2NuQG1haWwucnU=</div>
+                <div class="e2 d-none">MTMzYXBp</div>
             </div>
-
-            <div class="e1 d-none">YXBpX2NuQG1haWwucnU=</div>
-            <div class="e2 d-none">MTMzYXBp</div>
         </div>
     </div>
 </body>
