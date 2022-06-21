@@ -14,7 +14,7 @@ button{
         flex-direction: column;
     }
 }
-
+ 
 .btn {
     padding: 30px 124px;
     border: none;
@@ -29,7 +29,8 @@ button{
     text-transform: uppercase;
     font-weight: 700;
     transition: background-color .2s ease-in-out;
-
+    text-decoration: none;
+ 
     &:hover{
         color: $color-white;
     }
