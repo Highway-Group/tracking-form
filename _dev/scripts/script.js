@@ -237,13 +237,13 @@ window.addEventListener('load', function() {
                                 html: true, 
                             } 
                         }).done(function(msg) {
+                            container.removeClass('start_js');
+                            
                             if(isJson(msg) == true){
                                 var result = JSON.parse(msg);
-                
-                                if(result.success == true){
-                                    container.removeClass('start_js');
 
-                                    if(result.result){
+                                if(result.success == true){
+                                     if(result.result){
                                         $('.form_tracking_content_js', container).html(result.result);
                                         container.removeClass('empty_js'); 
                                     }else{
