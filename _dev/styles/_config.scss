@@ -46,15 +46,7 @@ body {
 .container_min {
     padding: 0 80px 80px;
     position: relative;
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 16px;
-        width: 4px;
-        background-color: $bronze;
-    }
+   
     @media (max-width: $max_md) {
         padding: 0 30px 70px;
     }

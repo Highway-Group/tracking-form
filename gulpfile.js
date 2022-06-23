@@ -13,12 +13,12 @@ var gulp = require('gulp'),
     reload          = browserSync.reload;
 var terser = require("gulp-terser");
 var config = {
-    proxy: 'tracking',
+    proxy: 'tracking-form',
     tunnel: false,
 	// browser: ["firefox"],  // , "google chrome"
-    host: 'tracking',
+    host: 'tracking-form',
     port: 9000,
-    logPrefix: 'tracking',
+    logPrefix: 'tracking-form',
     // open:false
 };
 
