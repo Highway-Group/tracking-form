@@ -7,8 +7,8 @@
     <title>Форма отслеживания груза</title>
     <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
     <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
-    <script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
-    <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script> 
+    <!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
+    <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
     
     <!-- <link rel="stylesheet" href="styles/fonts.min.css">
     <link rel="stylesheet" href="styles/style.min.css"> 
@@ -52,4 +52,59 @@
         </div>
     </div>
 </body>
+
+<script>    
+    const url = 'https://crm.hl-group.ru/api';
+    const params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
+
+    function post(url, data) {
+        return new Promise((succeed, fail) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.addEventListener("load", () => {
+                if (xhr.status >=200 && xhr.status < 400){
+                    succeed(xhr.response);
+                } 
+                else{
+                    fail(new Error(`Request failed: ${xhr.statusText}`));
+                }
+            });
+            xhr.addEventListener("error", () => fail(new Error("Network error")));
+            xhr.send(data);
+        });
+    }
+
+    post(url, params).then(response =>  {
+        console.log(response);
+        let result = JSON.parse(response);
+
+        if(result.success == true){
+            if(result.result){
+                token_api = result.result; 
+                let weight = $('.weight_tilda_js .tn-atom');
+                let weight_yesterday = $('.weight_yesterday_tilda_js .tn-atom');
+                let options = 'request=getWeight&token='+token_api;
+                const request = new XMLHttpRequest();
+                request.open('POST', url, true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+                request.addEventListener("load", () => {
+                    if (request.status >=200 && request.status < 400){
+                        if(request.response){
+                            let msg = JSON.parse(request.response); 
+                            weight.html(msg.weight);  
+                            weight_yesterday.html(msg.weight_yesterday);  
+                        }
+                    }
+                    else{
+                        fail(new Error(`Request failed: ${request.statusText}`));
+                    }    
+                });
+
+                request.send(options);
+            }
+        }
+    }).catch(error => console.error(error));
+</script>
 </html>
