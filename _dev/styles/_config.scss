@@ -4,6 +4,7 @@ $dark-blue2: #434776;
 $dark-blue3: #2C294D;
 $dark-blue-rgba: rgba(66, 71, 122, 0.5);
 $gray-rgba: rgba(108, 117, 125, 0.15);
+$gray-rgba2: rgba(108, 117, 125, 0.5);
 $border-gray: 1px solid $gray-rgba;
 $bronze: #BF8A77;
 $red: #E94D37;
@@ -36,10 +37,20 @@ body {
     }
 }
 
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
 .container {
     @media (max-width: $max_lg) {
         max-width: 100%;
         padding: 0;
+    }
+    &_calc {
+        max-width: 1080px;
+        padding: 140px 70px 120px;
     }
 }
 
@@ -60,6 +71,10 @@ body {
     @media (max-width: $max_md) {
         font-size: 10px;
         margin-bottom: 10px;
+    }
+    &_big {
+        font-size: 14px;
+        line-height: 160%;
     }
 }
 

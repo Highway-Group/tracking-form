@@ -1,0 +1,17 @@
+.section {
+    &.section_theme_1 {
+        .container_calc {
+            border-right: 1px solid $gray-rgba;
+            border-left: 1px solid $gray-rgba;
+        }
+        
+        &:first-child {
+            .container_calc {
+                border-top: 1px solid $gray-rgba;
+            }
+        }
+        &.section_white {
+            background-color: $color-white;
+        }
+    }
+}

@@ -1,110 +1,84 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Форма отслеживания груза</title>
-    <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
-    <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
-    <!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
-    <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
-    
-    <!-- <link rel="stylesheet" href="styles/fonts.min.css">
-    <link rel="stylesheet" href="styles/style.min.css"> 
-    <script src="scripts/libs.min.js"></script>
-    <script src="scripts/script.min.js"></script>    -->
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Форма отслеживания груза</title>
+		<!-- <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
+		<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
+		<script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
+		<script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
+		
+		<link rel="stylesheet" href="styles/fonts.min.css">
+		<link rel="stylesheet" href="styles/style.min.css"> 
+		<script src="scripts/libs.min.js"></script>
+		<script src="scripts/script.min.js"></script>   
 
-    <script> 
-		var baseurl = 'https://crm.hl-group.ru/api';
-		var message_data;
-	</script>
-</head>
+		<script> 
+				var baseurl = 'https://crm.hl-group.ru/api';
+				var message_data;
+		</script>
+	</head>
 
-<body>
-    <div class="container">
-        <div class="container_min container_tracking_js empty_js start_js">
-
-            <form method="get" class="form_check-js form-tracking">
-                <div class="form-tracking__wrapper row"> 
-                    <div class="col-md-8 pe-md-0">
-                        <input class="form-tracking__input w-100 required" placeholder="Отследить артикул" type="text" name="tracking">
-                    </div>
-                    <div class="col-md-4 ps-md-0">
-                        <button type="submit" name="submit" class="btn btn_trace w-100 text-white" value="searchTracking">отследить</button>
-                    </div>
-                </div>
-                <div class="fail-descr">Отправлений не найдено</div>
-            </form>
-
-            <div class="form-tracking__content form_tracking_content_js">
-            </div>
-
-            <div class="tracking_btn">
-                <div class="btns">
-                    <button class="btn btn_complaints">жалобы <br> и предложения</button>
-                    <a href="https://hl-group.ru" class="btn btn_back text-white">На главную</a>
-                </div>
-    
-                <div class="e1 d-none">YXBpX2NuQG1haWwucnU=</div>
-                <div class="e2 d-none">MTMzYXBp</div>
-            </div>
-        </div>
-    </div>
-</body>
-
-<script>    
-    const url = 'https://crm.hl-group.ru/api';
-    const params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
-
-    function post(url, data) {
-        return new Promise((succeed, fail) => {
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.addEventListener("load", () => {
-                if (xhr.status >=200 && xhr.status < 400){
-                    succeed(xhr.response);
-                } 
-                else{
-                    fail(new Error(`Request failed: ${xhr.statusText}`));
-                }
-            });
-            xhr.addEventListener("error", () => fail(new Error("Network error")));
-            xhr.send(data);
-        });
-    }
-
-    post(url, params).then(response =>  {
-        console.log(response);
-        let result = JSON.parse(response);
-
-        if(result.success == true){
-            if(result.result){
-                token_api = result.result; 
-                let weight = $('.weight_tilda_js .tn-atom');
-                let weight_yesterday = $('.weight_yesterday_tilda_js .tn-atom');
-                let options = 'request=getWeight&token='+token_api;
-                const request = new XMLHttpRequest();
-                request.open('POST', url, true);
-                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-                request.addEventListener("load", () => {
-                    if (request.status >=200 && request.status < 400){
-                        if(request.response){
-                            let msg = JSON.parse(request.response); 
-                            weight.html(msg.weight);  
-                            weight_yesterday.html(msg.weight_yesterday);  
-                        }
-                    }
-                    else{
-                        fail(new Error(`Request failed: ${request.statusText}`));
-                    }    
-                });
-
-                request.send(options);
-            }
-        }
-    }).catch(error => console.error(error));
-</script>
+	<body>
+		<section class="section section_theme_1 section_white">
+			<div class="container container_calc tabs">
+				<div class="d-flex calculator-btns">
+					<button class="btn btn_light active w-100">Объем груза, м3 = V</button>
+					<button class="btn btn_light w-100">Плотность груза = <span class="btn_light_icon"></span></button>
+				</div>
+				<div class="form-tracking__label form-tracking__label_calc">калькулятор</div>
+				<div class="tabs__content">
+					<div class="tabs__text">
+						<div class="heading">расчет объема груза</div>
+						<div class="descr descr_big">
+							Расчет объема груза по габаритам нужен, чтобы оптимизировать 
+							стоимость перевозки и выбрать наиболее оптимальный 
+							вид доставки
+						</div>
+					</div>
+					<ul class="calculator">
+						<li class="calculator__item">
+							<div class="form-tracking__label form-tracking__label_min">данные коробки (партия 1)</div>
+							<div class="row calculator__container m-0">
+								<div class="col-md-3 p-0 calculator__input-group">
+									<input type="text" placeholder="Ширина, см" class="calculator__input">
+								</div>
+								<div class="col-md-3 p-0 calculator__input-group">
+									<input type="text" placeholder="Длина, см" class="calculator__input">
+								</div>
+								<div class="col-md-3 p-0 calculator__input-group">
+									<input type="text" placeholder="Высота, см" class="calculator__input">
+								</div>
+								<div class="col-md-3 p-0 calculator__input-group">
+									<input type="text" placeholder="Количество" class="calculator__input">
+								</div>
+							</div>
+							<div class="calculator__nav">
+								<div class="d-flex align-items-center">
+									<a href="#" class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
+										data-option="getContainerJs" 
+										data-container=".contact_form_list_field" 
+										data-sources=".sources_contact_email_js">добавить партию</a>
+										
+									<a href="#" class="call-js calculator__link calculator__link_remove" 
+										data-option="removeItem" 
+										data-block-remove=".contact_form_field_js" 
+										data-last="true"
+										data-container=".contact_form_list_field">удалить партию</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="d-flex justify-content-end">
+						<div class="btn btn_bronze">итого Объем груза, м3</div>
+						<div class="btn btn_num">382 200</div>
+					</div>
+					
+				</div>
+			</div>
+		</section>
+		<section class="section section_theme_1 section_gray"></section>
+	</body>
 </html>

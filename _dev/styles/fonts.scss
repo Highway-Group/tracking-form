@@ -19,3 +19,14 @@
     font-weight: 400;
     font-style: normal;
 }
+
+@font-face {
+    font-family: 'halvar-breit';
+    src: url('../fonts/HalvarBreit/HalvarBreit-Bold.eot');
+    src: local('HalvarBreit-Bold'), local('HalvarBreit Bold'),
+        url('../fonts/HalvarBreit/HalvarBreit-Bold.ttf') format('ttf'),
+        url('../fonts/HalvarBreit/HalvarBreit-Bold.woff') format('woff'),
+        url('../fonts/HalvarBreit/HalvarBreit-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}

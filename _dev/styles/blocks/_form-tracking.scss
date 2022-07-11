@@ -16,6 +16,34 @@
         @media (max-width: $max_md) {
             font-size: 12px;
         }
+        // блок калькулятора
+        &_calc {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 60px;
+            &::after {
+                position: absolute;
+                content: '';
+                top: 5px;
+                right: -45px;
+                width: 22px;
+                height: 4px;
+                border-bottom: 4px dotted $dark-blue1;
+            }
+            &::before {
+                position: absolute;
+                content: '';
+                top: 2px;
+                left: -70px;
+                width: 4px;
+                height: 13px;
+                background-color: $bronze;
+            }
+        }
+        &_min {
+            font-size: 14px;
+            line-height: 16px;
+        }
     }
     &__input {
         outline: none;
