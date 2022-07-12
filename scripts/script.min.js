@@ -6,6 +6,9 @@ let  BREAKPOINT_MD = 992;
 let  BREAKPOINT_LG = 1200;
 let  BREAKPOINT_XL = 1330; 
 
+const tabsBtns = document.querySelectorAll('.btn_light');
+const tabsContent = document.querySelectorAll('.tabs__content');
+
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
     IS_MOBILE = true;
@@ -25,23 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // табы для калькулятора
-    const tabsBtns = document.querySelectorAll('.btn_light');
-    const tabsContent = document.querySelectorAll('.tabs__content');
-    
-    tabsBtns.forEach(btn => btn.addEventListener('click', changeTabs))
-
-    function changeTabs(event) {
-      const tabId = event.target.dataset.tab;
-    
-      tabsBtns.forEach((tab, i) => {
-        tab.classList.remove('active');
-        tabsContent[i].classList.remove('active');
-      })
-    
-      tabsBtns[tabId - 1].classList.add('active');
-      tabsContent[tabId - 1].classList.add('active');
-    }
-    
+    tabsBtns.forEach(btn => btn.addEventListener('click', changeTabs));
 });
 
 
@@ -120,5 +107,22 @@ function recordParamsData(that){
     } 
 }
 
+
+function changeTabs(event) {
+    const tabId = event.target.dataset.tab;
+
+    console.log(event);
+    switch(event.type){
+        case 'click':
+            tabsBtns.forEach((tab, i) => {
+            tab.classList.remove('active');
+            tabsContent[i].classList.remove('active');
+            })
+        
+            tabsBtns[tabId - 1].classList.add('active');
+            tabsContent[tabId - 1].classList.add('active');
+            break;
+    }
+}
 
 
