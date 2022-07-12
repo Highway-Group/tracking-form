@@ -27,7 +27,6 @@
 
             case 'updateTrackingForm': 
                 try {
-                    console.log(params);
                     result = params.result;
                     var container = $('.form_tracking_content_js');
                     container.html(result); 
