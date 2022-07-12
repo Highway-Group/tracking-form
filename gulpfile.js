@@ -128,14 +128,15 @@ gulp.task('styles-fonts', function() {
 // ОБРАБОТКА SCRIPT.JS
 gulp.task('scripts', function() {
     var result = gulp.src([
-            '_dev/scripts/init-crm.js',
-            '_dev/scripts/script.js' 
+            '_dev/scripts/js.js' 
+            // '_dev/scripts/init-crm.js',
+            // '_dev/scripts/script.js' 
         ], {
             //sourcemaps: false
         })
         .pipe(concat('script.min.js'));
  
-    result = result.pipe(terser()); // Сжимаем JS файл
+    //result = result.pipe(terser()); // Сжимаем JS файл
    
     result
         // .pipe(rename({suffix: '.min'})) // дописываем суффикс .min
