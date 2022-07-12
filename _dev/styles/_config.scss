@@ -8,6 +8,8 @@ $gray-rgba2: rgba(108, 117, 125, 0.5);
 $border-gray: 1px solid $gray-rgba;
 $bronze: #BF8A77;
 $red: #E94D37;
+$gray-light: #F7F5F7;
+$gray: #F2F0F3;
 
 $sm: 576px;
 $md: 768px;
@@ -51,6 +53,12 @@ ul {
     &_calc {
         max-width: 1080px;
         padding: 140px 70px 120px;
+        @media (max-width: $max_lg) {
+            padding: 100px 50px;
+        }
+        @media (max-width: $max_md) {
+            padding: 80px 50px;
+        }
     }
 }
 
@@ -75,6 +83,9 @@ ul {
     &_big {
         font-size: 14px;
         line-height: 160%;
+        @media (max-width: $max_md) {
+            font-size: 12px;
+        }
     }
 }
 

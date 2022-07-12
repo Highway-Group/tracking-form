@@ -22,7 +22,7 @@
 	</head>
 
 	<body>
-		<section class="section section_theme_1 section_white">
+		<section class="section section_theme_1 section_gray-light">
 			<div class="container container_calc tabs">
 				<div class="d-flex calculator-btns">
 					<button data-tab="1" class="btn btn_light active w-100">Объем груза, м3 = V</button>
@@ -47,16 +47,16 @@
 								)
 							</div>
 							<div class="row calculator__container m-0">
-								<div class="col-md-3 p-0 calculator__input-group">
+								<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
 									<input type="text" placeholder="Ширина, см" class="calculator__input mask-float-js">
 								</div>
-								<div class="col-md-3 p-0 calculator__input-group">
+								<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
 									<input type="text" placeholder="Длина, см" class="calculator__input mask-float-js">
 								</div>
-								<div class="col-md-3 p-0 calculator__input-group">
+								<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
 									<input type="text" placeholder="Высота, см" class="calculator__input mask-float-js">
 								</div>
-								<div class="col-md-3 p-0 calculator__input-group">
+								<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
 									<input type="text" placeholder="Количество" class="calculator__input mask-float-js">
 								</div>
 							</div>
@@ -94,17 +94,17 @@
 							из Китая в Россию будет рассчитываться в зависимости от объема груза, если груз тяжелый — в зависимости от его веса
 						</div>
 					</div>
-					<ul class="calculator container_calc_list_js">
-						<li class="calculator__item calc_item_js">
+					<ul class="calculator">
+						<li class="calculator__item">
 							<div class="form-tracking__label form-tracking__label_min">
 								ВВЕДИТЕ ДАННЫЕ
 							</div>
 							<div class="row calculator__container m-0">
-								<div class="col-md-6 p-0 calculator__input-group">
-									<input type="text" placeholder="Вес, кг" class="calculator__input mask-float-js">
+								<div class="col-sm-6 p-0 calculator__input-group">
+									<input type="text" placeholder="Вес груза, кг" class="calculator__input mask-float-js">
 								</div>
-								<div class="col-md-6 p-0 calculator__input-group">
-									<input type="text" placeholder="Объем, м3" class="calculator__input mask-float-js">
+								<div class="col-sm-6 p-0 calculator__input-group">
+									<input type="text" placeholder="Объем груза, м3" class="calculator__input mask-float-js">
 								</div>
 							</div>
 						</li>
@@ -117,6 +117,71 @@
 				</div>
 			</div>
 		</section>
-		<section class="section section_theme_1 section_gray"></section>
+		<section class="section section_theme_1 section_gray">
+			<div class="container container_calc tabs">
+				<div class="form-tracking__label form-tracking__label_calc">калькулятор</div>
+				<div class="tabs__content active">
+					<div class="tabs__text tabs__text_calc">
+						<div class="heading">расчет стоимости</div>
+						<div class="descr descr_big">
+							ЧЕМ СЕМЬ РАЗ ПРОЧИТАТЬ — ЛУЧШЕ ОДИН 
+							РАЗ ПОСЧИТАТЬ. ВЫ, КАК ДЕЛОВОЙ ЧЕЛОВЕК, 
+							СРАЗУ ЖЕ ПОЙМЁТЕ, ГДЕ ВАША ВЫГОДА
+						</div>
+					</div>
+					<form action="">
+						<ul class="calculator">
+							<li class="calculator__item">
+								<div class="row calculator__container m-0">
+									<div class="col-md-4 p-0 calculator__input-group calculator__input-group_station">
+										<input type="text" placeholder="Пункт отправления" class="calculator__input mask-float-js">
+									</div>
+									<div class="col-md-4 p-0 calculator__input-group calculator__input-group_station calculator__input-group_station_1">
+										<input type="text" placeholder="Пункт назначения" class="calculator__input mask-float-js">
+									</div>
+									<div class="col-md-4 p-0 calculator__input-group">
+										<input type="text" placeholder="Наименование товара" class="calculator__input mask-float-js">
+									</div>
+								</div>
+							</li>
+							<li class="calculator__item">
+								<div class="row calculator__container m-0">
+									<div class="col-md-4 p-0 calculator__input-group">
+										<input type="text" placeholder="Вес груза, кг" class="calculator__input mask-float-js">
+									</div>
+									<div class="col-md-4 p-0 calculator__input-group">
+										<input type="text" placeholder="Объем груза, м3" class="calculator__input mask-float-js">
+									</div>
+									<div class="col-md-4 p-0 calculator__input-group">
+										<input type="text" placeholder="Высота, см" class="calculator__input mask-float-js">
+									</div>
+								</div>
+							</li>
+							<li class="calculator__item">
+								<div class="row calculator__container m-0">
+									<div class="col-md-4 p-0 calculator__input-group">
+										<input type="text" placeholder="Имя" class="calculator__input">
+									</div>
+									<div class="col-md-4 p-0 calculator__input-group">
+										<input type="text" placeholder="E-mail" class="calculator__input mask-float-js">
+									</div>
+									<div class="col-md-4 p-0 calculator__input-group">
+										<input type="text" placeholder="Высота, см" class="calculator__input mask-float-js">
+									</div>
+								</div>
+							</li>
+						</ul>
+					</form>
+					<div class="d-flex justify-content-between">
+						<div class="link-info">
+							Нажимая кнопку «Отправить», вы принимаете <br>
+							<a class="link-doc" href="https://hl-group.ru/privacy-policy">условия обработки пользовательских данных</a>
+						</div>
+						<button type="submit" name="submit" class="btn btn_trace btn_calc text-white" value="searchTracking">отправить</button>
+					</div>
+					
+				</div>
+			</div>
+		</section>
 	</body>
 </html>

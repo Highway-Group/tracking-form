@@ -38,6 +38,12 @@
                 width: 4px;
                 height: 13px;
                 background-color: $bronze;
+                @media (max-width: $max_lg) {
+                    left: -50px;
+                }
+            }
+            @media (max-width: $max_lg) {
+                margin-bottom: 40px;
             }
         }
         &_min {

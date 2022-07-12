@@ -1,5 +1,8 @@
 .calculator-btns {
     margin-bottom: 80px;
+    @media (max-width: $max_lg) {
+        margin-bottom: 60px;
+    }
 }
 
 .calculator {
@@ -9,6 +12,11 @@
         display: flex;
         justify-content: space-between;
         border: 1px solid $gray-rgba;
+        @media (max-width: $max_md) {
+            border: none;
+            border-left: 1px solid $gray-rgba;
+            border-bottom: 1px solid $gray-rgba;
+        }
     }
 
     &__input {
@@ -19,15 +27,45 @@
         font-size: 14px;
         font-weight: 400;
         color: $dark-blue1;
+        background-color: transparent;
         &::placeholder {
             color: $dark-blue-rgba;
             text-transform: none;
+        }
+        @media (max-width: $max_md) {
+            padding: 25px 30px;
         }
     }
 
     &__input-group {
         &:not(:last-child) {
             border-right: 1px solid $gray-rgba;
+
+        }
+        @media (max-width: $max_md) {
+            border-right: 1px solid $gray-rgba;
+            border-top: 1px solid $gray-rgba;
+        }
+        &_station {
+            position: relative;
+           
+            &::before {
+                position: absolute;
+                content: 'A';
+                top: 50%;
+                transform: translateY(-50%);
+                left: 18px;
+                color: $dark-blue1;
+                font-weight: 400;
+            }
+            &_1 {
+                &::before {
+                    content: 'B';
+                }
+            }
+            .calculator__input {
+                padding-left: 40px;
+            }
         }
     }
 

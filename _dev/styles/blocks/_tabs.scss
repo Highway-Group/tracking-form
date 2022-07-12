@@ -2,8 +2,50 @@
     &__text {
         max-width: 64%;
         margin-bottom: 90px;
+        @media (max-width: $max_lg) {
+            margin-bottom: 70px;
+            max-width: 70%;
+        }
+        @media (max-width: $max_md) {
+            margin-bottom: 50px;
+            max-width: 100%;
+        }
         &_2 {
             max-width: 75%;
+            @media (max-width: $max_lg) {
+                margin-bottom: 70px;
+                max-width: 88%;
+            }
+        }
+        &_calc {
+            max-width: 100%;
+            display: flex;
+            align-items: flex-end;
+            @media (max-width: $max_lg) {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 50px;
+            }
+            .heading {
+                margin-right: 120px;
+                margin-bottom: 0;
+                @media (max-width: $max_lg) {
+                    margin-right: 0;
+                    max-width: 70%;
+                    text-align: left;
+                    margin-bottom: 20px;
+                }
+            }
+            .descr_big {
+                margin-bottom: 8px;
+                color: $dark-blue1;
+                @media (max-width: $max_lg) {
+                    max-width: 80%;
+                }
+                @media (max-width: $max_md) {
+                    font-size: 12px;
+                }
+            }
         }
     }
     &__content {

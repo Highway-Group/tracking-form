@@ -10,8 +10,29 @@
                 border-top: 1px solid $gray-rgba;
             }
         }
-        &.section_white {
-            background-color: $color-white;
+        &.section_gray-light {
+            background-color: $gray-light;
+        }
+        &.section_gray {
+            background-color: $gray;
+            .link-info {
+                font-size: 14px;
+                line-height: 16px;
+                color: rgba(66, 71, 122, 0.5);
+                text-transform: none;
+                flex: 1 0 auto;
+                font-weight: 400;
+            }
+            .link-doc {
+                display: inline-block;
+                font-size: 14px;
+                line-height: 16px;
+                color: $dark-blue1;
+                text-decoration: none;
+                text-transform: none;
+                margin-top: 8px;
+                font-weight: 400;
+            }
         }
     }
 }
