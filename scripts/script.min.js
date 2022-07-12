@@ -23,6 +23,25 @@ document.addEventListener('DOMContentLoaded', function() {
         var name = this.getAttribute('data-option');
         getOption(this, name);
     });
+
+    // табы для калькулятора
+    const tabsBtns = document.querySelectorAll('.btn_light');
+    const tabsContent = document.querySelectorAll('.tabs__content');
+    
+    tabsBtns.forEach(btn => btn.addEventListener('click', changeTabs))
+
+    function changeTabs(event) {
+      const tabId = event.target.dataset.tab;
+    
+      tabsBtns.forEach((tab, i) => {
+        tab.classList.remove('active');
+        tabsContent[i].classList.remove('active');
+      })
+    
+      tabsBtns[tabId - 1].classList.add('active');
+      tabsContent[tabId - 1].classList.add('active');
+    }
+    
 });
 
 
@@ -100,3 +119,6 @@ function recordParamsData(that){
         console.log(error);
     } 
 }
+
+
+

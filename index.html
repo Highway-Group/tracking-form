@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="styles/fonts.min.css">
 		<link rel="stylesheet" href="styles/style.min.css"> 
 		<!-- <script src="scripts/libs.min.js"></script> -->
-		<script src="scripts/script.min.js"></script>   
+		<script defer src="scripts/script.min.js"></script>   
 
 		<script> 
 				var BASEURL = 'https://crm.hl-group.ru/api';
@@ -25,11 +25,11 @@
 		<section class="section section_theme_1 section_white">
 			<div class="container container_calc tabs">
 				<div class="d-flex calculator-btns">
-					<button class="btn btn_light active w-100">Объем груза, м3 = V</button>
-					<button class="btn btn_light w-100">Плотность груза = <span class="btn_light_icon"></span></button>
+					<button data-tab="1" class="btn btn_light active w-100">Объем груза, м3 = V</button>
+					<button data-tab="2" class="btn btn_light w-100">Плотность груза = <span class="btn_light_icon"></span></button>
 				</div>
 				<div class="form-tracking__label form-tracking__label_calc">калькулятор</div>
-				<div class="tabs__content">
+				<div class="tabs__content active">
 					<div class="tabs__text">
 						<div class="heading">расчет объема груза</div>
 						<div class="descr descr_big">
@@ -85,48 +85,36 @@
 					</div>
 					
 				</div>
-			</div>
-
-			<div class="sources_calc_form_cargo_js d-none">
-				<li class="calculator__item calc_item_js">
-					<div class="form-tracking__label form-tracking__label_min">
-						данные коробки 
-						(партия 
-						<span class="calc_count_js">1</span>
-						)
-					</div>
-					<div class="row calculator__container m-0">
-						<div class="col-md-3 p-0 calculator__input-group">
-							<input type="text" placeholder="Ширина, см" class="calculator__input mask-float-js">
-						</div>
-						<div class="col-md-3 p-0 calculator__input-group">
-							<input type="text" placeholder="Длина, см" class="calculator__input mask-float-js">
-						</div>
-						<div class="col-md-3 p-0 calculator__input-group">
-							<input type="text" placeholder="Высота, см" class="calculator__input mask-float-js">
-						</div>
-						<div class="col-md-3 p-0 calculator__input-group">
-							<input type="text" placeholder="Количество" class="calculator__input mask-float-js">
+				<div class="tabs__content">
+					<div class="tabs__text tabs__text_2">
+						<div class="heading">расчет плотности груза</div>
+						<div class="descr descr_big">
+							Расчет стоимости логистики зависит от такого параметра, 
+							как плотность груза. Если груз объемный, то стоимость доставки 
+							из Китая в Россию будет рассчитываться в зависимости от объема груза, если груз тяжелый — в зависимости от его веса
 						</div>
 					</div>
-					<div class="calculator__nav">
-						<div class="d-flex align-items-center">
-							<a href="#" class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
-								data-option="getContainerJs" 
-								data-container=".container_calc_list_js" 
-								data-sources=".sources_calc_form_cargo_js"
-								data-key_text=".calc_count_js"
-								data-item=".calc_item_js">добавить партию</a>
-								
-							<a href="#" class="call-js calculator__link calculator__link_remove" 
-								data-option="removeItem" 
-								data-block-remove=".calc_item_js" 
-								data-last="true"
-								data-container=".container_calc_list_js"
-								data-key_text=".calc_count_js">удалить партию</a>
-						</div>
+					<ul class="calculator container_calc_list_js">
+						<li class="calculator__item calc_item_js">
+							<div class="form-tracking__label form-tracking__label_min">
+								ВВЕДИТЕ ДАННЫЕ
+							</div>
+							<div class="row calculator__container m-0">
+								<div class="col-md-6 p-0 calculator__input-group">
+									<input type="text" placeholder="Вес, кг" class="calculator__input mask-float-js">
+								</div>
+								<div class="col-md-6 p-0 calculator__input-group">
+									<input type="text" placeholder="Объем, м3" class="calculator__input mask-float-js">
+								</div>
+							</div>
+						</li>
+					</ul>
+					<div class="d-flex justify-content-end">
+						<div class="btn btn_bronze">итого плотность груза</div>
+						<div class="btn btn_num">382 200</div>
 					</div>
-				</li>
+					
+				</div>
 			</div>
 		</section>
 		<section class="section section_theme_1 section_gray"></section>

@@ -2,5 +2,14 @@
     &__text {
         max-width: 64%;
         margin-bottom: 90px;
+        &_2 {
+            max-width: 75%;
+        }
+    }
+    &__content {
+        display: none;
+        &.active {
+            display: block;
+        }
     }
 }
