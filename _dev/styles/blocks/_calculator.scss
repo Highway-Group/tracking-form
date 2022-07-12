@@ -4,11 +4,13 @@
 
 .calculator {
     margin-bottom: 50px;
+
     &__container {
         display: flex;
         justify-content: space-between;
         border: 1px solid $gray-rgba;
     }
+
     &__input {
         padding: 30px;
         border: none;
@@ -22,14 +24,17 @@
             text-transform: none;
         }
     }
+
     &__input-group {
         &:not(:last-child) {
             border-right: 1px solid $gray-rgba;
         }
     }
+
     &__nav {
         padding-top: 15px;
     }
+
     &__link {
         text-decoration: none;
         font-size: 12px;
@@ -47,4 +52,16 @@
             }
         }
     }
+
+    .calculator__item{
+        & + .calculator__item{
+            margin-top:30px;
+        }
+
+        &:not(:last-child){
+            .calculator__link_add{
+                display: none;
+            }
+        } 
+    } 
 }

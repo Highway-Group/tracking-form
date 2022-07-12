@@ -25,6 +25,100 @@
 
         switch (option) {
 
+            case 'getContainerJs':
+                console.log(params);
+                var $btn = $(this);
+        
+                if(params.container && params.sources){
+                    var html = $(params.sources).html();
+                    var container = $btn.closest(params.container);
+                    container.append(html);
+
+                    if (params.item && params.key_text) {
+                        var i = 1;
+
+                        $(params.item, container).each(function () {
+                            var current_item = $(this);
+                            $(params.key_text, current_item).text(i);
+                            i++;
+                        });
+                    }
+                }
+                break;
+
+            case 'removeItem':
+                var $btn = $(this);
+                var target_remove = $btn.data('block-remove');
+
+                var $form = false;
+                if ($btn.closest('form').length > 0) {
+                    $form = $btn.closest('form');
+                }
+
+                if ($btn.is('[data-container]')) {
+                    var container = $btn.attr('data-container');
+                    container = $btn.closest(container);
+                }
+
+                if ($btn.is('[data-last="true"]') && $btn.is('[data-container]')) {
+                    var count = $(target_remove, container).length;
+                    var target_attr = false;
+                    var target_text = false;
+
+                    if ($btn.is('[data-attr_key]')) {
+                        target_attr = $btn.attr('data-attr_key');
+                    }
+
+                    if ($btn.is('[data-key_text]')) {
+                        target_text = $btn.attr('data-key_text');
+                    }
+
+                    if (count > 1) {
+                        $btn.closest(target_remove).remove();
+                    } else {
+                        $.fn.systemMessage({
+                            title: 'Предупреждение!',
+                            text: 'Невозможно удалить последний элемент',
+                            type: 'warning'
+                        });
+                    }
+
+                    if (target_attr != false) {
+                        var i = 0;
+                        $(target_remove, container).each(function () {
+                            var current_item = $(this);
+                            current_item.attr(target_attr, i);
+                            i++;
+                        });
+                    }
+
+                    if (target_text != false) {
+                        var i = 1;
+                        $(target_remove, container).each(function () {
+                            var current_item = $(this);
+                            $(target_text, current_item).text(i);
+                            i++;
+                        });
+                    }
+
+                } else {
+                    $btn.closest(target_remove).remove();
+                }
+
+                // switch (target_remove) {
+                //     case '.upload_item_js':
+                //         if ($form != false) {
+                //             var count_file = $('.upload_item_js', $form).length;
+                //             if (count_file == 0) {
+                //                 if ($('.upload[type="file"]', $form).length > 0) {
+                //                     $('.upload[type="file"]', $form).val('');
+                //                 }
+                //             }
+                //         }
+                //         break;
+                // }
+                break;
+
             case 'updateTrackingForm': 
                 try {
                     result = params.result;
