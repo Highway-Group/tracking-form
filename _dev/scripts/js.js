@@ -87,7 +87,11 @@ function getOption(el, option, params) {
                     if (count > 1) {
                         el.closest(params.block_remove).remove();
                     } else {
-                        alert("Невозможно удалить последний элемент");
+                        // $.fn.systemMessage({
+                        //     title: 'Предупреждение!',
+                        //     text: 'Невозможно удалить последний элемент',
+                        //     type: 'warning'
+                        // });
                     }
 
                     if (params.key_text) {
@@ -225,3 +229,24 @@ function keyItem(items,key_text){
     }
 }
 
+
+function initCalc() {
+    const calcInput = document.querySelectorAll('.calculator__input-group .calculator__input');
+    const calcBtn = document.querySelector('.btn_num');
+    calcBtn.textContent = 0;
+    let calc = 1;
+    let value = 0;
+
+    calcInput.forEach(input => {
+        // console.log(input)
+        input.addEventListener('input', () => {
+            value = +input.value;
+            calc *= value;
+            console.log(calc)
+            calcBtn.textContent = calc;
+        })
+    })
+   
+}
+
+initCalc()

@@ -33,7 +33,7 @@
         display: flex;
         justify-content: space-between;
         border: 1px solid $gray-rgba;
-
+        
         @media (max-width: $max_md) {
             border: none;
             border-left: 1px solid $gray-rgba;

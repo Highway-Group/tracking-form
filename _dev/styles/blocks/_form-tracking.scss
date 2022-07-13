@@ -53,7 +53,13 @@
                 height: 13px;
                 background-color: $bronze;
                 @media (max-width: $max_lg) {
-                    left: -50px;
+                    left: -40px;
+                }
+                @media (max-width: $max_md) {
+                    left: -30px;
+                }
+                @media (max-width: $max_sm) {
+                    left: -16px;
                 }
             }
         }
