@@ -1,7 +1,6 @@
 .select{
     &.select_theme_1{
         height:100%;
-
         .choices{
             height:100%;
 
@@ -16,17 +15,34 @@
 
                 .choices__list--single{
                     padding: 25px 30px;
-            
                     @media (max-width: $max_sm) {
                         padding: 20px;
+                    }
+                    .choices__item {
+                        text-transform: none;
+                        font-size: 14px;
+                        line-height: 16px;
+                        color: $dark-blue1;
+                        font-weight: 400;
                     }
                 }
             }
 
+            .choices__list--dropdown .choices__item, 
+            .choices__list[aria-expanded] .choices__item {
+                text-transform: none;
+                &::after {
+                    display: none;
+                }
+            }
+            
             &[data-type*=select-one]::after{
                 border-color:$dark-blue1 transparent transparent transparent;
+                margin-top: -3px;
+            }
+            &__input {
+                display: none;
             }
         }
     }
 }
-
