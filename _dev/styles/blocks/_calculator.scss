@@ -1,17 +1,39 @@
 .calculator-btns {
     margin-bottom: 80px;
-    @media (max-width: $max_lg) {
+
+    @media (min-width: $md) and  (max-width: $max_lg) {
         margin-bottom: 60px;
+    }
+
+    @media (min-width: $sm) and (max-width: $max_md) {
+        margin-bottom: 40px;
+    }
+
+    @media (max-width: $max_sm) {
+        margin-bottom: 30px;
     }
 }
 
 .calculator {
     margin-bottom: 50px;
 
+    @media (min-width: $md) and  (max-width: $max_lg) {
+        margin-bottom: 40px;
+    }
+
+    @media (min-width: $sm) and (max-width: $max_md) {
+        margin-bottom: 30px;
+    }
+
+    @media (max-width: $max_sm) {
+        margin-bottom: 20px;
+    }
+
     &__container {
         display: flex;
         justify-content: space-between;
         border: 1px solid $gray-rgba;
+
         @media (max-width: $max_md) {
             border: none;
             border-left: 1px solid $gray-rgba;
@@ -28,12 +50,18 @@
         font-weight: 400;
         color: $dark-blue1;
         background-color: transparent;
+
+        @media (min-width: $sm) and (max-width: $max_md) {
+            padding: 25px 30px;
+        }
+
+        @media (max-width: $max_sm) {
+            padding: 20px;
+        }
+
         &::placeholder {
             color: $dark-blue-rgba;
             text-transform: none;
-        }
-        @media (max-width: $max_md) {
-            padding: 25px 30px;
         }
     }
 

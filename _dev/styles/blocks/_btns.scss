@@ -35,10 +35,15 @@ button{
         color: $color-white;
     }
     
-    @media (max-width: $max_md) {
+    @media (min-width: $sm) and (max-width: $max_md) {
         font-size: 12px;
         padding: 23px 90px;
     }
+
+    @media (max-width: $max_sm) {
+        padding: 15px;
+    }
+
     &.btn_trace {
         flex: 0 1 auto;
         padding: 30px;
@@ -110,6 +115,17 @@ button{
         background-color: transparent;
         color: $dark-blue2;
         border: 1px solid rgba($color: #6C757D, $alpha: .15);
+
+        @media (min-width: $sm) and (max-width: $max_md) {
+            font-size: 12px;
+            padding: 23px 45px;
+        }
+
+        @media (max-width: $max_sm) {
+            font-size: 12px;
+            padding: 15px;
+        }
+
         .btn_light_icon {
             background-image: url("data:image/svg+xml,%3Csvg width='7' height='11' viewBox='0 0 7 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.24331 0.0415814C2.2377 0.183134 1.10446 0.950084 0.694855 1.76627C0.316258 2.52062 0.300473 2.68636 0.237334 6.56676C0.200582 8.82188 0.143023 10.3823 0.0895299 10.5722C0.0412984 10.7433 0.00103904 10.9096 2.66241e-06 10.9417C-0.00103372 10.9737 0.300632 11 0.67038 11C1.24134 11 1.34897 10.9795 1.38476 10.8639C1.49486 10.5088 1.59252 9.30277 1.59252 8.2993C1.59252 7.6886 1.60751 7.18897 1.62584 7.18897C1.64418 7.18897 1.83248 7.27382 2.04438 7.37758C3.33579 8.00974 4.63277 7.76218 5.7059 6.6786C6.62071 5.75478 7.07918 4.52195 6.98878 3.22892C6.92939 2.37852 6.76955 1.86893 6.38904 1.31672C5.69283 0.306332 4.57641 -0.146248 3.24331 0.0415814ZM3.53692 0.843764C4.04866 0.994028 4.69926 1.49094 5.0388 1.99104C5.96117 3.34932 5.91493 5.51142 4.94034 6.59437C4.24007 7.37237 3.01921 7.47978 2.24304 6.83159C1.69775 6.37621 1.64226 6.14366 1.6087 4.17204C1.57625 2.2659 1.65901 1.49203 1.93141 1.15417C2.25732 0.749966 2.83625 0.638046 3.53692 0.843764Z' fill='%2342477A'/%3E%3C/svg%3E%0A");
             background-repeat: no-repeat;
@@ -125,11 +141,7 @@ button{
             .btn_light_icon {
                 background-image: url("data:image/svg+xml,%3Csvg width='7' height='11' viewBox='0 0 7 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M3.24331 0.0415814C2.2377 0.183134 1.10446 0.950084 0.694855 1.76627C0.316258 2.52062 0.300473 2.68636 0.237334 6.56676C0.200582 8.82188 0.143023 10.3823 0.0895299 10.5722C0.0412984 10.7433 0.00103904 10.9096 2.66241e-06 10.9417C-0.00103372 10.9737 0.300632 11 0.67038 11C1.24134 11 1.34897 10.9795 1.38476 10.8639C1.49486 10.5088 1.59252 9.30277 1.59252 8.2993C1.59252 7.6886 1.60751 7.18897 1.62584 7.18897C1.64418 7.18897 1.83248 7.27382 2.04438 7.37758C3.33579 8.00974 4.63277 7.76218 5.7059 6.6786C6.62071 5.75478 7.07918 4.52195 6.98878 3.22892C6.92939 2.37852 6.76955 1.86893 6.38904 1.31672C5.69283 0.306332 4.57641 -0.146248 3.24331 0.0415814ZM3.53692 0.843764C4.04866 0.994028 4.69926 1.49094 5.0388 1.99104C5.96117 3.34932 5.91493 5.51142 4.94034 6.59437C4.24007 7.37237 3.01921 7.47978 2.24304 6.83159C1.69775 6.37621 1.64226 6.14366 1.6087 4.17204C1.57625 2.2659 1.65901 1.49203 1.93141 1.15417C2.25732 0.749966 2.83625 0.638046 3.53692 0.843764Z' fill='white'/%3E%3C/svg%3E%0A");   
             }
-        }
-        @media (max-width: $max_md) {
-            font-size: 12px;
-            padding: 23px 45px;
-        }
+        } 
     }
     &.btn_bronze {
         color: $bronze;
@@ -138,8 +150,16 @@ button{
         font-size: 14px;
         line-height: 16px;
         cursor: default;
-        @media (max-width: $max_md) {
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+        @media (min-width: $sm) and (max-width: $max_md) {
             padding: 20px 45px;
+        }
+
+        @media (max-width: $max_sm) {
+            padding: 15px;
         }
     }
     &.btn_num {
@@ -150,8 +170,13 @@ button{
         display: flex;
         align-items: center;
         justify-content: center;
-        @media (max-width: $max_md) {
+
+        @media (min-width: $sm) and (max-width: $max_md) {
             padding: 20px 45px;
+        }
+
+        @media (max-width: $max_sm) {
+            padding: 15px 30px;
         }
     }
     &.btn_calc {

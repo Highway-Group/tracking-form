@@ -53,11 +53,17 @@ ul {
     &_calc {
         max-width: 1080px;
         padding: 140px 70px 120px;
-        @media (max-width: $max_lg) {
-            padding: 100px 50px;
+        
+        @media (min-width: $md) and  (max-width: $max_lg) {
+            padding: 80px 40px;
         }
-        @media (max-width: $max_md) {
-            padding: 80px 50px;
+
+        @media (min-width: $sm) and (max-width: $max_md) {
+            padding: 50px 30px;
+        }
+
+        @media (max-width: $max_sm) {
+            padding: 40px 15px;
         }
     }
 }
@@ -101,6 +107,20 @@ ul {
     color: $bronze;
 } 
 
+
+.border{
+    &_top{
+        &.border_gray_rgba{
+            border-top: 1px solid $gray-rgba;
+
+            &_md{
+                @media (min-width: $md) and (max-width: $max_lg) {
+                    border-top: 1px solid $gray-rgba;
+                }
+            }
+        }
+    }
+}
 
 //убираем стрелки 
 input[type="number"]::-webkit-outer-spin-button,

@@ -21,6 +21,19 @@
             position: relative;
             display: inline-block;
             margin-bottom: 60px;
+
+            @media (min-width: $md) and  (max-width: $max_lg) {
+                margin-bottom: 40px;
+            }
+    
+            @media (min-width: $sm) and (max-width: $max_md) {
+                margin-bottom: 30px;
+            }
+    
+            @media (max-width: $max_sm) {
+                margin-bottom: 20px;
+            }
+
             &::after {
                 position: absolute;
                 content: '';
@@ -30,6 +43,7 @@
                 height: 4px;
                 border-bottom: 4px dotted $dark-blue1;
             }
+
             &::before {
                 position: absolute;
                 content: '';
@@ -41,9 +55,6 @@
                 @media (max-width: $max_lg) {
                     left: -50px;
                 }
-            }
-            @media (max-width: $max_lg) {
-                margin-bottom: 40px;
             }
         }
         &_min {

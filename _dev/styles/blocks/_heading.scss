@@ -4,13 +4,19 @@
     line-height: 108%;
     color: $dark-blue1;
     margin-bottom: 25px;
-    @media (max-width: $max_lg) {
-        font-size: 50px;    
+
+    @media (min-width: $md) and (max-width: $max_lg) {
+        font-size: 40px;    
         line-height: 1.1;   
     }
-    @media (max-width: $max_md) {
+    @media (min-width: $sm) and (max-width: $max_md) {
         font-size: 36px;    
         line-height: 1.1;  
         margin-right: 120px; 
+    }
+
+    @media (max-width: $max_sm) {
+        font-size: 25px;    
+        line-height: 1.1;   
     }
 }
