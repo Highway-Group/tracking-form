@@ -87,11 +87,7 @@ function getOption(el, option, params) {
                     if (count > 1) {
                         el.closest(params.block_remove).remove();
                     } else {
-                        // $.fn.systemMessage({
-                        //     title: 'Предупреждение!',
-                        //     text: 'Невозможно удалить последний элемент',
-                        //     type: 'warning'
-                        // });
+                        alert("Невозможно удалить последний элемент");
                     }
 
                     if (params.key_text) {
