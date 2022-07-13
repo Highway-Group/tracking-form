@@ -5,9 +5,16 @@ let  BREAKPOINT_SM = 768;
 let  BREAKPOINT_MD = 992;
 let  BREAKPOINT_LG = 1200;
 let  BREAKPOINT_XL = 1330; 
-
-const tabsBtns = document.querySelectorAll('.btn_light');
+const tabsBtns = document.querySelectorAll('.btn_tab_js');
 const tabsContent = document.querySelectorAll('.tabs__content');
+let btnCallJs =document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
+
+let callJsOption = function(e) {
+    e.preventDefault();
+    console.log('click call-js');
+    var name = this.getAttribute('data-option');
+    getOption(this, name);
+}; 
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -18,70 +25,97 @@ let  iphone = false;
 if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     iphone = true;
 }
-console.log('iphone = ' + iphone);
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('.call-js:not(.readonly):not(select):not([disabled])').addEventListener('click', function(event) {
-        var name = this.getAttribute('data-option');
-        getOption(this, name);
-    });
+    callJs();
 
-    // табы для калькулятора
-    tabsBtns.forEach(btn => btn.addEventListener('click', changeTabs));
+    tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
+        // табы для калькулятора
+        if(btn.closest('.tabs')){
+            changeTabs(event);
+        }
+    }));
 });
 
 
-function getOption(that, option, params) {
-
+function getOption(el, option, params) {
     if (option == null) {
-        option = that.attr('data-option');
+        option = el.getAttribute('data-option');
     }
 
-    console.log('Option ' + option + ' started...');
-
     try {
-        console.log(params); 
         if (params == null) {
-            params = recordParamsData(that) || {};
+            params = recordParamsData(el) || {};
+        }
+
+        console.log('Option ' + option + ' started...');
+        console.log(params); 
+
+        switch (option) {
+            case 'getContainerJs':  
+                if(params.container && params.sources){
+                    let sources  = document.querySelector(params.sources);
+ 
+                    if(sources){
+                        let html = sources.cloneNode(true); //клонируем исходный блок
+                        let container = el.closest(params.container);
+                        container.append(html);
+     
+                        let last_item = document.querySelector(params.container + ' ' + params.sources); //нашли вставленный блок
+                        if(last_item){ 
+                            // удаляем класс исходного блока с вставленного блока
+                            last_item.classList.remove(params.sources.replace('.',''));
+                        }
+
+                        if (params.item && params.key_text) {
+                            let items = document.querySelectorAll(params.item+':not('+params.sources+')');
+                            keyItem(items, params.key_text);
+                        }
+                    }
+                }
+                break;
+    
+            case 'removeItem':
+                let form = false;
+
+                if(el.closest('form')){
+                    form = el.closest('form');
+                }
+
+                if (params.container) {
+                    container = el.closest(params.container);
+                }
+
+                if(params.last == 'true' && params.container){
+                    let count = document.querySelectorAll(params.container + ' ' + params.block_remove).length;
+
+                    if (count > 1) {
+                        el.closest(params.block_remove).remove();
+                    } else {
+                        // $.fn.systemMessage({
+                        //     title: 'Предупреждение!',
+                        //     text: 'Невозможно удалить последний элемент',
+                        //     type: 'warning'
+                        // });
+                    }
+
+                    if (params.key_text) {
+                        let items = document.querySelectorAll(params.block_remove+':not('+params.sources+')');
+                        keyItem(items, params.key_text);
+                    }
+                }else{
+                    el.closest(params.block_remove).remove();
+                }
+                break;
+    
+            default:
+                break;
         }
     } catch (error) {
         console.log('error getOption');
-    }
-
-    switch (option) {
-
-        case 'getContainerJs':
-            console.log(params);
-   
-            if(params.container && params.sources){
-                var html = document.querySelector(params.sources).firstElementChild;
-                var container = that.closest(params.container);
-                container.append(html);
-
-                
-                if (params.item && params.key_text) {
-
-                    var items = document.querySelector(params.item);
-                    console.log(items);
-
-                    for (let i=0; i < items.childNodes.length; i++) {
-                        console.log(items.childNodes[i]);
-                        items.childNodes[i];
-                    }
-
-                    var i = 1;
-                    items.each(function () {
-                        var current_item = $(this);
-                        $(params.key_text, current_item).text(i);
-                        i++;
-                    });
-                }
-            }
-            break;
-
-        default:
-            break;
+    }finally{
+        callJs();
     }
 }
 
@@ -111,13 +145,12 @@ function recordParamsData(that){
 function changeTabs(event) {
     const tabId = event.target.dataset.tab;
 
-    console.log(event);
     switch(event.type){
         case 'click':
             tabsBtns.forEach((tab, i) => {
-            tab.classList.remove('active');
-            tabsContent[i].classList.remove('active');
-            })
+                tab.classList.remove('active');
+                tabsContent[i].classList.remove('active');
+            });
         
             tabsBtns[tabId - 1].classList.add('active');
             tabsContent[tabId - 1].classList.add('active');
@@ -125,4 +158,20 @@ function changeTabs(event) {
     }
 }
 
+
+function callJs(){
+    btnCallJs.forEach(el => el.removeEventListener('click', callJsOption, false)); //удаляем событие 
+    btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])'); // получаем актуальный набор 
+    btnCallJs.forEach(el => el.addEventListener('click', callJsOption));  // добавляем событие
+}
+
+function keyItem(items,key_text){
+    if (items && key_text) {
+        //расставляем номер 
+        for (var i = 0; i < items.length; i++) {
+            let item = items[i].querySelector(key_text);
+            item.innerHTML = i + 1;
+        }
+    }
+}
 

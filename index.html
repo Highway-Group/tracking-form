@@ -16,8 +16,8 @@
 		<script defer src="scripts/script.min.js"></script>   
 
 		<script> 
-				var BASEURL = 'https://crm.hl-group.ru/api';
-				var message_data;
+			var BASEURL = 'https://crm.hl-group.ru/api';
+			var message_data;
 		</script>
 	</head>
 
@@ -25,8 +25,8 @@
 		<section class="section section_theme_1 section_gray-light">
 			<div class="container container_calc tabs">
 				<div class="d-flex calculator-btns">
-					<button data-tab="1" class="btn btn_light active w-100">Объем груза, м3 = V</button>
-					<button data-tab="2" class="btn btn_light w-100">Плотность груза = <span class="btn_light_icon"></span></button>
+					<button data-tab="1" class="btn btn_light btn_tab_js active w-100">Объем груза, м3 = V</button>
+					<button data-tab="2" class="btn btn_light btn_tab_js w-100">Плотность груза = <span class="btn_light_icon"></span></button>
 				</div>
 				<div class="form-tracking__label form-tracking__label_calc">калькулятор</div>
 				<div class="tabs__content active">
@@ -71,7 +71,7 @@
 										
 									<a href="#" class="call-js calculator__link calculator__link_remove" 
 										data-option="removeItem" 
-										data-block-remove=".calc_item_js" 
+										data-block_remove=".calc_item_js" 
 										data-last="true"
 										data-container=".container_calc_list_js"
 										data-key_text=".calc_count_js">удалить партию</a>
@@ -83,6 +83,7 @@
 						<div class="btn btn_bronze">итого Объем груза, м3</div>
 						<div class="btn btn_num">382 200</div>
 					</div>
+				</section>
 					
 				</div>
 				<div class="tabs__content">
@@ -117,7 +118,8 @@
 				</div>
 			</div>
 		</section>
-		<section class="section section_theme_1 section_gray">
+
+		<section class="section section_theme_1 section_gray d-none">
 			<div class="container container_calc tabs">
 				<div class="form-tracking__label form-tracking__label_calc">калькулятор</div>
 				<div class="tabs__content active">
@@ -184,4 +186,46 @@
 			</div>
 		</section>
 	</body>
+
+	<div class="d-none">
+		<li class="calculator__item calc_item_js sources_calc_form_cargo_js">
+			<div class="form-tracking__label form-tracking__label_min">
+				данные коробки 
+				(партия 
+				<span class="calc_count_js">1</span>
+				)
+			</div>
+			<div class="row calculator__container m-0">
+				<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
+					<input type="text" placeholder="Ширина, см" class="calculator__input mask-float-js">
+				</div>
+				<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
+					<input type="text" placeholder="Длина, см" class="calculator__input mask-float-js">
+				</div>
+				<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
+					<input type="text" placeholder="Высота, см" class="calculator__input mask-float-js">
+				</div>
+				<div class="col-sm-6 col-md-3 p-0 calculator__input-group">
+					<input type="text" placeholder="Количество" class="calculator__input mask-float-js">
+				</div>
+			</div>
+			<div class="calculator__nav">
+				<div class="d-flex align-items-center">
+					<a href="#" class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
+						data-option="getContainerJs" 
+						data-container=".container_calc_list_js" 
+						data-sources=".sources_calc_form_cargo_js"
+						data-key_text=".calc_count_js"
+						data-item=".calc_item_js">добавить партию</a>
+						
+					<a href="#" class="call-js calculator__link calculator__link_remove" 
+						data-option="removeItem" 
+						data-block_remove=".calc_item_js" 
+						data-last="true"
+						data-container=".container_calc_list_js"
+						data-key_text=".calc_count_js">удалить партию</a>
+				</div>
+			</div>
+		</li>
+	</div>
 </html>
