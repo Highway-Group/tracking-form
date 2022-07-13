@@ -9,6 +9,9 @@ const tabsBtns = document.querySelectorAll('.btn_tab_js');
 const tabsContent = document.querySelectorAll('.tabs__content');
 let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
 let inputMask = document.querySelectorAll('.mask_js');
+let calcItem = document.querySelectorAll('.calculator .calc_item_js');
+let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
+
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -24,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     callJs();
     maskInit();
     choiseJs();
+    calcForm1Event();
 
     tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
         // табы для калькулятора
@@ -31,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
             changeTabs(event);
         }
     }));
+
+    
 });
 
 
@@ -110,6 +116,8 @@ function getOption(el, option, params) {
         console.log('error getOption');
     }finally{
         callJs();
+        initCalc();
+        calcForm1Event();
     }
 }
 
@@ -209,8 +217,6 @@ function maskInit(){
 
 function choiseJs(){
     selectChoise = document.querySelectorAll('.choice_js');
-    console.log(selectChoise);
-
     selectChoise.forEach((select, index) => {
         new Choices(select, {
             addItems: true,
@@ -230,23 +236,27 @@ function keyItem(items,key_text){
 }
 
 
-function initCalc() {
-    const calcInput = document.querySelectorAll('.calculator__input-group .calculator__input');
-    const calcBtn = document.querySelector('.btn_num');
-    calcBtn.textContent = 0;
-    let calc = 1;
-    let value = 0;
-
-    calcInput.forEach(input => {
-        // console.log(input)
-        input.addEventListener('input', () => {
-            value = +input.value;
-            calc *= value;
-            console.log(calc)
-            calcBtn.textContent = calc;
-        })
-    })
-   
+function calcForm1Event(){
+    calcInputForm1.forEach(input => input.removeEventListener('keyup', initCalc, false));
+    calcInputForm1 = document.querySelectorAll('.calc_form1_js');
+    calcInputForm1.forEach(input => input.addEventListener('keyup', initCalc));
 }
 
-initCalc()
+let initCalc = function() {
+    let calc = 0;
+    const calcBtn = document.querySelector('.calc_form1_result_js');
+    calcBtn.textContent = 0;
+    calcItem = document.querySelectorAll('.calculator .calc_item_js');
+
+    let calcInput = '';
+    for (var i = 0; i < calcItem.length; i++) {
+        calcInput = calcItem[i].querySelectorAll('.calc_form1_js');
+
+        for (var y = 0; y < calcInput.length; y++) {
+            calc += Number(calcInput[y].value);
+        }
+    }
+    
+    calcBtn.textContent = calc;
+}
+
