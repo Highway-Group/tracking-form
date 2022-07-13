@@ -174,7 +174,8 @@ let maskInitStart = function(e) {
     switch (type) {
         case 'phone':
             IMask(this,{
-                mask: '+{7}(000)000-00-00'
+                mask: '+{7}(000)000-00-00',
+                lazy: false,
             });
             break;
 
@@ -186,7 +187,8 @@ let maskInitStart = function(e) {
 
         case 'date':
             IMask(this,{
-                mask: Date
+                mask: Date,
+                lazy: false,
             });
             break;
 
