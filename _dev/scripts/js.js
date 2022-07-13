@@ -243,17 +243,17 @@ function calcForm1Event(){
 }
 
 let initCalc = function() {
-    let calc = 0;
+    let calc = 1;
     const calcBtn = document.querySelector('.calc_form1_result_js');
     calcBtn.textContent = 0;
     calcItem = document.querySelectorAll('.calculator .calc_item_js');
 
     let calcInput = '';
-    for (var i = 0; i < calcItem.length; i++) {
+    for (let i = 0; i < calcItem.length; i++) {
         calcInput = calcItem[i].querySelectorAll('.calc_form1_js');
 
-        for (var y = 0; y < calcInput.length; y++) {
-            calc += Number(calcInput[y].value);
+        for (let y = 0; y < calcInput.length; y++) {
+            calc *= +calcInput[y].value;
         }
     }
     

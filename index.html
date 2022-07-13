@@ -5,16 +5,16 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Форма отслеживания груза</title>
-		<!-- <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
+		<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
 		<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
 		<script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
-		<script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
+		<script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script> 
 		
-		<link rel="stylesheet" href="styles/fonts.min.css">
+		<!-- <link rel="stylesheet" href="styles/fonts.min.css">
 		<link rel="stylesheet" href="styles/libs.min.css">
 		<link rel="stylesheet" href="styles/style.min.css"> 
 		<script src="scripts/libs.min.js"></script>
-		<script defer src="scripts/script.min.js"></script>   
+		<script defer src="scripts/script.min.js"></script>    -->
 
 		<script> 
 			var BASEURL = 'https://crm.hl-group.ru/api';
@@ -194,47 +194,48 @@
 				</div>
 			</div>
 		</section>
+		<div class="d-none">
+			<li class="calculator__item calc_item_js sources_calc_form_cargo_js">
+				<div class="form-tracking__label form-tracking__label_min">
+					данные коробки 
+					(партия 
+					<span class="calc_count_js">1</span>
+					)
+				</div>
+				<div class="row calculator__container m-0">
+					<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+						<input type="text" placeholder="Ширина, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
+					</div>
+					<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+						<input type="text" placeholder="Длина, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
+					</div>
+					<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+						<input type="text" placeholder="Высота, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
+					</div>
+					<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+						<input type="text" placeholder="Количество" class="calculator__input mask_js calc_form1_js" data-mask="float">
+					</div>
+				</div>
+				<div class="calculator__nav">
+					<div class="d-flex align-items-center">
+						<a href="#" class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
+							data-option="getContainerJs" 
+							data-container=".container_calc_list_js" 
+							data-sources=".sources_calc_form_cargo_js"
+							data-key_text=".calc_count_js"
+							data-item=".calc_item_js">добавить партию</a>
+							
+						<a href="#" class="call-js calculator__link calculator__link_remove" 
+							data-option="removeItem" 
+							data-block_remove=".calc_item_js" 
+							data-last="true"
+							data-container=".container_calc_list_js"
+							data-key_text=".calc_count_js">удалить партию</a>
+					</div>
+				</div>
+			</li>
+		</div>
 	</body>
 
-	<div class="d-none">
-		<li class="calculator__item calc_item_js sources_calc_form_cargo_js">
-			<div class="form-tracking__label form-tracking__label_min">
-				данные коробки 
-				(партия 
-				<span class="calc_count_js">1</span>
-				)
-			</div>
-			<div class="row calculator__container m-0">
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
-					<input type="text" placeholder="Ширина, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
-				</div>
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
-					<input type="text" placeholder="Длина, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
-				</div>
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
-					<input type="text" placeholder="Высота, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
-				</div>
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
-					<input type="text" placeholder="Количество" class="calculator__input mask_js calc_form1_js" data-mask="float">
-				</div>
-			</div>
-			<div class="calculator__nav">
-				<div class="d-flex align-items-center">
-					<a href="#" class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
-						data-option="getContainerJs" 
-						data-container=".container_calc_list_js" 
-						data-sources=".sources_calc_form_cargo_js"
-						data-key_text=".calc_count_js"
-						data-item=".calc_item_js">добавить партию</a>
-						
-					<a href="#" class="call-js calculator__link calculator__link_remove" 
-						data-option="removeItem" 
-						data-block_remove=".calc_item_js" 
-						data-last="true"
-						data-container=".container_calc_list_js"
-						data-key_text=".calc_count_js">удалить партию</a>
-				</div>
-			</div>
-		</li>
-	</div>
+	
 </html>
