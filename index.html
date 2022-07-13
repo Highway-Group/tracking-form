@@ -11,6 +11,7 @@
 		<script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
 		
 		<link rel="stylesheet" href="styles/fonts.min.css">
+		<link rel="stylesheet" href="styles/libs.min.css">
 		<link rel="stylesheet" href="styles/style.min.css"> 
 		<script src="scripts/libs.min.js"></script>
 		<script defer src="scripts/script.min.js"></script>   
@@ -83,8 +84,6 @@
 						<div class="btn btn_bronze">итого Объем груза, м3</div>
 						<div class="btn btn_num">382 200</div>
 					</div>
-				</section>
-					
 				</div>
 				<div class="tabs__content">
 					<div class="tabs__text tabs__text_2">
@@ -154,8 +153,11 @@
 									<div class="col-md-4 p-0 calculator__input-group">
 										<input type="text" placeholder="Объем груза, м3" class="calculator__input mask_js" data-mask="float">
 									</div>
-									<div class="col-md-4 p-0 calculator__input-group">
-										<input type="text" placeholder="Высота, см" class="calculator__input mask_js" data-mask="float">
+									<div class="col-md-4 p-0">
+										<select class="choice_js" name="type_delivery">
+											<option value="1">АВИА</option>
+											<option value="2">ЖД</option>
+										</select>
 									</div>
 								</div>
 							</li>

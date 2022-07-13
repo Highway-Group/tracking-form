@@ -24,6 +24,32 @@ var config = {
 
 var IS_PROD = false; // если переменная равна "true", то обработовать файлы для продакшена                                                
 
+// ОБЪЕДИНЕНИЕ CSS БИБЛИОТЕК
+gulp.task('build-css', function() {
+    // порядок файлов важен!!!
+    var result = gulp.src([
+        'node_modules/choices.js/public/assets/styles/choices.css',
+    ], {
+        sourcemaps: false
+    });
+
+    if (IS_PROD == true) {
+        result = result
+            .pipe(cleancss({ level: { 1: { specialComments: 0 } } })) //удалаем комментарии из css
+            .pipe(cssnano({
+                zindex: false,
+                discardUnused: false,
+            })); //сжимаем файл
+    }
+
+    result
+        .pipe(concat('libs.min.css'))
+        .pipe(gulp.dest('styles'));
+
+    return result;
+});
+
+
 gulp.task('styles', function() {
     var result = gulp.src('_dev/styles/main.scss') //берем файл
         //.pipe(sourcemaps.init()) // инициализируем создание Source Maps
@@ -111,6 +137,8 @@ gulp.task('styles-fonts', function() {
             // '_dev/scripts/libs/select2/dist/js/select2.full.min.js',
             // '_dev/scripts/libs/sweetalert.min.js',
             // '_dev/scripts/libs/jquery.fancybox.js' 
+
+            'node_modules/choices.js/public/assets/scripts/choices.js',
             'node_modules/imask/dist/imask.js',
         ], { 
             sourcemaps: false
@@ -159,11 +187,11 @@ gulp.task('watch', function() {
     gulp.watch('_dev/scripts/**/*', gulp.parallel('scripts'));
 });
 
-gulp.task('build-styles', gulp.series('styles'));
+gulp.task('build-styles', gulp.series('build-css', 'styles'));
 gulp.task('build-scripts', gulp.series('build-js', 'scripts'));
 
 
 // это таск по умолчанию. запускается из папки проекта командой "gulp".
-gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', 'build-js', gulp.parallel('webserver', 'watch')));
+gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', 'build-js', 'build-css', gulp.parallel('webserver', 'watch')));
 // можно запустить отдельные таски. для этого после команды "gulp"
 // перечисляются таски, которые нужно запустить.

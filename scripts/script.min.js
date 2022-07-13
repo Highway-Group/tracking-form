@@ -10,7 +10,6 @@ const tabsContent = document.querySelectorAll('.tabs__content');
 let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
 let inputMask = document.querySelectorAll('.mask_js');
 
-
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
     IS_MOBILE = true;
@@ -24,6 +23,7 @@ if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
 document.addEventListener('DOMContentLoaded', function() {
     callJs();
     maskInit();
+    choiseJs();
 
     tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
         // табы для калькулятора
@@ -153,8 +153,7 @@ function changeTabs(event) {
     }
 }
 
-let callJsOption = function(e) {
-    e.preventDefault();
+let callJsOption = function() {
     var name = this.getAttribute('data-option');
     getOption(this, name);
 }; 
@@ -164,7 +163,6 @@ function callJs(){
     btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])'); // получаем актуальный набор 
     btnCallJs.forEach(el => el.addEventListener('click', callJsOption));  // добавляем событие
 }
-
 
 
 let maskInitStart = function(e) {
@@ -207,6 +205,19 @@ function maskInit(){
     inputMask = document.querySelectorAll('.mask_js'); 
     inputMask.forEach(el => el.addEventListener('focus', maskInitStart)); 
 }; 
+
+
+function choiseJs(){
+    selectChoise = document.querySelectorAll('.choice_js');
+    console.log(selectChoise);
+
+    selectChoise.forEach((select, index) => {
+        new Choices(select, {
+            addItems: true,
+        });
+    });
+}
+
 
 function keyItem(items,key_text){
     if (items && key_text) {
