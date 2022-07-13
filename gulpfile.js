@@ -106,11 +106,12 @@ gulp.task('styles-fonts', function() {
     // перечисляем файлы, которые будут добавлены в lib.min.js
     // порядок файлов важен!!!
     var result = gulp.src([
-            'node_modules/jquery/dist/jquery.js',
-            '_dev/scripts/libs/jquery.inputmask.bundle.js',
-            '_dev/scripts/libs/select2/dist/js/select2.full.min.js',
-            '_dev/scripts/libs/sweetalert.min.js',
-            '_dev/scripts/libs/jquery.fancybox.js' 
+            // 'node_modules/jquery/dist/jquery.js',
+            // '_dev/scripts/libs/jquery.inputmask.bundle.js',
+            // '_dev/scripts/libs/select2/dist/js/select2.full.min.js',
+            // '_dev/scripts/libs/sweetalert.min.js',
+            // '_dev/scripts/libs/jquery.fancybox.js' 
+            'node_modules/imask/dist/imask.js',
         ], { 
             sourcemaps: false
         })

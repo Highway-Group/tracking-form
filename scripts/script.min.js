@@ -7,14 +7,9 @@ let  BREAKPOINT_LG = 1200;
 let  BREAKPOINT_XL = 1330; 
 const tabsBtns = document.querySelectorAll('.btn_tab_js');
 const tabsContent = document.querySelectorAll('.tabs__content');
-let btnCallJs =document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
+let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
+let inputMask = document.querySelectorAll('.mask_js');
 
-let callJsOption = function(e) {
-    e.preventDefault();
-    console.log('click call-js');
-    var name = this.getAttribute('data-option');
-    getOption(this, name);
-}; 
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -26,9 +21,9 @@ if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
     iphone = true;
 }
 
-
 document.addEventListener('DOMContentLoaded', function() {
     callJs();
+    maskInit();
 
     tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
         // табы для калькулятора
@@ -49,7 +44,6 @@ function getOption(el, option, params) {
             params = recordParamsData(el) || {};
         }
 
-        console.log('Option ' + option + ' started...');
         console.log(params); 
 
         switch (option) {
@@ -119,6 +113,7 @@ function getOption(el, option, params) {
     }
 }
 
+
 function recordParamsData(that){ 
     try { 
         if(that){
@@ -158,12 +153,58 @@ function changeTabs(event) {
     }
 }
 
+let callJsOption = function(e) {
+    e.preventDefault();
+    var name = this.getAttribute('data-option');
+    getOption(this, name);
+}; 
 
 function callJs(){
     btnCallJs.forEach(el => el.removeEventListener('click', callJsOption, false)); //удаляем событие 
     btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])'); // получаем актуальный набор 
     btnCallJs.forEach(el => el.addEventListener('click', callJsOption));  // добавляем событие
 }
+
+
+
+let maskInitStart = function(e) {
+    e.preventDefault();
+    let type = this.getAttribute('data-mask');
+
+    switch (type) {
+        case 'phone':
+            IMask(this,{
+                mask: '+{7}(000)000-00-00'
+            });
+            break;
+
+        case 'int':
+            IMask(this,{
+                mask: Number
+            });
+            break;
+
+        case 'date':
+            IMask(this,{
+                mask: Date
+            });
+            break;
+
+        case 'float':
+            IMask(this,{
+                mask: Number,
+                radix: ',',
+            });
+            break;
+    }
+};
+
+function maskInit(){
+    // inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
+    // inputMask.forEach(el => el.removeEventListener('focusout', maskInitStart, false)); 
+    inputMask = document.querySelectorAll('.mask_js'); 
+    inputMask.forEach(el => el.addEventListener('focus', maskInitStart)); 
+}; 
 
 function keyItem(items,key_text){
     if (items && key_text) {
