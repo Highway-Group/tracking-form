@@ -228,7 +228,7 @@ function choiseJs(){
 function keyItem(items,key_text){
     if (items && key_text) {
         //расставляем номер 
-        for (var i = 0; i < items.length; i++) {
+        for (let i = 0; i < items.length; i++) {
             let item = items[i].querySelector(key_text);
             item.innerHTML = i + 1;
         }
@@ -249,14 +249,17 @@ let initCalc = function() {
     calcItem = document.querySelectorAll('.calculator .calc_item_js');
 
     let calcInput = '';
+    let sum = 0;
     for (let i = 0; i < calcItem.length; i++) {
         calcInput = calcItem[i].querySelectorAll('.calc_form1_js');
 
         for (let y = 0; y < calcInput.length; y++) {
             calc *= +calcInput[y].value;
         }
+        sum += calc;
+        console.log(sum)
     }
     
-    calcBtn.textContent = calc;
+    calcBtn.textContent = sum;
 }
 
