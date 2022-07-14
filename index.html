@@ -5,15 +5,15 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Форма отслеживания груза</title>
-		<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
+		<!-- <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
 		<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/libs.min.css">
 		<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
-		<script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
+		<script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script> -->
 		
-		<!-- <link rel="stylesheet" href="styles/fonts.min.css">
+		<link rel="stylesheet" href="styles/fonts.min.css">
 		<link rel="stylesheet" href="styles/libs.min.css">
 		<link rel="stylesheet" href="styles/style.min.css"> 
-		<script src="scripts/libs.min.js"></script>-->
+		<script src="scripts/libs.min.js"></script>
 
 		<script> 
 			var BASEURL = 'https://crm.hl-group.ru/api';
@@ -62,19 +62,19 @@
 							</div>
 							<div class="calculator__nav">
 								<div class="d-flex align-items-center">
-									<a href="#" class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
+									<div class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
 										data-option="getContainerJs" 
 										data-container=".container_calc_list_js" 
 										data-sources=".sources_calc_form_cargo_js"
 										data-key_text=".calc_count_js"
-										data-item=".calc_item_js">добавить партию</a>
+										data-item=".calc_item_js">добавить партию</div>
 										
-									<a href="#" class="call-js calculator__link calculator__link_remove" 
+									<div class="call-js calculator__link calculator__link_remove" 
 										data-option="removeItem" 
 										data-block_remove=".calc_item_js" 
 										data-last="true"
 										data-container=".container_calc_list_js"
-										data-key_text=".calc_count_js">удалить партию</a>
+										data-key_text=".calc_count_js">удалить партию</div>
 								</div>
 							</div>
 						</li>
@@ -129,7 +129,7 @@
 							СРАЗУ ЖЕ ПОЙМЁТЕ, ГДЕ ВАША ВЫГОДА
 						</div>
 					</div>
-					<form action="">
+					<form class="ajax-form" action="" method="get">
 						<ul class="calculator">
 							<li class="calculator__item">
 								<div class="row calculator__container m-0">
@@ -172,27 +172,32 @@
 										<input type="text" placeholder="E-mail" class="calculator__input">
 									</div>
 									<div class="col-md-4 p-0 calculator__input-group">
-										<input type="text" placeholder="Номер телефона" class="calculator__input mask_js" data-mask="phone">
+										<div class="input input_mask_flag">
+											<input type="text" placeholder="Номер телефона" class="calculator__input mask_js" data-mask="phone">
+											<div class="input_mask-flag call-js" data-option="toggleMask"></div>
+										</div>
 									</div>
 								</div>
 							</li>
 						</ul>
-					</form>
-					<div class="row justify-content-between">
-						<div class="col link-info pb-3 pb-md-0">
-							Нажимая кнопку «Отправить», вы принимаете <br>
-							<a class="link-doc" href="https://hl-group.ru/privacy-policy">условия обработки пользовательских данных</a>
-						</div>
-
-						<div class="col-md-5 col-lg-4">
-							<div class="d-flex justify-content-md-end">
-								<button type="submit" name="submit" class="btn btn_trace btn_calc text-white" value="searchTracking">отправить</button>
+						<div class="row justify-content-between">
+							<div class="col link-info pb-3 pb-md-0">
+								Нажимая кнопку «Отправить», вы принимаете <br>
+								<a class="link-doc" href="https://hl-group.ru/privacy-policy">условия обработки пользовательских данных</a>
+							</div>
+	
+							<div class="col-md-5 col-lg-4">
+								<div class="d-flex justify-content-md-end">
+									<button type="submit" name="submit" class="btn btn_trace btn_calc text-white" value="searchTracking">отправить</button>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
+					
 				</div>
 			</div>
 		</section>
+
 		<div class="d-none">
 			<li class="calculator__item calc_item_js sources_calc_form_cargo_js">
 				<div class="form-tracking__label form-tracking__label_min">
@@ -217,25 +222,25 @@
 				</div>
 				<div class="calculator__nav">
 					<div class="d-flex align-items-center">
-						<a href="#" class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
+						<div class="call-js mr-30 fw-700 calculator__link calculator__link_add" 
 							data-option="getContainerJs" 
 							data-container=".container_calc_list_js" 
 							data-sources=".sources_calc_form_cargo_js"
 							data-key_text=".calc_count_js"
-							data-item=".calc_item_js">добавить партию</a>
+							data-item=".calc_item_js">добавить партию</div>
 							
-						<a href="#" class="call-js calculator__link calculator__link_remove" 
+						<div class="call-js calculator__link calculator__link_remove" 
 							data-option="removeItem" 
 							data-block_remove=".calc_item_js" 
 							data-last="true"
 							data-container=".container_calc_list_js"
-							data-key_text=".calc_count_js">удалить партию</a>
+							data-key_text=".calc_count_js">удалить партию</div>
 					</div>
 				</div>
 			</li>
 		</div>
 
-		<script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script> 
-		<!-- <script defer src="scripts/script.min.js"></script>  -->
+		<!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
+		 <script defer src="scripts/script.min.js"></script> 
 	</body>
 </html>

@@ -12,6 +12,7 @@ let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 const calcInputForm2 = document.querySelectorAll('.calc_form2_js');
+let mask_phone;
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -111,6 +112,14 @@ function getOption(el, option, params) {
                 }
                 break;
     
+            case 'toggleMask':
+                let container = el.closest('.input_mask_flag');
+                let input = container.querySelector('.mask_js')
+                input.classList.toggle('block_mask');
+                el.classList.toggle('active'); 
+                input.focus();
+                break;
+
             default:
                 break;
         }
@@ -119,6 +128,7 @@ function getOption(el, option, params) {
     }finally{
         callJs();
         calcForm1Event();
+        maskInit();
     }
 }
 
@@ -174,16 +184,45 @@ function callJs(){
 }
 
 
+function maskInit(){
+    console.log('function maskInit()');
+    inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
+    inputMask = document.querySelectorAll('.mask_js'); 
+    inputMask.forEach(el => el.addEventListener('focus', maskInitStart)); 
+}; 
+
 let maskInitStart = function(e) {
     e.preventDefault();
     let type = this.getAttribute('data-mask');
 
     switch (type) {
         case 'phone':
-            IMask(this,{
-                mask: '+{7}(000)000-00-00',
-                lazy: false,
-            });
+            console.log('mask_phone_start'); 
+            
+            if(!this.classList.contains('block_mask')){
+                mask_phone = IMask(this,{
+                    mask: '+{7}(000)000-00-00',
+                    lazy: false,
+    
+                    prepare: function (str) {
+                        // обработчик до ввода
+                        return str.toUpperCase();
+                    },
+    
+                    commit: function (value, masked) {
+                         // обработчик после ввода
+                    }
+                });
+
+            }else{
+                let val_default = mask_phone.unmaskedValue;
+                if(val_default[0] == '7' && val_default.length > 1){
+                    val_default = val_default.replace(val_default[0], '');
+                }
+
+                mask_phone.destroy();
+                this.value = val_default; 
+            }
             break;
 
         case 'int':
@@ -207,14 +246,6 @@ let maskInitStart = function(e) {
             break;
     }
 };
-
-function maskInit(){
-    // inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
-    // inputMask.forEach(el => el.removeEventListener('focusout', maskInitStart, false)); 
-    inputMask = document.querySelectorAll('.mask_js'); 
-    inputMask.forEach(el => el.addEventListener('focus', maskInitStart)); 
-}; 
-
 
 function choiseJs(){
     selectChoise = document.querySelectorAll('.choice_js');

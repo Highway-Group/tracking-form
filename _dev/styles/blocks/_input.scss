@@ -1,0 +1,23 @@
+.input_mask_flag {
+    .input_mask {
+        padding-right: 40px;
+
+        &-flag {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-68%);
+            right: 12px;
+            width: 16px;
+            height: 10px;
+            background-image: url('images/flag.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            z-index: 10;
+
+            &.active {
+                filter: grayscale(100%);
+            }
+        }
+    }
+}

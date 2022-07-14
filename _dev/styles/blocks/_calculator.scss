@@ -66,6 +66,7 @@
     }
 
     &__input-group {
+        position: relative;
         &:not(:last-child) {
             border-right: 1px solid $gray-rgba;
 
@@ -105,6 +106,11 @@
         text-decoration: none;
         font-size: 12px;
         line-height: 14px;
+
+        &:hover {
+           cursor: pointer; 
+        }
+
         &_add {
             color: $dark-blue2;
             &:hover {
