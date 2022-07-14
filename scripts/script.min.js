@@ -11,7 +11,7 @@ let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):n
 let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
-
+const calcInputForm2 = document.querySelectorAll('.calc_form2_js');
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     callJs();
     maskInit();
     choiseJs();
-    calcForm1Event();
+    calcForm1Event(); 
 
     tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
         // табы для калькулятора
@@ -36,7 +36,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }));
 
-    
+    calcInputForm2.forEach(input => input.addEventListener('input', function(event) {
+        initCalc2();
+    }));
 });
 
 
@@ -116,7 +118,6 @@ function getOption(el, option, params) {
         console.log('error getOption');
     }finally{
         callJs();
-        initCalc();
         calcForm1Event();
     }
 }
@@ -237,29 +238,45 @@ function keyItem(items,key_text){
 
 
 function calcForm1Event(){
-    calcInputForm1.forEach(input => input.removeEventListener('keyup', initCalc, false));
+    calcInputForm1.forEach(input => input.removeEventListener('input', initCalc, false));
     calcInputForm1 = document.querySelectorAll('.calc_form1_js');
-    calcInputForm1.forEach(input => input.addEventListener('keyup', initCalc));
+    calcInputForm1.forEach(input => input.addEventListener('input', initCalc));
 }
 
+
 let initCalc = function() {
-    let calc = 1;
+    // формулая: сумма по каждой партии (длина * высота * ширина * количество * 167)
     const calcBtn = document.querySelector('.calc_form1_result_js');
     calcBtn.textContent = 0;
     calcItem = document.querySelectorAll('.calculator .calc_item_js');
-
     let calcInput = '';
     let sum = 0;
+    
     for (let i = 0; i < calcItem.length; i++) {
+        let calc = 167;
         calcInput = calcItem[i].querySelectorAll('.calc_form1_js');
 
         for (let y = 0; y < calcInput.length; y++) {
-            calc *= +calcInput[y].value;
+            if(calcInput[y].value != 0){
+                calc *= Number(calcInput[y].value);
+            }
         }
         sum += calc;
-        console.log(sum)
     }
     
     calcBtn.textContent = sum;
+}
+
+function initCalc2(){
+    // формула :  Вес груза, кг * Объем груза, м3
+    const calcBtn2 = document.querySelector('.calc_form2_result_js');
+    calcBtn2.textContent = 0;
+    let calc = 1;
+
+    calcInputForm2.forEach(input => {
+        calc *= Number(input.value);
+    });
+    
+    calcBtn2.textContent = calc;
 }
 
