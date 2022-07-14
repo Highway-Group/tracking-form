@@ -87,7 +87,7 @@ function getOption(el, option, params) {
                 }
 
                 if (params.container) {
-                    container = el.closest(params.container);
+                    let container = el.closest(params.container);
                 }
 
                 if(params.last == 'true' && params.container){
@@ -124,7 +124,7 @@ function getOption(el, option, params) {
                 break;
         }
     } catch (error) {
-        console.log('error getOption');
+        console.log(error);
     }finally{
         callJs();
         calcForm1Event();
@@ -188,7 +188,7 @@ function maskInit(){
     console.log('function maskInit()');
     inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
     inputMask = document.querySelectorAll('.mask_js'); 
-    inputMask.forEach(el => el.addEventListener('focus', maskInitStart)); 
+    inputMask.forEach(el => el.addEventListener('focus', maskInitStart));   
 }; 
 
 let maskInitStart = function(e) {
@@ -200,6 +200,11 @@ let maskInitStart = function(e) {
             console.log('mask_phone_start'); 
             
             if(!this.classList.contains('block_mask')){
+                let val_default = this.value;
+                if(val_default.length == 11 && val_default[0] == '8'){
+                    this.value = val_default.replace(val_default[0], '');
+                }
+
                 mask_phone = IMask(this,{
                     mask: '+{7}(000)000-00-00',
                     lazy: false,
@@ -216,9 +221,9 @@ let maskInitStart = function(e) {
 
             }else{
                 let val_default = mask_phone.unmaskedValue;
-                if(val_default[0] == '7' && val_default.length > 1){
-                    val_default = val_default.replace(val_default[0], '');
-                }
+                // if(val_default[0] == '7' && val_default.length > 1){
+                //     val_default = val_default.replace(val_default[0], '8');
+                // }
 
                 mask_phone.destroy();
                 this.value = val_default; 
