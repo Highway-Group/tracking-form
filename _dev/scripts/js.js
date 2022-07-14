@@ -288,7 +288,7 @@ function calcForm1Event(){
 
 let initCalc = function() {
     console.log('function initCalc()');
-    // формулая: сумма по каждой партии (длина * высота * ширина * количество * 167)
+    // формулая: сумма по каждой партии (длина * высота * ширина * количество) и перевод в м3
     const calcBtn = document.querySelector('.calc_form1_result_js');
     calcBtn.textContent = 0;
     calcItem = document.querySelectorAll('.calculator .calc_item_js');
@@ -308,15 +308,19 @@ let initCalc = function() {
 }
 
 function initCalc2(){
-    // формула :  Вес груза, кг * Объем груза, м3
+    // формула :  Вес груза, кг / Объем груза, м3
     const calcBtn2 = document.querySelector('.calc_form2_result_js');
     calcBtn2.textContent = 0;
-    let calc = 1;
+    let weight = document.querySelector('.calc_form2_js[name="weight"]');
+    let volume = document.querySelector('.calc_form2_js[name="volume"]');
 
-    calcInputForm2.forEach(input => {
-        calc *= Number(input.value);
-    });
-    
-    calcBtn2.textContent = calc;
+    if(weight && volume) {
+        let weight_val = Number(weight.value);
+        let volume_val = Number(volume.value);
+
+        if(weight_val && volume_val){
+            calcBtn2.textContent = weight_val / volume_val;
+        }
+    }
 }
 
