@@ -187,8 +187,10 @@ function callJs(){
 function maskInit(){
     console.log('function maskInit()');
     inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
+    inputMask.forEach(el => el.addEventListener('input', maskPhoneInput, false));  
     inputMask = document.querySelectorAll('.mask_js'); 
     inputMask.forEach(el => el.addEventListener('focus', maskInitStart));   
+    inputMask.forEach(el => el.addEventListener('input', maskPhoneInput)); 
 }; 
 
 let maskInitStart = function(e) {
@@ -221,9 +223,10 @@ let maskInitStart = function(e) {
 
             }else{
                 let val_default = mask_phone.unmaskedValue;
-                // if(val_default[0] == '7' && val_default.length > 1){
-                //     val_default = val_default.replace(val_default[0], '8');
-                // }
+                console.log('val_default.length = ' + val_default.length);
+                if(val_default[0] == '7' && val_default.length == 1){
+                    val_default = val_default.replace(val_default[0], '');
+                }
 
                 mask_phone.destroy();
                 this.value = val_default; 
@@ -251,6 +254,15 @@ let maskInitStart = function(e) {
             break;
     }
 };
+
+let maskPhoneInput = function(e) {
+    e.preventDefault();
+    let val_start = this.value; 
+    if(val_start.length == 27 && val_start[3] == '8'){
+        this.value = val_start.replace(val_start[3], '');
+    }
+};
+
 
 function choiseJs(){
     selectChoise = document.querySelectorAll('.choice_js');
