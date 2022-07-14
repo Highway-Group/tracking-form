@@ -185,7 +185,7 @@ function callJs(){
 
 
 function maskInit(){
-    console.log('function maskInit()');
+    //console.log('function maskInit()');
     inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
     inputMask.forEach(el => el.addEventListener('input', maskPhoneInput, false));  
     inputMask = document.querySelectorAll('.mask_js'); 
@@ -203,12 +203,16 @@ let maskInitStart = function(e) {
             
             if(!this.classList.contains('block_mask')){
                 let val_default = this.value;
-                if(val_default.length == 11 && val_default[0] == '8'){
-                    this.value = val_default.replace(val_default[0], '');
+
+                console.log('val_default[0] = ' + val_default[0]);
+                console.log('val_default.length = ' + val_default.length);
+
+                if(val_default.length == 11 && val_default[0] != '7'){
+                    this.value = val_default.replace(val_default[0], '7');
                 }
 
                 mask_phone = IMask(this,{
-                    mask: '+{7}(000)000-00-00',
+                    mask: '+{0}(000)000-00-00',
                     lazy: false,
     
                     prepare: function (str) {
@@ -223,7 +227,6 @@ let maskInitStart = function(e) {
 
             }else{
                 let val_default = mask_phone.unmaskedValue;
-                console.log('val_default.length = ' + val_default.length);
                 if(val_default[0] == '7' && val_default.length == 1){
                     val_default = val_default.replace(val_default[0], '');
                 }
@@ -258,8 +261,9 @@ let maskInitStart = function(e) {
 let maskPhoneInput = function(e) {
     e.preventDefault();
     let val_start = this.value; 
-    if(val_start.length == 27 && val_start[3] == '8'){
-        this.value = val_start.replace(val_start[3], '');
+
+    if((val_start.length == 17 || val_start.length == 27) && val_start[1] != '7'){ 
+        this.value = val_start.replace(val_start[1], '7');
     }
 };
 
