@@ -174,7 +174,7 @@ gulp.task('scripts', function() {
 
     return result;
 });
-
+ 
 //Запуск веб-сервера
 gulp.task('webserver', function () {
     browserSync(config);
