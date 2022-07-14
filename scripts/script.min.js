@@ -1,5 +1,3 @@
-let  baseurl = (typeof BASEURL !== 'undefined') ? BASEURL : '/';
-let  currentUrl = (typeof CURRENTURL !== 'undefined') ? CURRENTURL : '/';
 let  BREAKPOINT_XS = 0;
 let  BREAKPOINT_SM = 768;
 let  BREAKPOINT_MD = 992;
@@ -294,7 +292,7 @@ function calcForm1Event(){
 }
 
 let initCalc = function() {
-    console.log('function calcForm1Event()');
+    console.log('function initCalc()');
     // формулая: сумма по каждой партии (длина * высота * ширина * количество * 167)
     const calcBtn = document.querySelector('.calc_form1_result_js');
     calcBtn.textContent = 0;
