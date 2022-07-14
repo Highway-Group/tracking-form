@@ -304,7 +304,7 @@ let initCalc = function() {
         //console.log('calc = ' + calc);
         sum += calc;
     }
-    calcBtn.textContent = sum / 1000000;
+    calcBtn.textContent = (sum / 1000000).toFixed(2);
 }
 
 function initCalc2(){
