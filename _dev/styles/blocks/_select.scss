@@ -28,6 +28,11 @@
                 }
             }
 
+            .choices__list.is-active.choices__list--dropdown, 
+            .is-active.choices__list[aria-expanded]{
+                z-index: 15;
+            }
+
             .choices__list--dropdown .choices__item, 
             .choices__list[aria-expanded] .choices__item {
                 text-transform: none;
