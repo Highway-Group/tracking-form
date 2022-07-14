@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     callJs();
     maskInit();
     choiseJs();
-    calcForm1Event(); 
+    calcForm1Event();
 
     tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
         // табы для калькулятора
@@ -96,11 +96,7 @@ function getOption(el, option, params) {
                     if (count > 1) {
                         el.closest(params.block_remove).remove();
                     } else {
-                        // $.fn.systemMessage({
-                        //     title: 'Предупреждение!',
-                        //     text: 'Невозможно удалить последний элемент',
-                        //     type: 'warning'
-                        // });
+                        alert('Невозможно удалить последний элемент');
                     }
 
                     if (params.key_text) {
@@ -128,6 +124,7 @@ function getOption(el, option, params) {
     }finally{
         callJs();
         calcForm1Event();
+        initCalc(); 
         maskInit();
     }
 }
@@ -290,32 +287,30 @@ function keyItem(items,key_text){
 
 
 function calcForm1Event(){
+    console.log('function calcForm1Event()');
     calcInputForm1.forEach(input => input.removeEventListener('input', initCalc, false));
     calcInputForm1 = document.querySelectorAll('.calc_form1_js');
     calcInputForm1.forEach(input => input.addEventListener('input', initCalc));
 }
 
-
 let initCalc = function() {
+    console.log('function calcForm1Event()');
     // формулая: сумма по каждой партии (длина * высота * ширина * количество * 167)
     const calcBtn = document.querySelector('.calc_form1_result_js');
     calcBtn.textContent = 0;
     calcItem = document.querySelectorAll('.calculator .calc_item_js');
-    let calcInput = '';
     let sum = 0;
     
     for (let i = 0; i < calcItem.length; i++) {
         let calc = 167;
-        calcInput = calcItem[i].querySelectorAll('.calc_form1_js');
+        calcInputForm1 = calcItem[i].querySelectorAll('.calc_form1_js');
 
-        for (let y = 0; y < calcInput.length; y++) {
-            if(calcInput[y].value != 0){
-                calc *= Number(calcInput[y].value);
-            }
+        for (let y = 0; y < calcInputForm1.length; y++) {
+            calc *= Number(calcInputForm1[y].value);
         }
+        //console.log('calc = ' + calc);
         sum += calc;
     }
-    
     calcBtn.textContent = sum;
 }
 
