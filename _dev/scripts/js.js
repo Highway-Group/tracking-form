@@ -304,7 +304,7 @@ let initCalc = function() {
         //console.log('calc = ' + calc);
         sum += calc;
     }
-    calcBtn.textContent = sum;
+    calcBtn.textContent = sum / 1000000;
 }
 
 function initCalc2(){
