@@ -21,19 +21,7 @@
             position: relative;
             display: inline-block;
             margin-bottom: 60px;
-
-            @media (min-width: $md) and  (max-width: $max_lg) {
-                margin-bottom: 40px;
-            }
     
-            @media (min-width: $sm) and (max-width: $max_md) {
-                margin-bottom: 30px;
-            }
-    
-            @media (max-width: $max_sm) {
-                margin-bottom: 20px;
-            }
-
             &::after {
                 position: absolute;
                 content: '';
@@ -54,12 +42,6 @@
                 background-color: $bronze;
                 @media (max-width: $max_lg) {
                     left: -40px;
-                }
-                @media (max-width: $max_md) {
-                    left: -30px;
-                }
-                @media (max-width: $max_sm) {
-                    left: -16px;
                 }
             }
         }

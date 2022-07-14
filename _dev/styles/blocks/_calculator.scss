@@ -64,6 +64,9 @@
             color: $dark-blue-rgba;
             text-transform: none;
         }
+        &.mask_js {
+            padding-right: 50px;
+        }
     }
 
     &__input-group {

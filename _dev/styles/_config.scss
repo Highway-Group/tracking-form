@@ -10,6 +10,7 @@ $bronze: #BF8A77;
 $red: #E94D37;
 $gray-light: #F7F5F7;
 $gray: #F2F0F3;
+$gray2: #6C757D;
 
 $sm: 576px;
 $md: 768px;
@@ -39,7 +40,8 @@ body {
     }
 }
 
-ul {
+#first ul,
+#second ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -54,16 +56,8 @@ ul {
         max-width: 1080px;
         padding: 140px 70px 120px;
         
-        @media (min-width: $md) and  (max-width: $max_lg) {
-            padding: 80px 40px;
-        }
-
-        @media (min-width: $sm) and (max-width: $max_md) {
-            padding: 50px 30px;
-        }
-
-        @media (max-width: $max_sm) {
-            padding: 40px 15px;
+        @media (max-width: $max_lg) {
+            padding: 70px 40px;
         }
     }
 }

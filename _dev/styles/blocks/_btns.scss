@@ -152,14 +152,15 @@ button{
         cursor: default;
         display: flex;
         align-items: center;
-        text-align: center;
+        justify-content: flex-end;
 
         @media (min-width: $sm) and (max-width: $max_md) {
             padding: 20px 45px;
         }
 
         @media (max-width: $max_sm) {
-            padding: 15px;
+            padding: 15px 25px 25px;
+            justify-content: center;
         }
     }
     &.btn_num {
@@ -170,7 +171,7 @@ button{
         display: flex;
         align-items: center;
         justify-content: center;
-
+        text-transform: none;
         @media (min-width: $sm) and (max-width: $max_md) {
             padding: 20px 45px;
         }
@@ -193,22 +194,33 @@ button{
             transition: opacity .6s ease-out;
             display: flex;
             justify-content: start;
-            padding-left: 50px;
+            padding-left: 59px;
         }
         &::before {
             content: '';
-            width: 100%;
-            height: 100%;
+            width: 72px;
+            height: 12px;
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 49%;
+            transform: translateY(-50%);
+            left: 165px;
             background-image: url('images/arrow.svg');
+            background-size: contain;
             background-repeat: no-repeat;
-            background-position: 80% 49%;
             z-index: 2;
             transition-duration: .4s;
             transition-property: background-position;
             transition-timing-function: ease-out;
+            @media (max-width: $max_lg) {
+                top: 50%;
+                width: 50px;
+                left: 155px;
+            }
+            @media (max-width: $max_md) {
+                top: 50%;
+                width: 50px;
+                left: 55%;
+            }
         }
         &:hover {
             &::before {
