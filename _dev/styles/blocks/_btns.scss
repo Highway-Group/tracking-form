@@ -92,6 +92,11 @@ button{
             padding-left: 78px;
             background-size: 10px;
         }
+        &_min {
+            padding: 26px;
+            background-position: center;
+            background-size: 16px;
+        }
     }
     &.btn_complaints {
         background-color: $color-white;

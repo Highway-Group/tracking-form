@@ -1,0 +1,13 @@
+.modal-window {
+    position: fixed;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 500px;
+    min-height: 290px;
+    background-color: $color-white;
+    display: none;
+    &.active {
+        display: block;
+    }
+}

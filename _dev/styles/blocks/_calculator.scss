@@ -64,6 +64,11 @@
             color: $dark-blue-rgba;
             text-transform: none;
         }
+        &:focus {
+            &::placeholder {
+                color: transparent;
+            }
+        }
         &.mask_js {
             padding-right: 50px;
         }

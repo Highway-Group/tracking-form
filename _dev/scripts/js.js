@@ -6,6 +6,15 @@ let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 const calcInputForm2 = document.querySelectorAll('.calc_form2_js');
 let mask_phone;
+// получаем элементы для модального окна
+// полупрозрачный контейнер
+const overflow = document.querySelector('.overflow');
+// кнопка Отправить
+const btnSend = document.querySelector('.btn_calc');
+// кнопка Закрыть 
+const btnCloseMin = document.querySelector('.btn_close_min');
+// Модальное окно
+const modalWindow = document.querySelector('.modal-window');
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -322,5 +331,25 @@ function initCalc2(){
             calcBtn2.innerHTML = (weight_val / volume_val).toFixed(2) + ' kg/m<sup>3</sup>';
         }
     }
+}
+
+btnSend.addEventListener('click', showModal)
+document.querySelector('body').addEventListener('click', closeModal)
+function showModal(e) {
+    e.preventDefault()
+    modalWindow.classList.add('active')
+    overflow.classList.add('active')
+    document.querySelector('body').style.overflow = 'hidden'
+}
+
+function closeModal(e) {
+    e.preventDefault()
+    console.log(e.target)
+    if (e.target == overflow || e.target == btnCloseMin) {
+        modalWindow.classList.remove('active')
+        overflow.classList.remove('active')
+        document.querySelector('body').style.overflow = 'visible'
+    }
+
 }
 
