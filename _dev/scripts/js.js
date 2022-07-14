@@ -319,7 +319,7 @@ function initCalc2(){
         let volume_val = Number(volume.value);
 
         if(weight_val && volume_val){
-            calcBtn2.textContent = weight_val / volume_val;
+            calcBtn2.textContent = (weight_val / volume_val).toFixed(2);
         }
     }
 }
