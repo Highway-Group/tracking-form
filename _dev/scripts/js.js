@@ -126,11 +126,11 @@ function getOption(el, option, params) {
 function recordParamsData(that){ 
     try { 
         if(that){
-            var options = {};
-            var attr = that.attributes;
+            let options = {};
+            let attr = that.attributes;
             for (key in attr) {
-                var name = attr[key].name;
-                var val = attr[key].nodeValue;
+                let name = attr[key].name;
+                let val = attr[key].nodeValue;
 
                 if(name != undefined){
                     if (name.indexOf('data-') != -1) {
@@ -163,7 +163,7 @@ function changeTabs(event) {
 }
 
 let callJsOption = function() {
-    var name = this.getAttribute('data-option');
+    let name = this.getAttribute('data-option');
     getOption(this, name);
 }; 
 
