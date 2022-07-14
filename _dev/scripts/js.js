@@ -295,7 +295,7 @@ let initCalc = function() {
     let sum = 0;
     
     for (let i = 0; i < calcItem.length; i++) {
-        let calc = 167;
+        let calc = 1;
         calcInputForm1 = calcItem[i].querySelectorAll('.calc_form1_js');
 
         for (let y = 0; y < calcInputForm1.length; y++) {
