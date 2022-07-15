@@ -4,17 +4,17 @@ let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):n
 let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
-const calcInputForm2 = document.querySelectorAll('.calc_form2_js');
 let mask_phone;
+let systemModal = new bootstrap.Modal(document.getElementById('systemMessage'));
 // получаем элементы для модального окна
 // полупрозрачный контейнер
-const overflow = document.querySelector('.overflow');
-// кнопка Отправить
-const btnSend = document.querySelector('.btn_calc');
-// кнопка Закрыть 
-const btnCloseMin = document.querySelector('.btn_close_min');
-// Модальное окно
-const modalWindow = document.querySelector('.modal-window');
+// const overflow = document.querySelector('.overflow');
+// // кнопка Отправить
+// const btnSend = document.querySelector('.btn_calc');
+// // кнопка Закрыть 
+// const btnCloseMin = document.querySelector('.btn_close_min');
+// // Модальное окно
+// const modalWindow = document.querySelector('.modal-window');
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -39,11 +39,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }));
 
+    const calcInputForm2 = document.querySelectorAll('.calc_form2_js');
     calcInputForm2.forEach(input => input.addEventListener('input', function(event) {
         initCalc2();
     }));
+
+ 
+    new systemMessage({
+        type:'error',
+        title: ' ',
+        text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+    }).show();
 });
 
+
+class systemMessage {
+    constructor({type, title, text}) {
+        this._type = type ? type : 'error';
+        this._html_title = document.querySelectorAll('#systemMessage .system_title_js');
+        this._html_text = document.querySelectorAll('#systemMessage .system_text_js');
+
+        switch(this._type){ 
+            case 'error':
+                this._title = title ? title : 'Ошибка'; 
+                this._text = text ? text : 'Произошла ошибка, пожалйста обратитесь к разработчикам';
+                break;
+
+            case 'success':
+                this._title = title ? title : 'Успех'; 
+                this._text = text ? text : 'Операция успешно завершена';
+                break;
+        }       
+    }
+
+    show(){
+        this._html_title[0].textContent = this._title;
+        this._html_text[0].textContent = this._text;
+        systemModal.show(); 
+    }
+
+    hide(){
+        systemModal.hide();  
+    }
+};
 
 function getOption(el, option, params) {
     if (option == null) {
@@ -299,7 +337,7 @@ let initCalc = function() {
     console.log('function initCalc()');
     // формулая: сумма по каждой партии (длина * высота * ширина * количество) и перевод в м3
     const calcBtn = document.querySelector('.calc_form1_result_js');
-    calcBtn.innerHTML = 0 + ' м<sup>3</sup>';
+    calcBtn.innerHTML = 0;
     calcItem = document.querySelectorAll('.calculator .calc_item_js');
     let sum = 0;
     
@@ -313,13 +351,13 @@ let initCalc = function() {
         //console.log('calc = ' + calc);
         sum += calc;
     }
-    calcBtn.innerHTML = (sum / 1000000).toFixed(2) + ' м<sup>3</sup>';
-}
-
+    calcBtn.innerHTML = (sum / 1000000).toFixed(2);
+};
+ 
 function initCalc2(){
     // формула :  Вес груза, кг / Объем груза, м3
     const calcBtn2 = document.querySelector('.calc_form2_result_js');
-    calcBtn2.innerHTML = 0 + ' kg/m<sup>3</sup>';
+    calcBtn2.innerHTML = 0;
     let weight = document.querySelector('.calc_form2_js[name="weight"]');
     let volume = document.querySelector('.calc_form2_js[name="volume"]');
 
@@ -328,28 +366,29 @@ function initCalc2(){
         let volume_val = Number(volume.value);
 
         if(weight_val && volume_val){
-            calcBtn2.innerHTML = (weight_val / volume_val).toFixed(2) + ' kg/m<sup>3</sup>';
+            calcBtn2.innerHTML = (weight_val / volume_val).toFixed(2);
         }
     }
 }
 
-btnSend.addEventListener('click', showModal)
-document.querySelector('body').addEventListener('click', closeModal)
-function showModal(e) {
-    e.preventDefault()
-    modalWindow.classList.add('active')
-    overflow.classList.add('active')
-    document.querySelector('body').style.overflow = 'hidden'
-}
 
-function closeModal(e) {
-    e.preventDefault()
-    console.log(e.target)
-    if (e.target == overflow || e.target == btnCloseMin) {
-        modalWindow.classList.remove('active')
-        overflow.classList.remove('active')
-        document.querySelector('body').style.overflow = 'visible'
-    }
+// btnSend.addEventListener('click', showModal)
+// document.querySelector('body').addEventListener('click', closeModal)
+// function showModal(e) {
+//     e.preventDefault()
+//     modalWindow.classList.add('active')
+//     overflow.classList.add('active')
+//     document.querySelector('body').style.overflow = 'hidden'
+// }
 
-}
+// function closeModal(e) {
+//     e.preventDefault()
+//     console.log(e.target)
+//     if (e.target == overflow || e.target == btnCloseMin) {
+//         modalWindow.classList.remove('active')
+//         overflow.classList.remove('active')
+//         document.querySelector('body').style.overflow = 'visible'
+//     }
+
+// }
 

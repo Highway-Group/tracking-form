@@ -136,8 +136,9 @@ gulp.task('styles-fonts', function() {
             // '_dev/scripts/libs/jquery.inputmask.bundle.js',
             // '_dev/scripts/libs/select2/dist/js/select2.full.min.js',
             // '_dev/scripts/libs/sweetalert.min.js',
-            // '_dev/scripts/libs/jquery.fancybox.js' 
+            // '_dev/scripts/libs/jquery.fancybox.js'  
 
+            'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
             'node_modules/choices.js/public/assets/scripts/choices.js',
             'node_modules/imask/dist/imask.js',
         ], { 
