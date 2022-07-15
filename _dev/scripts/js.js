@@ -6,15 +6,7 @@ let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 let mask_phone;
 let systemModal = new bootstrap.Modal(document.getElementById('systemMessage'));
-// получаем элементы для модального окна
-// полупрозрачный контейнер
-// const overflow = document.querySelector('.overflow');
-// // кнопка Отправить
-// const btnSend = document.querySelector('.btn_calc');
-// // кнопка Закрыть 
-// const btnCloseMin = document.querySelector('.btn_close_min');
-// // Модальное окно
-// const modalWindow = document.querySelector('.modal-window');
+let ajaxForm = document.querySelectorAll('.ajax-form');
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -31,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     maskInit();
     choiseJs();
     calcForm1Event();
+    ajaxFormSubmit();
 
     tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
         // табы для калькулятора
@@ -45,36 +38,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }));
 
  
-    new systemMessage({
-        type:'error',
-        title: ' ',
-        text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
-    }).show();
+    // new systemMessage({
+    //     type:'success',
+    //     title: 'спасибо!',
+    //     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+    // }).show();
 });
 
 
 class systemMessage {
     constructor({type, title, text}) {
         this._type = type ? type : 'error';
-        this._html_title = document.querySelectorAll('#systemMessage .system_title_js');
-        this._html_text = document.querySelectorAll('#systemMessage .system_text_js');
+        this._html_title = document.querySelector('#systemMessage .system_title_js');
+        this._html_text = document.querySelector('#systemMessage .system_text_js'); 
 
         switch(this._type){ 
-            case 'error':
-                this._title = title ? title : 'Ошибка'; 
-                this._text = text ? text : 'Произошла ошибка, пожалйста обратитесь к разработчикам';
-                break;
-
             case 'success':
                 this._title = title ? title : 'Успех'; 
                 this._text = text ? text : 'Операция успешно завершена';
+                break;
+
+            default:
+                this._title = title ? title : 'Ошибка'; 
+                this._text = text ? text : 'Произошла ошибка, пожалйста обратитесь к разработчикам';
                 break;
         }       
     }
 
     show(){
-        this._html_title[0].textContent = this._title;
-        this._html_text[0].textContent = this._text;
+        this._html_title.textContent = this._title;
+        this._html_text.textContent = this._text; 
         systemModal.show(); 
     }
 
@@ -218,6 +211,19 @@ function callJs(){
     btnCallJs.forEach(el => el.removeEventListener('click', callJsOption, false)); //удаляем событие 
     btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])'); // получаем актуальный набор 
     btnCallJs.forEach(el => el.addEventListener('click', callJsOption));  // добавляем событие
+}
+
+
+let getAjaxForm = function(e) {
+    e.preventDefault();
+    let form = this;
+    console.log(this); 
+}; 
+
+function ajaxFormSubmit(){
+    ajaxForm.forEach(el => el.removeEventListener('submit', getAjaxForm, false));
+    ajaxForm = document.querySelectorAll('.ajax-form');
+    ajaxForm.forEach(el => el.addEventListener('submit', getAjaxForm));
 }
 
 
@@ -371,6 +377,18 @@ function initCalc2(){
     }
 }
 
+
+
+
+// получаем элементы для модального окна
+// полупрозрачный контейнер
+// const overflow = document.querySelector('.overflow');
+// // кнопка Отправить
+// const btnSend = document.querySelector('.btn_calc');
+// // кнопка Закрыть 
+// const btnCloseMin = document.querySelector('.btn_close_min');
+// // Модальное окно
+// const modalWindow = document.querySelector('.modal-window');
 
 // btnSend.addEventListener('click', showModal)
 // document.querySelector('body').addEventListener('click', closeModal)

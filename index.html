@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<title>Форма отслеживания груза</title>
@@ -13,9 +13,9 @@
 	<script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script> -->
 
 	<link rel="stylesheet" href="styles/fonts.min.css">
-		<link rel="stylesheet" href="styles/libs.min.css">
-		<link rel="stylesheet" href="styles/style.min.css"> 
-		<script src="scripts/libs.min.js"></script> 
+	<link rel="stylesheet" href="styles/libs.min.css">
+	<link rel="stylesheet" href="styles/style.min.css">
+	<script src="scripts/libs.min.js"></script>
 
 	<script>
 		var BASEURL = 'https://crm.hl-group.ru/api';
@@ -265,58 +265,40 @@
 	</div>
 
 	<!-- <div class="overflow"></div>
-		 <div class="modal-window">
-			<div class="d-flex justify-content-end">
-				<div class="btn btn_close btn_close_min"></div>
-			</div>
-			<div class="heading_thanks">спасибо!</div>
-			<div class="descr descr_modal">
-				Ваша заявка принята, наш менеджер 
-				свяжется с вами в ближайшее время
-			</div>
-		</div>  -->
+		<div class="modal-window">
+		<div class="d-flex justify-content-end">
+			<div class="btn btn_close btn_close_min"></div>
+		</div>
+		<div class="heading_thanks">спасибо!</div>
+		<div class="descr descr_modal">
+			Ваша заявка принята, наш менеджер 
+			свяжется с вами в ближайшее время
+		</div>
+	</div>   -->
 
 	<!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
 	<script defer src="scripts/script.min.js"></script>
 </body>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#systemMessage">
-	Запустите демо модального окна
-</button>
-
-<div class="modal fade" id="systemMessage">
+<div class="modal modal_theme_1 fade" id="systemMessage">
 	<div class="modal-dialog modal-dialog-centered">
-	<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title system_title_js" id="staticBackdropLabel">Заголовок модального окна</h5>
-			<button type="button" class="btn-close btn_close btn_close_min" data-bs-dismiss="modal" aria-label="Закрыть"></button> 
-		</div>
-		<div class="modal-body system_text_js">
-			Ваша заявка принята, наш менеджер 
-			свяжется с вами в ближайшее время
-		</div>
-		<!-- <div class="modal-footer">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="btn btn_close btn_close_min" data-bs-dismiss="modal"
+					aria-label="Закрыть"></button>
+			</div>
+			<div class="modal-body">
+				<h5 class="modal-title system_title_js">спасибо!</h5>
+				<div class="modal-text system_text_js">
+					Ваша заявка принята, наш менеджер
+					свяжется с вами в ближайшее время
+				</div>
+			</div>
+			<!-- <div class="modal-footer">
 		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
 		</div> -->
-	</div>
+		</div>
 	</div>
 </div>
 
-<div class="modal fade" id="systemMessage2">
-	<div class="modal-dialog modal-dialog-centered">
-	<div class="modal-content">
-		<div class="modal-header">
-			<!-- <h5 class="modal-title" id="staticBackdropLabel">Заголовок модального окна</h5> -->
-			<button type="button" class="btn-close btn_close btn_close_min" data-bs-dismiss="modal" aria-label="Закрыть"></button> 
-		</div>
-		<div class="modal-body">
-			Ваша заявка принята, наш менеджер 
-			свяжется с вами в ближайшее время22222
-		</div>
-		<!-- <div class="modal-footer">
-		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-		</div> -->
-	</div>
-	</div>
-</div>
 </html>
