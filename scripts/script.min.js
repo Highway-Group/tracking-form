@@ -1,15 +1,14 @@
 let  baseurl = (typeof BASEURL !== 'undefined') ? BASEURL : '/';
 let  currentUrl = (typeof CURRENTURL !== 'undefined') ? CURRENTURL : '/';
 const url = 'https://crm.hl-group.ru/api';
-//const params_get_token = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
-const params_get_token = {
-    request:'addLead',
-    token:'',
-    login:'api_app@mail.ru', 
-    password:'133api',
-    not_get_token:true,
-    ajax:true
-};
+const params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token';
+// const params_get_token = {
+//     request:'addLead',
+//     token:'',
+//     login:'api_app@mail.ru', 
+//     password:'133api',
+//     not_get_token:true,
+// };
 
 const tabsBtns = document.querySelectorAll('.btn_tab_js');
 const tabsContent = document.querySelectorAll('.tabs__content');
@@ -49,13 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
     calcInputForm2.forEach(input => input.addEventListener('input', function(event) {
         initCalc2();
     }));
-
- 
-    // new systemMessage({
-    //     type:'success',
-    //     title: 'спасибо!',
-    //     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
-    // }).show();
 });
 
 
@@ -77,55 +69,63 @@ function post(url, data) {
     });
 }
 
+function ajaxFormSubmit(){
+    ajaxForm.forEach(el => el.removeEventListener('submit', getAjaxForm, false));
+    ajaxForm = document.querySelectorAll('.ajax-form');
+    ajaxForm.forEach(el => el.addEventListener('submit', getAjaxForm));
+}
 
 let getAjaxForm = function(e) { 
+
+    // 'Способ: Автодоставка Объем: 6.11 Вес: 1830 Наименование: Рампа для крепления автомобилей в транспортном контейнере (6 комплектов) Куда: Владивосток Откуда: Хойчжоу';
+
     e.preventDefault(); 
     console.log('function getAjaxForm');
     let params = new FormData(this);
-    let comment = '';
+    let query = '';
+    let comments = '&comments=';
 
     for(let [name, value] of params) {
-        console.log('name = ' + name + ' value = ' + value); 
-        switch(name){
-            case 'phone':
-                params.append('phones', [value]);
-                break;
 
-            case 'email':
-                params.append('emails', [value]);
-                break;
-
+        switch(name) {
             case 'weight':
-                comment += 'Вес:';
-                comment += value;
-                break;
-
             case 'volume':
-                comment += 'Объём:';
-                comment += value;
+            case 'point_a':
+            case 'point_b':
+            case 'type_delivery':
+            case 'product_title':
+                let input = this.querySelector('[name="' + name + '"]');
+                if(input){
+                    let placeholder = input.getAttribute('placeholder');
+                    if(placeholder.indexOf(',') != -1){
+                        placeholder = placeholder.replace(',','');
+                    }
+                    comments += placeholder+'='+value+',';
+                }
                 break;
-        }       
+
+            default:
+                query += '&'+name+'='+value;     
+                break;
+        }
+        
+        if(name == 'phone'){
+            query += '&phones[]='+value;    
+        }
+        if(name == 'email'){
+            query += '&emails[]='+value;    
+        }
     }
 
-    console.log(comment); 
 
-    params.append('comment', comment);
-
-    for (key in params_get_token) {
-        params.append(key, params_get_token[key]);
-    }
-
-    // fetch(baseurl, {
-    //     method: 'POST',
-    //     body: params 
-    // });
-
-    post(url, params).then(response =>  {
+    post(url, params_get_token + query + comments).then(response =>  {
         let result = JSON.parse(response);
-
         if(result.success == true){
-            if(result.result){
-            }
+            new systemMessage({
+                type:'success',
+                title: 'спасибо!',
+                text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+            }).show();
         }
     }).catch(error => console.error(error));
 }; 
@@ -297,13 +297,6 @@ function callJs(){
     btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])'); // получаем актуальный набор 
     btnCallJs.forEach(el => el.addEventListener('click', callJsOption));  // добавляем событие
 }
-
-function ajaxFormSubmit(){
-    ajaxForm.forEach(el => el.removeEventListener('submit', getAjaxForm, false));
-    ajaxForm = document.querySelectorAll('.ajax-form');
-    ajaxForm.forEach(el => el.addEventListener('submit', getAjaxForm));
-}
-
 
 function maskInit(){
     //console.log('function maskInit()');
