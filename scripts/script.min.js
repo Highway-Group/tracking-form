@@ -1,3 +1,16 @@
+let  baseurl = (typeof BASEURL !== 'undefined') ? BASEURL : '/';
+let  currentUrl = (typeof CURRENTURL !== 'undefined') ? CURRENTURL : '/';
+const url = 'https://crm.hl-group.ru/api';
+//const params_get_token = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
+const params_get_token = {
+    request:'addLead',
+    token:'',
+    login:'api_app@mail.ru', 
+    password:'133api',
+    not_get_token:true,
+    ajax:true
+};
+
 const tabsBtns = document.querySelectorAll('.btn_tab_js');
 const tabsContent = document.querySelectorAll('.tabs__content');
 let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
@@ -44,6 +57,78 @@ document.addEventListener('DOMContentLoaded', function() {
     //     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
     // }).show();
 });
+
+
+function post(url, data) {
+    return new Promise((succeed, fail) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.addEventListener("load", () => {
+            if (xhr.status >=200 && xhr.status < 400){
+                succeed(xhr.response);
+            } 
+            else{
+                fail(new Error(`Request failed: ${xhr.statusText}`));
+            }
+        });
+        xhr.addEventListener("error", () => fail(new Error("Network error")));
+        xhr.send(data);
+    });
+}
+
+
+let getAjaxForm = function(e) { 
+    e.preventDefault(); 
+    console.log('function getAjaxForm');
+    let params = new FormData(this);
+    let comment = '';
+
+    for(let [name, value] of params) {
+        console.log('name = ' + name + ' value = ' + value); 
+        switch(name){
+            case 'phone':
+                params.append('phones', [value]);
+                break;
+
+            case 'email':
+                params.append('emails', [value]);
+                break;
+
+            case 'weight':
+                comment += 'Вес:';
+                comment += value;
+                break;
+
+            case 'volume':
+                comment += 'Объём:';
+                comment += value;
+                break;
+        }       
+    }
+
+    console.log(comment); 
+
+    params.append('comment', comment);
+
+    for (key in params_get_token) {
+        params.append(key, params_get_token[key]);
+    }
+
+    // fetch(baseurl, {
+    //     method: 'POST',
+    //     body: params 
+    // });
+
+    post(url, params).then(response =>  {
+        let result = JSON.parse(response);
+
+        if(result.success == true){
+            if(result.result){
+            }
+        }
+    }).catch(error => console.error(error));
+}; 
 
 
 class systemMessage {
@@ -213,13 +298,6 @@ function callJs(){
     btnCallJs.forEach(el => el.addEventListener('click', callJsOption));  // добавляем событие
 }
 
-
-let getAjaxForm = function(e) {
-    e.preventDefault();
-    let form = this;
-    console.log(this); 
-}; 
-
 function ajaxFormSubmit(){
     ajaxForm.forEach(el => el.removeEventListener('submit', getAjaxForm, false));
     ajaxForm = document.querySelectorAll('.ajax-form');
@@ -310,7 +388,6 @@ let maskPhoneInput = function(e) {
     }
 };
 
-
 function choiseJs(){
     selectChoise = document.querySelectorAll('.choice_js');
     selectChoise.forEach((select, index) => {
@@ -319,7 +396,6 @@ function choiseJs(){
         });
     });
 }
-
 
 function keyItem(items,key_text){
     if (items && key_text) {
@@ -330,7 +406,6 @@ function keyItem(items,key_text){
         }
     }
 }
-
 
 function calcForm1Event(){
     console.log('function calcForm1Event()');
@@ -376,7 +451,6 @@ function initCalc2(){
         }
     }
 }
-
 
 
 
