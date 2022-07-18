@@ -172,7 +172,7 @@ function getOption(el, option, params) {
     try {
         if (params == null) {
             params = recordParamsData(el) || {};
-        }
+        } 
 
         console.log(params); 
 
@@ -231,10 +231,16 @@ function getOption(el, option, params) {
     
             case 'toggleMask':
                 let container = el.closest('.input_mask_flag');
-                let input = container.querySelector('.mask_js')
-                input.classList.toggle('block_mask');
-                el.classList.toggle('active'); 
-                input.focus();
+                let input = container.querySelector('.mask_js');
+                if(input){
+                    input.classList.toggle('block_mask');
+                    if(el){
+                        el.classList.toggle('active'); 
+                    }
+                    
+                    input.focus();
+                }
+                
                 break;
 
             default:
@@ -280,12 +286,22 @@ function changeTabs(event) {
     switch(event.type){
         case 'click':
             tabsBtns.forEach((tab, i) => {
-                tab.classList.remove('active');
-                tabsContent[i].classList.remove('active');
+                if(tab){
+                    tab.classList.remove('active');
+                }
+
+                if(tabsContent[i]){
+                    tabsContent[i].classList.remove('active');
+                }
             });
+
+            if(tabsBtns[tabId - 1]){
+                tabsBtns[tabId - 1].classList.add('active');
+            }
         
-            tabsBtns[tabId - 1].classList.add('active');
-            tabsContent[tabId - 1].classList.add('active');
+            if(tabsContent[tabId - 1]){
+                tabsContent[tabId - 1].classList.add('active');
+            }
             break;
     }
 }
@@ -318,38 +334,40 @@ let maskInitStart = function(e) {
         case 'phone':
             console.log('mask_phone_start'); 
             
-            if(!this.classList.contains('block_mask')){
-                let val_default = this.value;
-
-                console.log('val_default[0] = ' + val_default[0]);
-                console.log('val_default.length = ' + val_default.length);
-
-                if(val_default.length == 11 && val_default[0] != '7'){
-                    this.value = val_default.replace(val_default[0], '7');
-                }
-
-                mask_phone = IMask(this,{
-                    mask: '+{0}(000)000-00-00',
-                    lazy: false,
+            if(this){
+                if(!this.classList.contains('block_mask')){
+                    let val_default = this.value;
     
-                    prepare: function (str) {
-                        // обработчик до ввода
-                        return str.toUpperCase();
-                    },
+                    console.log('val_default[0] = ' + val_default[0]);
+                    console.log('val_default.length = ' + val_default.length);
     
-                    commit: function (value, masked) {
-                         // обработчик после ввода
+                    if(val_default.length == 11 && val_default[0] != '7'){
+                        this.value = val_default.replace(val_default[0], '7');
                     }
-                });
-
-            }else{
-                let val_default = mask_phone.unmaskedValue;
-                if(val_default[0] == '7' && val_default.length == 1){
-                    val_default = val_default.replace(val_default[0], '');
+    
+                    mask_phone = IMask(this,{
+                        mask: '+{0}(000)000-00-00',
+                        lazy: false,
+        
+                        prepare: function (str) {
+                            // обработчик до ввода
+                            return str.toUpperCase();
+                        },
+        
+                        commit: function (value, masked) {
+                             // обработчик после ввода
+                        }
+                    });
+    
+                }else{
+                    let val_default = mask_phone.unmaskedValue;
+                    if(val_default[0] == '7' && val_default.length == 1){
+                        val_default = val_default.replace(val_default[0], '');
+                    }
+    
+                    mask_phone.destroy();
+                    this.value = val_default; 
                 }
-
-                mask_phone.destroy();
-                this.value = val_default; 
             }
             break;
 

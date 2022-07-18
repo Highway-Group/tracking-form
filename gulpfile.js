@@ -146,7 +146,7 @@ gulp.task('styles-fonts', function() {
         })
         .pipe(concat('libs.min.js')); // Собираем их в кучу в новом файле libs.min.js
 
-    result = result.pipe(terser()); // Сжимаем JS файл
+    //result = result.pipe(terser()); // Сжимаем JS файл
 
     result
         .pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
