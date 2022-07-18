@@ -17,7 +17,7 @@ let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 let mask_phone;
-let systemModal = new bootstrap.Modal(document.getElementById('systemMessage'));
+let systemMessage = new bootstrap.Modal(document.getElementById('systemMessage'));
 let ajaxForm = document.querySelectorAll('.ajax-form');
 
 let  IS_MOBILE = false;
@@ -124,7 +124,7 @@ let getAjaxForm = function(e) {
     post(url, params_get_token + query + comment).then(response =>  {
         let result = JSON.parse(response);
         if(result.success == true){
-            new systemMessage({
+            new systemModal({
                 type:'success',
                 title: 'спасибо!',
                 text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
@@ -134,7 +134,7 @@ let getAjaxForm = function(e) {
 }; 
 
 
-class systemMessage {
+class systemModal{
     constructor({type, title, text}) {
         this._type = type ? type : 'error';
         this._html_title = document.querySelector('#systemMessage .system_title_js');
@@ -152,15 +152,20 @@ class systemMessage {
                 break;
         }       
     }
-
+ 
     show(){
         this._html_title.textContent = this._title;
         this._html_text.textContent = this._text; 
-        systemModal.show(); 
+
+        if(systemMessage){
+            systemMessage.show(); 
+        }
     }
 
     hide(){
-        systemModal.hide();  
+        if(systemMessage){
+            systemMessage.hide(); 
+        }   
     }
 };
 
