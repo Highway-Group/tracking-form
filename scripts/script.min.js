@@ -17,7 +17,7 @@ let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 let mask_phone;
-//let systemMessage = new bootstrap.Modal(document.getElementById('systemMessage'));
+let systemMessage = new bootstrap.Modal(document.getElementById('systemMessage'));
 let ajaxForm = document.querySelectorAll('.ajax-form');
 
 let  IS_MOBILE = false;
