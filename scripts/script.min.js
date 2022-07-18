@@ -83,10 +83,9 @@ let getAjaxForm = function(e) {
     console.log('function getAjaxForm');
     let params = new FormData(this);
     let query = '';
-    let comments = '&comments=';
+    let comment = 'comment=';
 
     for(let [name, value] of params) {
-
         switch(name) {
             case 'weight':
             case 'volume':
@@ -100,25 +99,29 @@ let getAjaxForm = function(e) {
                     if(placeholder.indexOf(',') != -1){
                         placeholder = placeholder.replace(',','');
                     }
-                    comments += placeholder+'='+value+',';
+                    comment += placeholder+':'+value+',';
                 }
                 break;
 
+            case 'search_terms':
+                break; 
+
             default:
-                query += '&'+name+'='+value;     
+                
+                query += name+'='+value+'&';     
                 break;
         }
         
         if(name == 'phone'){
-            query += '&phones[]='+value;    
+            query += 'phones[]='+value+'&';    
         }
         if(name == 'email'){
-            query += '&emails[]='+value;    
+            query += 'emails[]='+value+'&';    
         }
     }
 
 
-    post(url, params_get_token + query + comments).then(response =>  {
+    post(url, params_get_token + query + comment).then(response =>  {
         let result = JSON.parse(response);
         if(result.success == true){
             new systemMessage({
