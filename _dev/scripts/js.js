@@ -1,7 +1,7 @@
 let  baseurl = (typeof BASEURL !== 'undefined') ? BASEURL : '/';
 let  currentUrl = (typeof CURRENTURL !== 'undefined') ? CURRENTURL : '/';
 const url = 'https://crm.hl-group.ru/api';
-const params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token';
+const params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token&';
 // const params_get_token = {
 //     request:'addLead',
 //     token:'',
@@ -86,6 +86,8 @@ let getAjaxForm = function(e) {
     let comment = 'comment=';
 
     for(let [name, value] of params) {
+        console.log('name: ' + name + ' value: ' + value);
+
         switch(name) {
             case 'weight':
             case 'volume':
@@ -107,7 +109,6 @@ let getAjaxForm = function(e) {
                 break; 
 
             default:
-                
                 query += name+'='+value+'&';     
                 break;
         }
