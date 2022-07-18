@@ -132,12 +132,6 @@ gulp.task('styles-fonts', function() {
     // перечисляем файлы, которые будут добавлены в lib.min.js
     // порядок файлов важен!!!
     var result = gulp.src([
-            // 'node_modules/jquery/dist/jquery.js',
-            // '_dev/scripts/libs/jquery.inputmask.bundle.js',
-            // '_dev/scripts/libs/select2/dist/js/select2.full.min.js',
-            // '_dev/scripts/libs/sweetalert.min.js',
-            // '_dev/scripts/libs/jquery.fancybox.js'  
-
             'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
             'node_modules/choices.js/public/assets/scripts/choices.js',
             'node_modules/imask/dist/imask.js',
@@ -147,6 +141,30 @@ gulp.task('styles-fonts', function() {
         .pipe(concat('libs.min.js')); // Собираем их в кучу в новом файле libs.min.js
 
     //result = result.pipe(terser()); // Сжимаем JS файл
+
+    result
+        .pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
+
+    return result;
+});
+
+
+// ОБЪЕДИНЕНИЕ JS БИБЛИОТЕК
+gulp.task('build-js-jquery', function() {
+    // перечисляем файлы, которые будут добавлены в lib.min.js
+    // порядок файлов важен!!!
+    var result = gulp.src([
+            'node_modules/jquery/dist/jquery.js',
+            '_dev/scripts/libs/jquery.inputmask.bundle.js',
+            '_dev/scripts/libs/select2/dist/js/select2.full.min.js',
+            '_dev/scripts/libs/sweetalert.min.js',
+            '_dev/scripts/libs/jquery.fancybox.js'  
+        ], { 
+            sourcemaps: false
+        })
+        .pipe(concat('libs-jquery.min.js')); // Собираем их в кучу в новом файле libs.min.js
+
+    result = result.pipe(terser()); // Сжимаем JS файл
 
     result
         .pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
@@ -176,6 +194,25 @@ gulp.task('scripts', function() {
     return result;
 });
 
+gulp.task('scripts-jquery', function() {
+    var result = gulp.src([
+            '_dev/scripts/init-crm.js',
+            '_dev/scripts/script.js' 
+        ], {
+            //sourcemaps: false
+        })
+        .pipe(concat('script-jquery.min.js'));
+ 
+    //result = result.pipe(terser()); // Сжимаем JS файл
+   
+    result
+        // .pipe(rename({suffix: '.min'})) // дописываем суффикс .min
+        .pipe(gulp.dest('scripts')) // Выгружаем в папку scripts
+        .pipe(reload({stream: true}));
+
+    return result;
+});
+
 //Запуск веб-сервера
 gulp.task('webserver', function () {
     browserSync(config);
@@ -189,10 +226,10 @@ gulp.task('watch', function() {
 });
 
 gulp.task('build-styles', gulp.series('build-css', 'styles'));
-gulp.task('build-scripts', gulp.series('build-js', 'scripts'));
+gulp.task('build-scripts', gulp.series('build-js', 'scripts', 'build-js-jquery', 'scripts-jquery'));
 
 
 // это таск по умолчанию. запускается из папки проекта командой "gulp".
-gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', 'build-js', 'build-css', gulp.parallel('webserver', 'watch')));
+gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', 'build-js-jquery', 'build-js', 'scripts-jquery', 'build-css',  gulp.parallel('webserver', 'watch')));
 // можно запустить отдельные таски. для этого после команды "gulp"
 // перечисляются таски, которые нужно запустить.
