@@ -17,7 +17,7 @@ let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 let mask_phone;
-let systemMessage = new bootstrap.Modal(document.getElementById('systemMessage'));
+//let systemMessage = new bootstrap.Modal(document.getElementById('systemMessage'));
 let ajaxForm = document.querySelectorAll('.ajax-form');
 
 let  IS_MOBILE = false;
@@ -124,50 +124,50 @@ let getAjaxForm = function(e) {
     post(url, params_get_token + query + comment).then(response =>  {
         let result = JSON.parse(response);
         if(result.success == true){
-            new systemModal({
-                type:'success',
-                title: 'спасибо!',
-                text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
-            }).show();
+            // new systemModal({
+            //     type:'success',
+            //     title: 'спасибо!',
+            //     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+            // }).show();
         }
     }).catch(error => console.error(error));
 }; 
 
 
-class systemModal{
-    constructor({type, title, text}) {
-        this._type = type ? type : 'error';
-        this._html_title = document.querySelector('#systemMessage .system_title_js');
-        this._html_text = document.querySelector('#systemMessage .system_text_js'); 
+// class systemModal{
+//     constructor({type, title, text}) {
+//         this._type = type ? type : 'error';
+//         this._html_title = document.querySelector('#systemMessage .system_title_js');
+//         this._html_text = document.querySelector('#systemMessage .system_text_js'); 
 
-        switch(this._type){ 
-            case 'success':
-                this._title = title ? title : 'Успех'; 
-                this._text = text ? text : 'Операция успешно завершена';
-                break;
+//         switch(this._type){ 
+//             case 'success':
+//                 this._title = title ? title : 'Успех'; 
+//                 this._text = text ? text : 'Операция успешно завершена';
+//                 break;
 
-            default:
-                this._title = title ? title : 'Ошибка'; 
-                this._text = text ? text : 'Произошла ошибка, пожалйста обратитесь к разработчикам';
-                break;
-        }       
-    }
+//             default:
+//                 this._title = title ? title : 'Ошибка'; 
+//                 this._text = text ? text : 'Произошла ошибка, пожалйста обратитесь к разработчикам';
+//                 break;
+//         }       
+//     }
  
-    show(){
-        this._html_title.textContent = this._title;
-        this._html_text.textContent = this._text; 
+//     show(){
+//         this._html_title.textContent = this._title;
+//         this._html_text.textContent = this._text; 
 
-        if(systemMessage){
-            systemMessage.show(); 
-        }
-    }
+//         if(systemMessage){
+//             systemMessage.show(); 
+//         }
+//     }
 
-    hide(){
-        if(systemMessage){
-            systemMessage.hide(); 
-        }   
-    }
-};
+//     hide(){
+//         if(systemMessage){
+//             systemMessage.hide(); 
+//         }   
+//     }
+// };
 
 function getOption(el, option, params) {
     if (option == null) {
