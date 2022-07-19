@@ -7,8 +7,7 @@
         <title>Форма отслеживания груза</title>
         <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
         <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
-        <!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
-        <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
+        <script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>  
         
         <!-- <link rel="stylesheet" href="styles/fonts.min.css">
         <link rel="stylesheet" href="styles/style.min.css"> 
@@ -16,7 +15,7 @@
         <script src="scripts/script.min.js"></script>    -->
 
         <script> 
-            var baseurl = 'https://crm.hl-group.ru/api';
+            var BASEURL = 'https://crm.hl-group.ru/api';
             var message_data;
         </script>
 </head>
@@ -54,8 +53,28 @@
             </div>
         </div>
 
-        
-        <script>    
+        <div class="modal modal_theme_1 fade" id="systemMessage">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn btn_close btn_close_min" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="modal-title system_title_js">спасибо!</h5>
+                        <div class="modal-text system_text_js">
+                            Ваша заявка принята, наш менеджер
+                            свяжется с вами в ближайшее время
+                        </div>
+                    </div>
+                    <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div> -->
+                </div>
+            </div>
+        </div>
+
+        <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>
+        <!-- <script>    
             const url = 'https://crm.hl-group.ru/api';
             const params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
 
@@ -108,6 +127,6 @@
                     }
                 }
             }).catch(error => console.error(error));
-        </script>
+        </script> -->
     </body>
 </html>
