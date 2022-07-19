@@ -1,12 +1,11 @@
-let  baseurl = (typeof BASEURL !== 'undefined') ? BASEURL : '/';
-let  currentUrl = (typeof CURRENTURL !== 'undefined') ? CURRENTURL : '/';
+let baseurl = (typeof BASEURL !== 'undefined') ? BASEURL : '/';
+let currentUrl = (typeof CURRENTURL !== 'undefined') ? CURRENTURL : '/';
 let ajaxForm = document.querySelectorAll('.ajax-form');
 let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
 let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 let mask_phone;
-let systemMessage = new bootstrap.Modal(document.getElementById('systemMessage'));
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -52,6 +51,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
+
+class systemModal{
+    constructor({type, title, text}) {
+        this._type = type ? type : 'error';
+        this._html_title = document.querySelector('#systemMessage .system_title_js');
+        this._html_text = document.querySelector('#systemMessage .system_text_js'); 
+       
+        switch(this._type){ 
+            case 'success':
+                this._title = title ? title : 'Успех'; 
+                this._text = text ? text : 'Операция успешно завершена';
+                break;
+
+            default:
+                this._title = title ? title : 'Ошибка'; 
+                this._text = text ? text : 'Произошла ошибка, пожалйста обратитесь к разработчикам';
+                break;
+        }       
+    }
+    
+    show(){
+        let modal = document.getElementById('systemMessage');
+
+        if(this._html_title && this._html_text){
+            this._html_title.innerHTML = this._title;
+            this._html_text.innerHTML = this._text; 
+        }
+         
+        if(modal){
+            let systemMessage = new bootstrap.Modal(modal);
+            systemMessage.show(); 
+        }
+    }
+
+    hide(){
+        let modal = document.getElementById('systemMessage');
+        if(modal){
+            let systemMessage = new bootstrap.Modal(modal);
+            systemMessage.hide(); 
+        } 
+    }
+};
 
 function postJS(baseurl, data) {
     return new Promise((succeed, fail) => {
@@ -211,130 +254,6 @@ function getAjaxFormTracking(form) {
     }
 }; 
 
-class systemModal{
-    constructor({type, title, text}) {
-        this._type = type ? type : 'error';
-        this._html_title = document.querySelector('#systemMessage .system_title_js');
-        this._html_text = document.querySelector('#systemMessage .system_text_js'); 
-
-        switch(this._type){ 
-            case 'success':
-                this._title = title ? title : 'Успех'; 
-                this._text = text ? text : 'Операция успешно завершена';
-                break;
-
-            default:
-                this._title = title ? title : 'Ошибка'; 
-                this._text = text ? text : 'Произошла ошибка, пожалйста обратитесь к разработчикам';
-                break;
-        }       
-    }
- 
-    show(){
-        this._html_title.innerHTML = this._title;
-        this._html_text.innerHTML = this._text; 
-
-        if(systemMessage){
-            systemMessage.show(); 
-        }
-    }
-
-    hide(){
-        if(systemMessage){
-            systemMessage.hide(); 
-        }   
-    }
-};
-
-function getOption(el, option, params) {
-    if (option == null) {
-        option = el.getAttribute('data-option');
-    }
-
-    try {
-        if (params == null) {
-            params = recordParamsData(el) || {};
-        } 
-
-        console.log(params); 
-
-        switch (option) {
-            case 'getContainerJs':  
-                if(params.container && params.sources){
-                    let sources  = document.querySelector(params.sources);
- 
-                    if(sources){
-                        let html = sources.cloneNode(true); //клонируем исходный блок
-                        let container = el.closest(params.container);
-                        container.append(html);
-     
-                        let last_item = document.querySelector(params.container + ' ' + params.sources); //нашли вставленный блок
-                        if(last_item){ 
-                            // удаляем класс исходного блока с вставленного блока
-                            last_item.classList.remove(params.sources.replace('.',''));
-                        }
-
-                        if (params.item && params.key_text) {
-                            let items = document.querySelectorAll(params.item+':not('+params.sources+')');
-                            keyItem(items, params.key_text);
-                        }
-                    }
-                }
-                break;
-    
-            case 'removeItem':
-                if(el.closest('form')){
-                    let form = el.closest('form');
-                }
-
-                if (params.container) {
-                    let container = el.closest(params.container);
-                }
-
-                if(params.last == 'true' && params.container){
-                    let count = document.querySelectorAll(params.container + ' ' + params.block_remove).length;
-
-                    if (count > 1) {
-                        el.closest(params.block_remove).remove();
-                    } else {
-                        alert('Невозможно удалить последний элемент');
-                    }
-
-                    if (params.key_text) {
-                        let items = document.querySelectorAll(params.block_remove+':not('+params.sources+')');
-                        keyItem(items, params.key_text);
-                    }
-                }else{
-                    el.closest(params.block_remove).remove();
-                }
-                break;
-    
-            case 'toggleMask':
-                let container = el.closest('.input_mask_flag');
-                let input = container.querySelector('.mask_js');
-                if(input){
-                    input.classList.toggle('block_mask');
-                    if(el){
-                        el.classList.toggle('active'); 
-                    }
-                    
-                    input.focus();
-                }
-                break;
-
-            default:
-                break;
-        }
-    } catch (error) {
-        console.log(error);
-    }finally{
-        callJs();
-        calcForm1Event();
-        initCalc(); 
-        maskInit();
-    }
-}
-
 function getFormData(form) {
     console.log('function getFormData');
     let data = {};
@@ -394,8 +313,8 @@ function recordParamsData(that){
 
 function changeTabs(that) {
     try {
-        let tabsBtns = document.querySelectorAll('.btn_tab_js');
         let container = that.closest('.tabs');
+        let tabsBtns = container.querySelectorAll('.btn_tab_js');
         let tabsContent = container.querySelectorAll('.tabs__content');
         let tabId = that.dataset.tab;
 
@@ -698,6 +617,97 @@ function removeErrorInput(input, class_name) {
 }
 //проверка форм END
 
+
+
+
+function getOption(el, option, params) {
+    if (option == null) {
+        option = el.getAttribute('data-option');
+    }
+
+    try {
+        if (params == null) {
+            params = recordParamsData(el) || {};
+        } 
+
+        console.log(params); 
+
+        switch (option) {
+            case 'getContainerJs':  
+                if(params.container && params.sources){
+                    let sources  = document.querySelector(params.sources);
+ 
+                    if(sources){
+                        let html = sources.cloneNode(true); //клонируем исходный блок
+                        let container = el.closest(params.container);
+                        container.append(html);
+     
+                        let last_item = document.querySelector(params.container + ' ' + params.sources); //нашли вставленный блок
+                        if(last_item){ 
+                            // удаляем класс исходного блока с вставленного блока
+                            last_item.classList.remove(params.sources.replace('.',''));
+                        }
+
+                        if (params.item && params.key_text) {
+                            let items = document.querySelectorAll(params.item+':not('+params.sources+')');
+                            keyItem(items, params.key_text);
+                        }
+                    }
+                }
+                break;
+    
+            case 'removeItem':
+                if(el.closest('form')){
+                    let form = el.closest('form');
+                }
+
+                if (params.container) {
+                    let container = el.closest(params.container);
+                }
+
+                if(params.last == 'true' && params.container){
+                    let count = document.querySelectorAll(params.container + ' ' + params.block_remove).length;
+
+                    if (count > 1) {
+                        el.closest(params.block_remove).remove();
+                    } else {
+                        alert('Невозможно удалить последний элемент');
+                    }
+
+                    if (params.key_text) {
+                        let items = document.querySelectorAll(params.block_remove+':not('+params.sources+')');
+                        keyItem(items, params.key_text);
+                    }
+                }else{
+                    el.closest(params.block_remove).remove();
+                }
+                break;
+    
+            case 'toggleMask':
+                let container = el.closest('.input_mask_flag');
+                let input = container.querySelector('.mask_js');
+                if(input){
+                    input.classList.toggle('block_mask');
+                    if(el){
+                        el.classList.toggle('active'); 
+                    }
+                    
+                    input.focus();
+                }
+                break;
+
+            default:
+                break;
+        }
+    } catch (error) {
+        console.log(error);
+    }finally{
+        callJs();
+        calcForm1Event();
+        initCalc(); 
+        maskInit();
+    }
+}
 
 // получаем элементы для модального окна
 // полупрозрачный контейнер
