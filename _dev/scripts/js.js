@@ -218,7 +218,7 @@ function getAjaxFormTracking(form) {
                     return null;
                 }
             }else{
-                if(result.result){ 
+                if(result.result){
                     token_api = result.result;
                     let container = document.querySelector('.container_tracking_js');
                     let params_get_cargo = `request=getClientIntransitItemByMark&number_client=${params.tracking}&token=${token_api}&html=true`;
@@ -234,7 +234,7 @@ function getAjaxFormTracking(form) {
                             }else{
                                 container.classList.add('empty_js');
                             }
-                            
+
                             if(result.message){
                                 var message = result.message;
             
@@ -424,12 +424,21 @@ function maskInit(){
     inputMask.forEach(el => el.addEventListener('input', maskPhoneInput)); 
 }; 
 
-function choiseJs(){
-    selectChoise = document.querySelectorAll('.choice_js');
-    selectChoise.forEach((select, index) => {
-        //choise.destroy(); 
-    
-        let choise = new Choices(select, {
+function choiseJs(container, destroy){
+    if(container){
+        selectChoise = container.querySelectorAll('.choice_js');
+    }else{
+        selectChoise = document.querySelectorAll('.choice_js');
+    }
+
+    selectChoise.forEach((select, index) => { 
+        if(destroy == 'destroy'){
+            let current = select.getAttribute('data-choiseJs');
+            window[current].destroy();
+        }
+        
+        select.setAttribute('data-choiseJs', 'choise_'+index);
+        window["choise_"+index] = new Choices(select, {
             //addItems: true,
             //placeholderValue: 'test'
         });
@@ -628,13 +637,12 @@ function clearForm(form){
             inputs[i].value = '';
         }
 
-        // let selects = form.querySelectorAll('select');
-        // console.log(selects); 
+        let selects = form.querySelectorAll('select');
 
-        // for (let i = 0; i < selects.length; i++) {
-        //     console.log(selects[i]);
-        //     let option = selects[i].querySelector('option');
-        // }
+        for (let i = 0; i < selects.length; i++) {
+            let container = selects[i].closest('div');
+            choiseJs(container, 'destroy');
+        }
     }
 }
 //проверка форм END
