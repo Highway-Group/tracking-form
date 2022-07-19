@@ -25,10 +25,12 @@
         <div class="container">
             <div class="container_min container_tracking_js empty_js start_js">
 
-                <form method="get" class="form_check-js form-tracking">
+                <form method="get" class="ajax-form ajax-form-tracking form_check_js">
                     <div class="form-tracking__wrapper row"> 
                         <div class="col-md-8 pe-md-0">
-                            <input class="form-tracking__input w-100 required" placeholder="Отследить артикул" type="text" name="tracking">
+                            <div class="input">
+                                <input class="input_field form-tracking__input w-100 required" placeholder="Отследить артикул" type="text" name="tracking">
+                            </div>
                         </div>
                         <div class="col-md-4 ps-md-0">
                             <button type="submit" name="submit" class="btn btn_trace w-100 text-white" value="searchTracking">отследить</button>
@@ -51,6 +53,8 @@
                 </div>
             </div>
         </div>
+
+        
         <script>    
             const url = 'https://crm.hl-group.ru/api';
             const params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';

@@ -196,7 +196,7 @@ gulp.task('scripts', function() {
 
 gulp.task('scripts-jquery', function() {
     var result = gulp.src([
-            '_dev/scripts/init-crm.js',
+            '_dev/scripts/init.js',
             '_dev/scripts/script.js' 
         ], {
             //sourcemaps: false

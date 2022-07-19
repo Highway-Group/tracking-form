@@ -7,16 +7,17 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 	<title>Форма отслеживания груза</title>
-	<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
+	<!-- <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
 	<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/libs.min.css">
 	<link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
 	<script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script> 
-	<script src="https://vladabelaya.github.io/tracking-form/scripts/libs-jquery.min.js"></script> 
+	<script src="https://vladabelaya.github.io/tracking-form/scripts/libs-jquery.min.js"></script>  -->
 
-	 <!-- <link rel="stylesheet" href="styles/fonts.min.css">
+	<link rel="stylesheet" href="styles/fonts.min.css">
 	<link rel="stylesheet" href="styles/libs.min.css">
 	<link rel="stylesheet" href="styles/style.min.css">
-	<script src="scripts/libs.min.js"></script>  -->
+	<script src="scripts/libs.min.js"></script> 
+	<!-- <script src="scripts/libs-jquery.min.js"></script>  -->
 
 	<script>
 		var BASEURL = 'https://crm.hl-group.ru/api';
@@ -110,11 +111,11 @@
 							ВВЕДИТЕ ДАННЫЕ
 						</div>
 						<div class="row calculator__container m-0">
-							<div class="col-sm-6 p-0 calculator__input-group">
+							<div class="col-sm-6 p-0 calculator__input-group input">
 								<input name="weight" type="text" placeholder="Вес груза, кг"
 									class="calculator__input mask_js calc_form2_js" data-mask="float">
 							</div>
-							<div class="col-sm-6 p-0 calculator__input-group">
+							<div class="col-sm-6 p-0 calculator__input-group input">
 								<input name="volume" type="text" placeholder="Объем груза, м3"
 									class="calculator__input mask_js calc_form2_js" data-mask="float">
 							</div>
@@ -149,30 +150,30 @@
 						СРАЗУ ЖЕ ПОЙМЁТЕ, ГДЕ ВАША ВЫГОДА
 					</div>
 				</div>
-				<form class="ajax-form" action="" method="get">
+				<form class="ajax-form ajax-form-pay form_check_js" action="" method="get">
 					<ul class="calculator">
 						<li class="calculator__item">
 							<div class="row calculator__container m-0">
 								<div class="col-md-4 p-0 calculator__input-group calculator__input-group_station">
-									<input type="text" name="point_a" placeholder="Пункт отправления" class="calculator__input">
+									<input type="text" name="point_a" placeholder="Пункт отправления" class="calculator__input input_field">
 								</div>
 								<div
 									class="col-md-4 p-0 calculator__input-group calculator__input-group_station calculator__input-group_station_1">
-									<input type="text" name="point_b" placeholder="Пункт назначения" class="calculator__input">
+									<input type="text" name="point_b" placeholder="Пункт назначения" class="calculator__input input_field">
 								</div>
-								<div class="col-md-4 p-0 calculator__input-group">
-									<input type="text" name="product_title" placeholder="Наименование товара" class="calculator__input">
+								<div class="col-md-4 p-0 calculator__input-group input">
+									<input type="text" name="product_title" placeholder="Наименование товара" class="calculator__input input_field">
 								</div>
 							</div>
 						</li>
 						<li class="calculator__item">
 							<div class="row calculator__container m-0">
-								<div class="col-md-4 p-0 calculator__input-group">
-									<input type="text" name="weight" placeholder="Вес груза, кг" class="calculator__input mask_js"
+								<div class="col-md-4 p-0 calculator__input-group input">
+									<input type="text" name="weight" placeholder="Вес груза, кг" class="calculator__input input_field mask_js"
 										data-mask="float">
 								</div>
-								<div class="col-md-4 p-0 calculator__input-group">
-									<input type="text" name="volume" placeholder="Объем груза, м3" class="calculator__input mask_js"
+								<div class="col-md-4 p-0 calculator__input-group input">
+									<input type="text" name="volume" placeholder="Объем груза, м3" class="calculator__input input_field mask_js"
 										data-mask="float">
 								</div>
 								<div class="col-md-4 p-0 border_top border_right border_gray_rgba_sm border_gray_rgba_xs">
@@ -188,16 +189,16 @@
 						</li>
 						<li class="calculator__item">
 							<div class="row calculator__container m-0">
-								<div class="col-md-4 p-0 calculator__input-group">
-									<input type="text" name="name" placeholder="Имя" class="calculator__input" required>
+								<div class="col-md-4 p-0 calculator__input-group input">
+									<input type="text" name="name" placeholder="Имя" class="input_field calculator__input required">
 								</div>
-								<div class="col-md-4 p-0 calculator__input-group">
-									<input type="text" name="email" placeholder="E-mail" class="calculator__input">
+								<div class="col-md-4 p-0 calculator__input-group input">
+									<input type="text" name="email" placeholder="E-mail" class="calculator__input input_field">
 								</div>
-								<div class="col-md-4 p-0 calculator__input-group">
+								<div class="col-md-4 p-0 calculator__input-group input">
 									<div class="input input_mask_flag">
-										<input type="text" name="phone" placeholder="Номер телефона" class="calculator__input mask_js"
-											data-mask="phone" required>
+										<input type="text" name="phone" placeholder="Номер телефона" class="calculator__input input_field mask_js required"
+											data-mask="phone">
 										<div class="input_mask-flag call-js" data-option="toggleMask"></div>
 									</div>
 								</div>
@@ -232,16 +233,16 @@
 				)
 			</div>
 			<div class="row calculator__container m-0">
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group input">
 					<input type="text" placeholder="Ширина, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
 				</div>
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group input">
 					<input type="text" placeholder="Длина, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
 				</div>
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group input">
 					<input type="text" placeholder="Высота, см" class="calculator__input mask_js calc_form1_js" data-mask="float">
 				</div>
-				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group">
+				<div class="col-sm-6 col-lg-3 p-0 calculator__input-group input">
 					<input type="text" placeholder="Количество" class="calculator__input mask_js calc_form1_js" data-mask="float">
 				</div>
 			</div>
@@ -257,7 +258,7 @@
 				</div>
 			</div>
 		</li>
-	</div>
+	</div> 
 
 	<!-- <div class="overflow"></div>
 		<div class="modal-window">
@@ -294,6 +295,7 @@
 	<!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>   -->
 	<!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/script-jquery.min.js"></script>   -->
 	 <script defer src="scripts/script.min.js"></script> 
+	 <!-- <script defer src="scripts/script-jquery.min.js"></script>  -->
 </body>
 
 

@@ -1,24 +1,12 @@
 let  baseurl = (typeof BASEURL !== 'undefined') ? BASEURL : '/';
 let  currentUrl = (typeof CURRENTURL !== 'undefined') ? CURRENTURL : '/';
-const url = 'https://crm.hl-group.ru/api';
-const params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token&';
-// const params_get_token = {
-//     request:'addLead',
-//     token:'',
-//     login:'api_app@mail.ru', 
-//     password:'133api',
-//     not_get_token:true,
-// };
-
-const tabsBtns = document.querySelectorAll('.btn_tab_js');
-const tabsContent = document.querySelectorAll('.tabs__content');
+let ajaxForm = document.querySelectorAll('.ajax-form');
 let btnCallJs = document.querySelectorAll('.call-js:not(.readonly):not(select):not([disabled])');
 let inputMask = document.querySelectorAll('.mask_js');
 let calcItem = document.querySelectorAll('.calculator .calc_item_js');
 let calcInputForm1 = document.querySelectorAll('.calc_form1_js');
 let mask_phone;
 let systemMessage = new bootstrap.Modal(document.getElementById('systemMessage'));
-let ajaxForm = document.querySelectorAll('.ajax-form');
 
 let  IS_MOBILE = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
@@ -35,26 +23,40 @@ document.addEventListener('DOMContentLoaded', function() {
     maskInit();
     choiseJs();
     calcForm1Event();
-    ajaxFormSubmit();
 
-    tabsBtns.forEach(btn => btn.addEventListener('click', function(event) {
-        // табы для калькулятора
-        if(btn.closest('.tabs')){
-            changeTabs(event);
-        }
+    ajaxForm.forEach(el => el.addEventListener('submit', function(e) {
+        e.preventDefault();
     }));
 
     const calcInputForm2 = document.querySelectorAll('.calc_form2_js');
-    calcInputForm2.forEach(input => input.addEventListener('input', function(event) {
+    calcInputForm2.forEach(input => input.addEventListener('input', function(e) {
         initCalc2();
     }));
+
+    document.body.addEventListener('click', function(e) {
+       //console.log(e.target);
+
+        if(e.target.classList.contains('btn_tab_js')){
+            e.preventDefault();
+            changeTabs(e.target);
+        }
+
+        if(e.target.getAttribute('type') == 'submit' && e.target.closest('.ajax-form-pay')){
+            let form = e.target.closest('.ajax-form-pay');
+            getAjaxFormPay(form);
+        }
+
+        if(e.target.getAttribute('type') == 'submit' && e.target.closest('.ajax-form-tracking')){
+            let form = e.target.closest('.ajax-form-tracking');
+            getAjaxFormTracking(form); 
+        }
+    });
 });
 
-
-function post(url, data) {
+function postJS(baseurl, data) {
     return new Promise((succeed, fail) => {
         const xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
+        xhr.open("POST", baseurl, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.addEventListener("load", () => {
             if (xhr.status >=200 && xhr.status < 400){
@@ -69,71 +71,145 @@ function post(url, data) {
     });
 }
 
-function ajaxFormSubmit(){
-    ajaxForm.forEach(el => el.removeEventListener('submit', getAjaxForm, false));
-    ajaxForm = document.querySelectorAll('.ajax-form');
-    ajaxForm.forEach(el => el.addEventListener('submit', getAjaxForm));
-}
-
-let getAjaxForm = function(e) { 
-
+function getAjaxFormPay(form) { 
     // 'Способ: Автодоставка Объем: 6.11 Вес: 1830 Наименование: Рампа для крепления автомобилей в транспортном контейнере (6 комплектов) Куда: Владивосток Откуда: Хойчжоу';
+    console.log('function getAjaxFormPay');
+    if(form){
+        if (form.classList.contains('form_check_js')) {
+            formStatus = checkFormInputs(form);
+            if (formStatus.countErrors) {
+                new systemModal({
+                    type:'warning',
+                    title: formStatus.titleError,
+                    text: formStatus.textError
+                }).show();
+                return null;
+            }
+        }
+        let params = new FormData(form);
+        let query = '';
+        let comment = 'comment=';
 
-    e.preventDefault(); 
-    console.log('function getAjaxForm');
-    let params = new FormData(this);
-    let query = '';
-    let comment = 'comment=';
-
-    for(let [name, value] of params) {
-        console.log('name: ' + name + ' value: ' + value);
-
-        switch(name) {
-            case 'weight':
-            case 'volume':
-            case 'point_a':
-            case 'point_b':
-            case 'type_delivery':
-            case 'product_title':
-                let input = this.querySelector('[name="' + name + '"]');
-                if(input){
-                    let placeholder = input.getAttribute('placeholder');
-                    if(placeholder.indexOf(',') != -1){
-                        placeholder = placeholder.replace(',','');
+        for(let [name, value] of params) {
+            //console.log('name: ' + name + ' value: ' + value);
+            switch(name) {
+                case 'weight':
+                case 'volume':
+                case 'point_a':
+                case 'point_b':
+                case 'type_delivery':
+                case 'product_title':
+                    let input = form.querySelector('[name="' + name + '"]');
+                    if(input){
+                        let placeholder = input.getAttribute('placeholder');
+                        if(placeholder.indexOf(',') != -1){
+                            placeholder = placeholder.replace(',','');
+                        }
+                        comment += placeholder+':'+value+',';
                     }
-                    comment += placeholder+':'+value+',';
-                }
-                break;
+                    break;
 
-            case 'search_terms':
-                break; 
+                case 'search_terms':
+                    break; 
 
-            default:
-                query += name+'='+value+'&';     
-                break;
+                default:
+                    query += name+'='+value+'&';     
+                    break;
+            }
+            
+            if(name == 'phone'){
+                query += 'phones[]='+value+'&';    
+            }
+            if(name == 'email'){
+                query += 'emails[]='+value+'&';    
+            }
         }
-        
-        if(name == 'phone'){
-            query += 'phones[]='+value+'&';    
-        }
-        if(name == 'email'){
-            query += 'emails[]='+value+'&';    
-        }
+
+        let params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token&';
+        postJS(baseurl, params_get_token + query + comment).then(response =>  {
+            let result = JSON.parse(response);
+            if(result.success == true){
+                new systemModal({
+                    type:'success',
+                    title: 'Спасибо!',
+                    text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+                }).show();
+            }
+        }).catch(error => console.error(error));
     }
-
-
-    post(url, params_get_token + query + comment).then(response =>  {
-        let result = JSON.parse(response);
-        if(result.success == true){
-            new systemModal({
-                type:'success',
-                title: 'спасибо!',
-                text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
-            }).show();
-        }
-    }).catch(error => console.error(error));
 }; 
 
+function getAjaxFormTracking(form) { 
+    // 'Способ: Автодоставка Объем: 6.11 Вес: 1830 Наименование: Рампа для крепления автомобилей в транспортном контейнере (6 комплектов) Куда: Владивосток Откуда: Хойчжоу';
+    console.log('function getAjaxFormTracking');
+    if(form){
+        if (form.classList.contains('form_check_js')) {
+            formStatus = checkFormInputs(form);
+            if (formStatus.countErrors) {
+                new systemModal({
+                    type:'warning',
+                    title: formStatus.titleError,
+                    text: formStatus.textError
+                }).show();
+                return null;
+            }
+        }
+
+        let params = getFormData(form);
+        let params_get_token = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
+
+        postJS(baseurl, params_get_token).then(response =>  {
+            let result = JSON.parse(response);
+
+            if(result.success == false){
+                if(result.message){
+                    var message = result.message;
+
+                    new systemModal({
+                        type: message.type,
+                        title: message.title,
+                        text: message.text
+                    }).show();
+                    return null;
+                }
+            }else{
+                if(result.result){
+                    token_api = result.result;
+                    let container = document.querySelector('.container_tracking_js');
+                    let params_get_cargo = `request=getClientIntransitItemByMark&number_client=${params.tracking}&token=${token_api}&html=true`;
+
+                    postJS(baseurl, params_get_cargo).then(response =>  {
+                        container.classList.remove('start_js');
+                        let result = JSON.parse(response);
+
+                        if(result.success == true){
+                            if(result.result){
+                                container.querySelector('.form_tracking_content_js').innerHTML = result.result;
+                                container.classList.remove('empty_js'); 
+                            }else{
+                                container.classList.add('empty_js');
+                            }
+
+                            if(result.message){
+                                var message = result.message;
+            
+                                new systemModal({
+                                    type: message.type,
+                                    title: message.title,
+                                    text: message.text
+                                }).show();
+                            }
+
+                        }else{
+                            container.classList.add('empty_js');
+                            container.querySelector('.form_tracking_content_js').innerHTML = '';
+                        }
+                    }).catch(error => console.error(error));
+                }
+            }
+        }).catch(error => console.error(error));
+    }
+}; 
 
 class systemModal{
     constructor({type, title, text}) {
@@ -154,16 +230,16 @@ class systemModal{
         }       
     }
  
-    _show(){
-        this._html_title.textContent = this._title;
-        this._html_text.textContent = this._text; 
+    show(){
+        this._html_title.innerHTML = this._title;
+        this._html_text.innerHTML = this._text; 
 
         if(systemMessage){
             systemMessage.show(); 
         }
     }
 
-    _hide(){
+    hide(){
         if(systemMessage){
             systemMessage.hide(); 
         }   
@@ -207,10 +283,8 @@ function getOption(el, option, params) {
                 break;
     
             case 'removeItem':
-                let form = false;
-
                 if(el.closest('form')){
-                    form = el.closest('form');
+                    let form = el.closest('form');
                 }
 
                 if (params.container) {
@@ -246,7 +320,6 @@ function getOption(el, option, params) {
                     
                     input.focus();
                 }
-                
                 break;
 
             default:
@@ -262,6 +335,39 @@ function getOption(el, option, params) {
     }
 }
 
+function getFormData(form) {
+    console.log('function getFormData');
+    let data = {};
+
+    if(form){
+        let params = new FormData(form);
+    
+        for(let [name, value] of params) {
+            //console.log('name: ' + name + ' value: ' + value);
+
+            if(name.indexOf('[]') >= 0){
+                let name = name.replace('[]', '');
+
+                if (name.substring(name.length - 1) == ']') {
+                    name = name.substring(0, name.length - 1);
+                    let posLeftBracket = name.indexOf('[');
+                    name = name.substring(0, posLeftBracket) + ']' + name.substring(posLeftBracket);
+                } 
+                
+                data[name] = (data[name] === undefined) ? [] : data[name];
+                data[name].push(value);
+            }else{
+                if (name.substring(name.length - 1) == ']') {
+                    name = name.substring(0, name.length - 1);
+                    let posLeftBracket = name.indexOf('[');
+                    name = name.substring(0, posLeftBracket) + ']' + name.substring(posLeftBracket);
+                }
+                data[name] = value;
+            }
+        }
+    }
+    return data;
+};
 
 function recordParamsData(that){ 
     try { 
@@ -286,29 +392,23 @@ function recordParamsData(that){
 }
 
 
-function changeTabs(event) {
-    const tabId = event.target.dataset.tab;
+function changeTabs(that) {
+    try {
+        let tabsBtns = document.querySelectorAll('.btn_tab_js');
+        let container = that.closest('.tabs');
+        let tabsContent = container.querySelectorAll('.tabs__content');
+        let tabId = that.dataset.tab;
 
-    switch(event.type){
-        case 'click':
-            tabsBtns.forEach((tab, i) => {
-                if(tab){
-                    tab.classList.remove('active');
-                }
+        tabsBtns.forEach((tab, i) => {
+            tab.classList.remove('active');
+            tabsContent[i].classList.remove('active');
+        });
 
-                if(tabsContent[i]){
-                    tabsContent[i].classList.remove('active');
-                }
-            });
-
-            if(tabsBtns[tabId - 1]){
-                tabsBtns[tabId - 1].classList.add('active');
-            }
-        
-            if(tabsContent[tabId - 1]){
-                tabsContent[tabId - 1].classList.add('active');
-            }
-            break;
+        tabsBtns[tabId - 1].classList.add('active');
+        tabsContent[tabId - 1].classList.add('active');
+     
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -323,14 +423,6 @@ function callJs(){
     btnCallJs.forEach(el => el.addEventListener('click', callJsOption));  // добавляем событие
 }
 
-function maskInit(){
-    //console.log('function maskInit()');
-    inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
-    inputMask.forEach(el => el.addEventListener('input', maskPhoneInput, false));  
-    inputMask = document.querySelectorAll('.mask_js'); 
-    inputMask.forEach(el => el.addEventListener('focus', maskInitStart));   
-    inputMask.forEach(el => el.addEventListener('input', maskPhoneInput)); 
-}; 
 
 let maskInitStart = function(e) {
     e.preventDefault();
@@ -340,41 +432,37 @@ let maskInitStart = function(e) {
         case 'phone':
             console.log('mask_phone_start'); 
             
-            if(this){
-                if(!this.classList.contains('block_mask')){
-                    let val_default = this.value;
-    
-                    console.log('val_default[0] = ' + val_default[0]);
-                    console.log('val_default.length = ' + val_default.length);
-    
-                    if(val_default.length == 11 && val_default[0] != '7'){
-                        this.value = val_default.replace(val_default[0], '7');
-                    }
-    
-                    mask_phone = IMask(this,{
-                        mask: '+{0}(000)000-00-00',
-                        lazy: false,
-        
-                        prepare: function (str) {
-                            // обработчик до ввода
-                            return str.toUpperCase();
-                        },
-        
-                        commit: function (value, masked) {
-                             // обработчик после ввода
-                        }
-                    });
-    
-                }else{
-                    let val_default = mask_phone.unmaskedValue;
-                    if(val_default[0] == '7' && val_default.length == 1){
-                        val_default = val_default.replace(val_default[0], '');
-                    }
-    
-                    mask_phone.destroy();
-                    this.value = val_default; 
+            if(!this.classList.contains('block_mask')){
+                let val_default = this.value;
+
+                if(val_default.length == 11 && val_default[0] != '7'){
+                    this.value = val_default.replace(val_default[0], '7');
                 }
+
+                mask_phone = IMask(this,{
+                    mask: '+{0}(000)000-00-00',
+                    lazy: false,
+    
+                    prepare: function (str) {
+                        // обработчик до ввода
+                        return str.toUpperCase();
+                    },
+    
+                    commit: function (value, masked) {
+                        // обработчик после ввода
+                    }
+                });
+
+            }else{
+                let val_default = mask_phone.unmaskedValue;
+                if(val_default[0] == '7' && val_default.length == 1){
+                    val_default = val_default.replace(val_default[0], '');
+                }
+
+                mask_phone.destroy();
+                this.value = val_default; 
             }
+            
             break;
 
         case 'int':
@@ -399,14 +487,21 @@ let maskInitStart = function(e) {
     }
 };
 
-let maskPhoneInput = function(e) {
-    e.preventDefault();
+let maskPhoneInput = function() {
     let val_start = this.value; 
-
     if((val_start.length == 17 || val_start.length == 27) && val_start[1] != '7'){ 
         this.value = val_start.replace(val_start[1], '7');
     }
 };
+
+function maskInit(){
+    //console.log('function maskInit()');
+    inputMask.forEach(el => el.removeEventListener('focus', maskInitStart, false)); 
+    inputMask.forEach(el => el.addEventListener('input', maskPhoneInput, false));  
+    inputMask = document.querySelectorAll('.mask_js'); 
+    inputMask.forEach(el => el.addEventListener('focus', maskInitStart));   
+    inputMask.forEach(el => el.addEventListener('input', maskPhoneInput)); 
+}; 
 
 function choiseJs(){
     selectChoise = document.querySelectorAll('.choice_js');
@@ -472,6 +567,136 @@ function initCalc2(){
     }
 }
 
+
+
+//проверка форм
+function getErrorText(input) { 
+    let text = '';
+
+    try {
+        let name = input.getAttribute('name') || '';
+        let id = input.getAttribute('id') || '';
+        let form = input.closest('form');
+
+        if (input.hasAttribute('data-error-text')) {
+            text += input.data('error-text');
+        }
+        else if (form.querySelector('label[for="' + name + '"]')) {
+             text += form.querySelector('label[for="' + name + '"]').textContent;
+        }
+        else if (form.querySelector('label[for="' + id + '"]')) {
+            text += form.querySelector('label[for="' + id + '"]').textContent;
+        }
+        else if (input.getAttribute('placeholder').length) {
+            text += input.getAttribute('placeholder');
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return text;
+}
+
+function checkFormInputs(form) {
+    /**
+     * Функция проверки полей формы. На вход в функцию через параметры передается форма, 
+     * а на выходе получаем объект с информацией об ошибках.
+     * @param  {jQuery} form Форма, поля которой надо проверить.
+     * @returns {Object} Возвращает объект в котором есть поле с количеством ошибок, с текстом ошибки и заголовком текста ошибки.
+     */
+
+    if(form){
+        let error = 0;
+        let text = 'Не все обязательные поля были заполнены или заполнены с ошибкой:';
+        let formStatus = {};
+        let textCollection = new Set();
+        let input = form.querySelectorAll('.required:not([type="checkbox"]):not([type="radio"]):not([type="file"]):not(.select2-hidden-accessible):enabled');
+
+        input.forEach((input, i) => {
+            let name = input.getAttribute('name');
+
+            if (input.value.length < 1) {
+                textCollection.add(getErrorText(input));
+                addErrorInput(input);
+                error++;
+            }
+            else if (name.indexOf('mail') >= 0 && name != 'notifycations_emails') {
+                let val = input.value;
+                let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+                if (!re.test(String(val).toLowerCase())) {
+                    error++;
+                    textCollection.add(getErrorText(input));
+                    addErrorInput(input);
+                }else{
+                    removeErrorInput(input);
+                    addErrorInput(input, 'has-success');
+                }
+            }
+            else if (input.tagName == 'SELECT' && input.value == '0') {
+                error++;
+                addErrorInput(input);
+                textCollection.add(getErrorText(input));
+            }
+            else if (name.indexOf('name_folder') >= 0) {
+
+                if (/(.*)(\/|\\|:|\*|\?|"|<|>|\|)(.*)/.test(input.value)) {
+                    error++;
+                    textCollection.add(getErrorText(input) + ' (название папок и файлов не должны содержать символы / \\ : * ? " < > | )');
+                    addErrorInput(input);
+                } else{
+                    removeErrorInput(input);
+                    addErrorInput(input, 'has-success');
+                }
+            }else{
+                removeErrorInput(input, 'has-error');
+                addErrorInput(input, 'has-success');
+            }
+        });
+
+        textCollection.forEach(function(value, valueAgain, set) {
+            text += '<br />- <b>' + value + ';</b>';
+        });
+
+        formStatus.countErrors = error;
+        formStatus.textError = text;
+        formStatus.titleError = 'Внимание!';
+
+        return formStatus;
+    }
+}
+
+function addErrorInput(input, class_name) {
+    if (class_name == null) {
+        class_name = 'has-error';
+    }
+
+    if (input.closest('.input')) {
+        input.closest('.input').classList.add(class_name);
+    } else if (input.closest('.form-group')) {
+        input.closest('.form-group').classList.add(class_name);
+    } else if (input.closest('.addition-image')) {
+        input.closest('.addition-image').classList.add(class_name);
+    } else {
+        input.classList.add(class_name);
+    }
+}
+
+function removeErrorInput(input, class_name) {
+    if (class_name == null) {
+        class_name = 'has-error';
+    }
+
+    if (input.closest('.input')) {
+        input.closest('.input').classList.remove(class_name);
+    } else if (input.closest('.form-group')) {
+        input.closest('.form-group').classList.remove(class_name);
+    } else if (input.closest('.addition-image')) {
+        input.closest('.addition-image').classList.remove(class_name);
+    } else {classList.remove
+        input.classList.remove(class_name);
+    }
+}
+//проверка форм END
 
 
 // получаем элементы для модального окна

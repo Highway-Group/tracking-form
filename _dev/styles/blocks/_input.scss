@@ -1,3 +1,4 @@
+
 .input_mask_flag {
     .input_mask {
         padding-right: 40px;
@@ -17,6 +18,57 @@
 
             &.active {
                 filter: grayscale(100%);
+            }
+        }
+    }
+}
+
+
+.has- {
+    &success {
+
+        .form-control,
+        .input_field,
+        .textarea__field,
+        &.input_field,
+        &.select2 ~ .select2,
+        &.textarea__field{
+            border:1px solid $green !important;
+
+            &:focus {
+                border:1px solid $green !important;
+            }
+        }
+    }
+
+    &warning {
+
+        .form-control,
+        .input_field,
+        .textarea__field,
+        &.input_field,
+        &.select2 ~ .select2,
+        &.textarea__field{
+            border:1px solid $yellow !important;
+
+            &:focus {
+                border:1px solid $yellow !important;
+            }
+        }
+    }
+
+    &error {
+
+        .form-control,
+        .input_field,
+        .textarea__field,
+        &.input_field,
+        &.select2 ~ .select2,
+        &.textarea__field{
+            border:1px solid $red !important;
+
+            &:focus {
+                border:1px solid $red !important;
             }
         }
     }

@@ -1,24 +1,3 @@
-var baseurl = (typeof baseurl !== 'undefined') ? baseurl : '/';
-var currentUrl = (typeof currentUrl !== 'undefined') ? currentUrl : '/';
-var BREAKPOINT_XS = 0;
-var BREAKPOINT_SM = 768;
-var BREAKPOINT_MD = 992;
-var BREAKPOINT_LG = 1200;
-var BREAKPOINT_XL = 1330; 
-
-var IS_MOBILE = false;
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && 'ontouchstart' in document.documentElement) {
-    IS_MOBILE = true;
-}
-
-var iphone = false;
-if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-    iphone = true;
-}
-console.log('iphone = ' + iphone);
-
-
-
 (function($) {
     $.fn.initSelect2 = function($select, toDestroy) {
 
