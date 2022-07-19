@@ -177,6 +177,8 @@ function getAjaxFormPay(form) {
                     title: 'Спасибо!',
                     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
                 }).show();
+
+                clearForm(form);
             }
         }).catch(error => console.error(error));
     }
@@ -216,7 +218,7 @@ function getAjaxFormTracking(form) {
                     return null;
                 }
             }else{
-                if(result.result){
+                if(result.result){ 
                     token_api = result.result;
                     let container = document.querySelector('.container_tracking_js');
                     let params_get_cargo = `request=getClientIntransitItemByMark&number_client=${params.tracking}&token=${token_api}&html=true`;
@@ -232,7 +234,7 @@ function getAjaxFormTracking(form) {
                             }else{
                                 container.classList.add('empty_js');
                             }
-
+                            
                             if(result.message){
                                 var message = result.message;
             
@@ -425,8 +427,11 @@ function maskInit(){
 function choiseJs(){
     selectChoise = document.querySelectorAll('.choice_js');
     selectChoise.forEach((select, index) => {
-        new Choices(select, {
-            addItems: true,
+        //choise.destroy(); 
+    
+        let choise = new Choices(select, {
+            //addItems: true,
+            //placeholderValue: 'test'
         });
     });
 }
@@ -613,6 +618,23 @@ function removeErrorInput(input, class_name) {
         input.closest('.addition-image').classList.remove(class_name);
     } else {classList.remove
         input.classList.remove(class_name);
+    }
+}
+
+function clearForm(form){
+    if(form){
+        let inputs = form.querySelectorAll('input[type="text"]');
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].value = '';
+        }
+
+        // let selects = form.querySelectorAll('select');
+        // console.log(selects); 
+
+        // for (let i = 0; i < selects.length; i++) {
+        //     console.log(selects[i]);
+        //     let option = selects[i].querySelector('option');
+        // }
     }
 }
 //проверка форм END
