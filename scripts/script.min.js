@@ -96,12 +96,13 @@ class systemModal{
     }
 };
 
-function postJS(baseurl, data) {
+function postJS(data) {
     return new Promise((succeed, fail) => {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", baseurl, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.addEventListener("load", () => {
+            console.log('xhr.status = '+xhr.status);
             if (xhr.status >=200 && xhr.status < 400){
                 succeed(xhr.response);
             } 
@@ -169,7 +170,7 @@ function getAjaxFormPay(form) {
         }
 
         let params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token&';
-        postJS(baseurl, params_get_token + query + comment).then(response =>  {
+        postJS(params_get_token + query + comment).then(response =>  {
             let result = JSON.parse(response);
             if(result.success == true){
                 new systemModal({
@@ -177,10 +178,8 @@ function getAjaxFormPay(form) {
                     title: 'Спасибо!',
                     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
                 }).show();
-
-                clearForm(form);
             }
-        }).catch(error => console.error(error));
+        }).catch(error => console.error(error)).finally(() => {clearForm(form);});
     }
 }; 
 
@@ -203,7 +202,7 @@ function getAjaxFormTracking(form) {
         let params = getFormData(form);
         let params_get_token = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
 
-        postJS(baseurl, params_get_token).then(response =>  {
+        postJS(params_get_token).then(response =>  {
             let result = JSON.parse(response);
 
             if(result.success == false){
@@ -223,7 +222,7 @@ function getAjaxFormTracking(form) {
                     let container = document.querySelector('.container_tracking_js');
                     let params_get_cargo = `request=getClientIntransitItemByMark&number_client=${params.tracking}&token=${token_api}&html=true`;
 
-                    postJS(baseurl, params_get_cargo).then(response =>  {
+                    postJS(params_get_cargo).then(response =>  {
                         container.classList.remove('start_js');
                         let result = JSON.parse(response);
 
@@ -632,10 +631,11 @@ function removeErrorInput(input, class_name) {
 
 function clearForm(form){
     if(form){
-        let inputs = form.querySelectorAll('input[type="text"]');
-        for (let i = 0; i < inputs.length; i++) {
-            inputs[i].value = '';
-        }
+        form.reset();
+        // let inputs = form.querySelectorAll('input[type="text"]');
+        // for (let i = 0; i < inputs.length; i++) {
+        //     inputs[i].value = '';
+        // }
 
         let selects = form.querySelectorAll('select');
 
