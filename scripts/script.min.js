@@ -170,8 +170,31 @@ function getAjaxFormPay(form) {
         }
 
         let params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token&';
-        postJS(params_get_token + query + comment).then(response =>  {
-            let result = JSON.parse(response);
+        // postJS(params_get_token + query + comment).then(response =>  {
+        //     let result = JSON.parse(response);
+        //     if(result.success == true){
+        //         new systemModal({
+        //             type:'success',
+        //             title: 'Спасибо!',
+        //             text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+        //         }).show();
+        //     }
+        // }).catch(error => console.error(error)).finally(() => {clearForm(form);});
+
+
+        fetch(baseurl, {
+            method: 'POST',
+            body: (params_get_token + query + comment),
+            headers: {
+                //'Content-type': 'application/json;charset=utf-8'
+                'Content-type': 'text/plain;charset=UTF-8'
+            }
+        }).then(response => {
+            response.json();
+            console.log(response);
+        }).then(json => {
+            console.log(json);
+            let result = json;
             if(result.success == true){
                 new systemModal({
                     type:'success',
@@ -179,7 +202,7 @@ function getAjaxFormPay(form) {
                     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
                 }).show();
             }
-        }).catch(error => console.error(error)).finally(() => {clearForm(form);});
+        }).catch(error => {console.error(error)}).finally(() => {clearForm(form)});
     }
 }; 
 
