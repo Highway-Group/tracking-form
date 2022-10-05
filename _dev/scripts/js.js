@@ -130,6 +130,7 @@ function getAjaxFormPay(form) {
     // 'Способ: Автодоставка Объем: 6.11 Вес: 1830 Наименование: Рампа для крепления автомобилей в транспортном контейнере (6 комплектов) Куда: Владивосток Откуда: Хойчжоу';
     console.log('function getAjaxFormPay');
     if(form){
+        console.log(1);
         if (form.classList.contains('form_check_js')) {
             formStatus = checkFormInputs(form);
             if (formStatus.countErrors) {
