@@ -5,10 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Форма отслеживания груза</title>
-        <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/fonts.min.css">
-        <link rel="stylesheet" href="https://vladabelaya.github.io/tracking-form/styles/style.min.css">
-        <!-- <script src="https://vladabelaya.github.io/tracking-form/scripts/libs.min.js"></script>
-        <script src="https://vladabelaya.github.io/tracking-form/scripts/script.min.js"></script>  -->
+        <link rel="stylesheet" href="https://highway-group.github.io/tracking-form/styles/fonts.min.css">
+	        <link rel="stylesheet" href="https://highway-group.github.io/tracking-form/styles/libs.min.css">
+        <link rel="stylesheet" href="https://highway-group.github.io/tracking-form/styles/style.min.css">
+        <script src="https://highway-group.github.io/tracking-form/scripts/libs.min.js"></script>
         
         <!-- <link rel="stylesheet" href="styles/fonts.min.css">
         <link rel="stylesheet" href="styles/style.min.css"> 
@@ -16,10 +16,11 @@
         <script src="scripts/script.min.js"></script>    -->
 
         <script> 
-            var baseurl = 'https://akimov.keenetic.link/api';;
+            //var baseurl = 'https://akimov.keenetic.link/api';
+            var baseurl = 'https://crm.hl-group.ru/api';
             var message_data;
         </script>
-</head>
+    </head>
 
     <body>
         <div class="container">
@@ -54,10 +55,10 @@
             </div>
         </div>
 
-        
         <script>    
-            const url = 'https://akimov.keenetic.link/api';
-            const params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
+            //let url = 'https://akimov.keenetic.link/api';
+            let url = 'https://crm.hl-group.ru/api';
+            let params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
 
             function post(url, data) {
                 return new Promise((succeed, fail) => {
@@ -78,7 +79,6 @@
             }
 
             post(url, params).then(response =>  {
-                console.log(response);
                 let result = JSON.parse(response);
 
                 if(result.success == true){
@@ -109,5 +109,7 @@
                 }
             }).catch(error => console.error(error));
         </script>
+
+        <script src="https://highway-group.github.io/tracking-form/scripts/script.min.js"></script>
     </body>
 </html>
