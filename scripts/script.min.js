@@ -189,15 +189,11 @@ function getAjaxFormPay(form) {
                 //'Content-type': 'application/json;charset=utf-8'
                 //'Content-type': 'text/plain;charset=UTF-8'
                 'Content-type': 'application/x-www-form-urlencoded'
-                
             }
-        }).then(response => {
-            response.json();
-            console.log(response);
-        }).then(json => {
-            console.log(json);
-            let result = json;
-            if(result.success == true){
+        })
+        .then(data => data.json())
+        .then(data => {
+            if(data.success == true){
                 new systemModal({
                     type:'success',
                     title: 'Спасибо!',
