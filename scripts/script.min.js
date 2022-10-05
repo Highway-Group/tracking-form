@@ -96,23 +96,34 @@ class systemModal{
     }
 };
 
-function postJS(data) {
-    return new Promise((succeed, fail) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", baseurl, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.addEventListener("load", () => {
-            console.log('xhr.status = '+xhr.status);
-            if (xhr.status >=200 && xhr.status < 400){
-                succeed(xhr.response);
-            } 
-            else{
-                fail(new Error(`Request failed: ${xhr.statusText}`));
-            }
-        });
-        xhr.addEventListener("error", () => fail(new Error("Network error")));
-        xhr.send(data);
+async function postJS(baseurl, data) {
+    // return new Promise((succeed, fail) => {
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.open("POST", baseurl, true);
+        //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //     xhr.addEventListener("load", () => {
+        //         if (xhr.status >=200 && xhr.status < 400){
+        //             succeed(xhr.response);
+        //         } 
+        //         else{
+        //             fail(new Error(`Request failed: ${xhr.statusText}`));
+        //         }
+        //     });
+        //     xhr.addEventListener("error", () => fail(new Error("Network error")));
+        //     xhr.send(data);
+    // });
+
+    let result = await fetch(baseurl, {
+        method: 'POST',
+        body:data,
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded'
+            //'Content-type': 'application/json;charset=utf-8'
+            //'Content-type': 'text/plain;charset=UTF-8'
+        }
     });
+
+    return await result.json();
 }
 
 function getAjaxFormPay(form) { 
@@ -170,6 +181,17 @@ function getAjaxFormPay(form) {
         }
 
         let params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token&';
+        postJS(baseurl, (params_get_token + query + comment))
+        .then(data => {
+            if(data.success == true){
+                new systemModal({
+                    type:'success',
+                    title: 'Спасибо!',
+                    text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+                }).show();
+            }
+        }).catch(error => {console.error(error)}).finally(() => {clearForm(form)});
+
         // postJS(params_get_token + query + comment).then(response =>  {
         //     let result = JSON.parse(response);
         //     if(result.success == true){
@@ -180,27 +202,6 @@ function getAjaxFormPay(form) {
         //         }).show();
         //     }
         // }).catch(error => console.error(error)).finally(() => {clearForm(form);});
-
-
-        fetch(baseurl, {
-            method: 'POST',
-            body: (params_get_token + query + comment),
-            headers: {
-                //'Content-type': 'application/json;charset=utf-8'
-                //'Content-type': 'text/plain;charset=UTF-8'
-                'Content-type': 'application/x-www-form-urlencoded'
-            }
-        })
-        .then(data => data.json())
-        .then(data => {
-            if(data.success == true){
-                new systemModal({
-                    type:'success',
-                    title: 'Спасибо!',
-                    text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
-                }).show();
-            }
-        }).catch(error => {console.error(error)}).finally(() => {clearForm(form)});
     }
 }; 
 
@@ -223,9 +224,7 @@ function getAjaxFormTracking(form) {
         let params = getFormData(form);
         let params_get_token = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
 
-        postJS(params_get_token).then(response =>  {
-            let result = JSON.parse(response);
-
+        postJS(baseurl, params_get_token).then(result =>  {
             if(result.success == false){
                 if(result.message){
                     var message = result.message;
@@ -243,20 +242,19 @@ function getAjaxFormTracking(form) {
                     let container = document.querySelector('.container_tracking_js');
                     let params_get_cargo = `request=getClientIntransitItemByMark&number_client=${params.tracking}&token=${token_api}&html=true`;
 
-                    postJS(params_get_cargo).then(response =>  {
+                    postJS(baseurl, params_get_cargo).then(response =>  {
                         container.classList.remove('start_js');
-                        let result = JSON.parse(response);
 
-                        if(result.success == true){
-                            if(result.result){
-                                container.querySelector('.form_tracking_content_js').innerHTML = result.result;
+                        if(response.success == true){
+                            if(response.result){
+                                container.querySelector('.form_tracking_content_js').innerHTML = response.result;
                                 container.classList.remove('empty_js'); 
                             }else{
                                 container.classList.add('empty_js');
                             }
 
-                            if(result.message){
-                                var message = result.message;
+                            if(response.message){
+                                var message = response.message;
             
                                 new systemModal({
                                     type: message.type,
