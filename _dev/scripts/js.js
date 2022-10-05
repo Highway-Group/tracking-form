@@ -187,7 +187,9 @@ function getAjaxFormPay(form) {
             body: (params_get_token + query + comment),
             headers: {
                 //'Content-type': 'application/json;charset=utf-8'
-                'Content-type': 'text/plain;charset=UTF-8'
+                //'Content-type': 'text/plain;charset=UTF-8'
+                'Content-type': 'application/x-www-form-urlencoded'
+                
             }
         }).then(response => {
             response.json();
