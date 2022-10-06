@@ -128,7 +128,7 @@ gulp.task('styles-fonts', function() {
 
 
 // ОБЪЕДИНЕНИЕ JS БИБЛИОТЕК
- gulp.task('build-js', function() {
+gulp.task('build-js', function() {
     // перечисляем файлы, которые будут добавлены в lib.min.js
     // порядок файлов важен!!!
     var result = gulp.src([
@@ -140,10 +140,8 @@ gulp.task('styles-fonts', function() {
         })
         .pipe(concat('libs.min.js')); // Собираем их в кучу в новом файле libs.min.js
 
-    //result = result.pipe(terser()); // Сжимаем JS файл
-
-    result
-        .pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
+    result = result.pipe(terser()); // Сжимаем JS файл
+    result.pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
 
     return result;
 });
@@ -165,9 +163,7 @@ gulp.task('build-js-jquery', function() {
         .pipe(concat('libs-jquery.min.js')); // Собираем их в кучу в новом файле libs.min.js
 
     result = result.pipe(terser()); // Сжимаем JS файл
-
-    result
-        .pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
+    result.pipe(gulp.dest('scripts')); // Выгружаем в папку scripts
 
     return result;
 });
@@ -177,12 +173,7 @@ gulp.task('build-js-jquery', function() {
 gulp.task('scripts', function() {
     var result = gulp.src([
             '_dev/scripts/js.js' 
-            // '_dev/scripts/init-crm.js',
-            // '_dev/scripts/script.js' 
-        ], {
-            //sourcemaps: false
-        })
-        .pipe(concat('script.min.js'));
+        ],).pipe(concat('script.min.js'));
  
     //result = result.pipe(terser()); // Сжимаем JS файл
    
@@ -198,10 +189,7 @@ gulp.task('scripts-jquery', function() {
     var result = gulp.src([
             '_dev/scripts/init.js',
             '_dev/scripts/script.js' 
-        ], {
-            //sourcemaps: false
-        })
-        .pipe(concat('script-jquery.min.js'));
+        ],).pipe(concat('script-jquery.min.js'));
  
     //result = result.pipe(terser()); // Сжимаем JS файл
    
@@ -230,6 +218,6 @@ gulp.task('build-scripts', gulp.series('build-js', 'scripts', 'build-js-jquery',
 
 
 // это таск по умолчанию. запускается из папки проекта командой "gulp".
-gulp.task('default', gulp.series('styles-fonts', 'styles', 'scripts', 'build-js-jquery', 'build-js', 'scripts-jquery', 'build-css',  gulp.parallel('webserver', 'watch')));
+gulp.task('default', gulp.series('build-css', 'styles-fonts', 'styles', 'build-js', 'scripts', 'build-js-jquery', 'scripts-jquery', gulp.parallel('webserver', 'watch')));
 // можно запустить отдельные таски. для этого после команды "gulp"
 // перечисляются таски, которые нужно запустить.
