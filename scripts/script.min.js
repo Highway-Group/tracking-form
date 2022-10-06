@@ -224,6 +224,7 @@ function getAjaxFormTracking(form) {
 
         let params = getFormData(form);
         let params_get_token = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
+        console.log('baseurl = '+baseurl);
 
         postJS(baseurl, params_get_token).then(result =>  {
             if(result.success == false){
