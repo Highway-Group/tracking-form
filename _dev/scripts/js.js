@@ -96,28 +96,41 @@ class systemModal{
     }
 };
 
-function postJS(baseurl, data) {
-    return new Promise((succeed, fail) => {
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", baseurl, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr.addEventListener("load", () => {
-            if (xhr.status >=200 && xhr.status < 400){
-                succeed(xhr.response);
-            } 
-            else{
-                fail(new Error(`Request failed: ${xhr.statusText}`));
-            }
-        });
-        xhr.addEventListener("error", () => fail(new Error("Network error")));
-        xhr.send(data);
+async function postJS(baseurl, data) {
+    // return new Promise((succeed, fail) => {
+        //     const xhr = new XMLHttpRequest();
+        //     xhr.open("POST", baseurl, true);
+        //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        //     xhr.addEventListener("load", () => {
+        //         if (xhr.status >=200 && xhr.status < 400){
+        //             succeed(xhr.response);
+        //         } 
+        //         else{
+        //             fail(new Error(`Request failed: ${xhr.statusText}`));
+        //         }
+        //     });
+        //     xhr.addEventListener("error", () => fail(new Error("Network error")));
+        //     xhr.send(data);
+    // });
+
+    let result = await fetch(baseurl, {
+        method: 'POST',
+        body:data,
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded'
+            //'Content-type': 'application/json;charset=utf-8'
+            //'Content-type': 'text/plain;charset=UTF-8'
+        }
     });
+
+    return await result.json();
 }
 
 function getAjaxFormPay(form) { 
     // 'Способ: Автодоставка Объем: 6.11 Вес: 1830 Наименование: Рампа для крепления автомобилей в транспортном контейнере (6 комплектов) Куда: Владивосток Откуда: Хойчжоу';
     console.log('function getAjaxFormPay');
     if(form){
+        console.log(1);
         if (form.classList.contains('form_check_js')) {
             formStatus = checkFormInputs(form);
             if (formStatus.countErrors) {
@@ -169,18 +182,27 @@ function getAjaxFormPay(form) {
         }
 
         let params_get_token = 'request=addLead&login=api_app@mail.ru&password=133api&not_get_token=true&token&';
-        postJS(baseurl, params_get_token + query + comment).then(response =>  {
-            let result = JSON.parse(response);
-            if(result.success == true){
+        postJS(baseurl, (params_get_token + query + comment))
+        .then(data => {
+            if(data.success == true){
                 new systemModal({
                     type:'success',
                     title: 'Спасибо!',
                     text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
                 }).show();
-
-                clearForm(form);
             }
-        }).catch(error => console.error(error));
+        }).catch(error => {console.error(error)}).finally(() => {clearForm(form)});
+
+        // postJS(params_get_token + query + comment).then(response =>  {
+        //     let result = JSON.parse(response);
+        //     if(result.success == true){
+        //         new systemModal({
+        //             type:'success',
+        //             title: 'Спасибо!',
+        //             text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
+        //         }).show();
+        //     }
+        // }).catch(error => console.error(error)).finally(() => {clearForm(form);});
     }
 }; 
 
@@ -204,9 +226,7 @@ function getAjaxFormTracking(form) {
         let params_get_token = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
         console.log('baseurl = '+baseurl);
 
-        postJS(baseurl, params_get_token).then(response =>  {
-            let result = JSON.parse(response);
-
+        postJS(baseurl, params_get_token).then(result =>  {
             if(result.success == false){
                 if(result.message){
                     var message = result.message;
@@ -226,18 +246,17 @@ function getAjaxFormTracking(form) {
 
                     postJS(baseurl, params_get_cargo).then(response =>  {
                         container.classList.remove('start_js');
-                        let result = JSON.parse(response);
 
-                        if(result.success == true){
-                            if(result.result){
-                                container.querySelector('.form_tracking_content_js').innerHTML = result.result;
+                        if(response.success == true){
+                            if(response.result){
+                                container.querySelector('.form_tracking_content_js').innerHTML = response.result;
                                 container.classList.remove('empty_js'); 
                             }else{
                                 container.classList.add('empty_js');
                             }
 
-                            if(result.message){
-                                var message = result.message;
+                            if(response.message){
+                                var message = response.message;
             
                                 new systemModal({
                                     type: message.type,
@@ -633,10 +652,11 @@ function removeErrorInput(input, class_name) {
 
 function clearForm(form){
     if(form){
-        let inputs = form.querySelectorAll('input[type="text"]');
-        for (let i = 0; i < inputs.length; i++) {
-            inputs[i].value = '';
-        }
+        form.reset();
+        // let inputs = form.querySelectorAll('input[type="text"]');
+        // for (let i = 0; i < inputs.length; i++) {
+        //     inputs[i].value = '';
+        // }
 
         let selects = form.querySelectorAll('select');
 
