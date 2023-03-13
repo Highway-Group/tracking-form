@@ -500,7 +500,12 @@ let initCalc = function() {
         calcInputForm1 = calcItem[i].querySelectorAll('.calc_form1_js');
 
         for (let y = 0; y < calcInputForm1.length; y++) {
-            calc *= Number(calcInputForm1[y].value);
+            let currentVal = parseFloat(calcInputForm1[y].value);
+            if(isNaN(currentVal)){
+                currentVal = 0;
+            }
+
+            calc *= currentVal;
         }
         //console.log('calc = ' + calc);
         sum += calc;
@@ -516,8 +521,16 @@ function initCalc2(){
     let volume = document.querySelector('.calc_form2_js[name="volume"]');
 
     if(weight && volume) {
-        let weight_val = Number(weight.value);
-        let volume_val = Number(volume.value);
+        let weight_val = parseFloat(weight.value);
+        let volume_val = parseFloat(volume.value);
+
+        if(isNaN(weight_val)){
+            weight_val = 0;
+        }
+
+        if(isNaN(volume_val)){
+            volume_val = 0;
+        }
 
         if(weight_val && volume_val){
             calcBtn2.innerHTML = (weight_val / volume_val).toFixed(2);
