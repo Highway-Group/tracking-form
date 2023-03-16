@@ -61,31 +61,27 @@
                 url = 'https://crm.hl-group.ru/api';
             
             async function postJS(baseurl, data) {
-                let result = await fetch(baseurl, {
-                    method: 'POST',
-                    body:data,
-                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
-                });
-            
-                return await result.json();
+                try {
+                    const requestFetch = await fetch(baseurl, {
+                        method: 'POST',
+                        body:data,
+                        headers: {'Content-type': 'application/x-www-form-urlencoded'}
+                    });
+
+                    const resultFetch = await requestFetch.json();
+                    return resultFetch
+                } catch (e) { console.log(e) }
             }
         
             postJS(url, params).then(response =>  {
                 if(response.success == true){
                     if(response.result){
-                        // let weight = document.querySelector('.weight_tilda_js .tn-atom');
                         let token_api = response.result,
                             weight_yesterday = document.querySelector('.weight_yesterday_tilda_js .tn-atom'),
                             weight_full = document.querySelector('.weight_full_tilda_js'),
                             options = 'request=getWeight&token='+token_api;
         
-                        postJS(url, options).then(data =>  {
-                            // weight.innerHTML = data.weight;
-                            // let sup = weight.querySelector('sup');
-                            // if(sup){
-                            //     sup.remove();
-                            // }
-                            
+                        postJS(url, options).then(data =>  {                           
                             if(weight_yesterday && data.weight_yesterday){
                                 weight_yesterday.innerHTML = data.weight_yesterday;
                             }
@@ -107,7 +103,7 @@
                         });
                     }
                 }
-            }).catch(error => console.error(error));
+            });
         </script>
 
         <script src="https://highway-group.github.io/tracking-form/scripts/script.min.js"></script>
