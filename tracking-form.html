@@ -55,18 +55,16 @@
             </div>
         </div>
 
-        <script>    
-            let params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6';
+        <script>                
             //let url = 'http://akimov.keenetic.link/api';
-            let url = 'https://crm.hl-group.ru/api';
+            let params = 'request=login&login=api_crm@hl-group.ru&password=b83cf54810c924db2ccff0a242188ad6',
+                url = 'https://crm.hl-group.ru/api';
             
             async function postJS(baseurl, data) {
                 let result = await fetch(baseurl, {
                     method: 'POST',
                     body:data,
-                    headers: {
-                        'Content-type': 'application/x-www-form-urlencoded'
-                    }
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'}
                 });
             
                 return await result.json();
@@ -75,10 +73,11 @@
             postJS(url, params).then(response =>  {
                 if(response.success == true){
                     if(response.result){
-                        let token_api = response.result; 
                         // let weight = document.querySelector('.weight_tilda_js .tn-atom');
-                        let weight_yesterday = document.querySelector('.weight_yesterday_tilda_js .tn-atom');
-                        let options = 'request=getWeight&token='+token_api;
+                        let token_api = response.result,
+                            weight_yesterday = document.querySelector('.weight_yesterday_tilda_js .tn-atom'),
+                            weight_full = document.querySelector('.weight_full_tilda_js'),
+                            options = 'request=getWeight&token='+token_api;
         
                         postJS(url, options).then(data =>  {
                             // weight.innerHTML = data.weight;
@@ -87,15 +86,18 @@
                             //     sup.remove();
                             // }
                             
-                            weight_yesterday.innerHTML = data.weight_yesterday;
+                            if(weight_yesterday && data.weight_yesterday){
+                                weight_yesterday.innerHTML = data.weight_yesterday;
+                            }
+                        
+                            if(weight_full && data.weight_full){
+                                weight_full.innerHTML = data.weight_full;
+                            }
                             
                             if(data.weight_year){
                                 for(let key in data.weight_year){
-                                    let selector = '.weight_tilda_js_'+key;
-                                    console.log('selector = '+selector+ ' вес = '+ data.weight_year[key]);
-        
-                                    let block = document.querySelector(selector);
-                                    console.log(block);
+                                    let selector = '.weight_tilda_js_'+key,
+                                        block = document.querySelector(selector);
         
                                     if(block){
                                         block.querySelector('.tn-atom').innerHTML = data.weight_year[key];
@@ -106,38 +108,6 @@
                     }
                 }
             }).catch(error => console.error(error));
-        
-            // post(url, params).then(response =>  {
-            //     let result = JSON.parse(response);
-        
-            //     if(result.success == true){
-            //         if(result.result){
-            //             token_api = result.result; 
-            //             let weight = $('.weight_tilda_js .tn-atom');
-            //             let weight_yesterday = $('.weight_yesterday_tilda_js .tn-atom');
-            //             let options = 'request=getWeight&token='+token_api;
-            //             const request = new XMLHttpRequest();
-            //             request.open('POST', url, true);
-            //             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            //             //request.setRequestHeader("Content-type", "application/json");
-        
-            //             request.addEventListener("load", () => {
-            //                 if (request.status >=200 && request.status < 400){
-            //                     if(request.response){
-            //                         let msg = JSON.parse(request.response); 
-            //                         weight.html(msg.weight);  
-            //                         weight_yesterday.html(msg.weight_yesterday);  
-            //                     }
-            //                 }
-            //                 else{
-            //                     fail(new Error(`Request failed: ${request.statusText}`));
-            //                 }    
-            //             });
-        
-            //             request.send(options);
-            //         }
-            //     }
-            // }).catch(error => console.error(error));
         </script>
 
         <script src="https://highway-group.github.io/tracking-form/scripts/script.min.js"></script>
