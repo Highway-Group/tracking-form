@@ -78,7 +78,7 @@
                     if(response.result){
                         let token_api = response.result,
                             weight_yesterday = document.querySelector('.weight_yesterday_tilda_js .tn-atom'),
-                            weight_full = document.querySelector('.weight_full_tilda_js'),
+                            weight_full = document.querySelector('.weight_full_tilda_js .tn-atom'),
                             options = 'request=getWeight&token='+token_api;
         
                         postJS(url, options).then(data =>  {                           
