@@ -34,27 +34,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }));
 
     document.body.addEventListener('click', function(e) {
-       //console.log(e.target);
-
         if(e.target.classList.contains('btn_tab_js')){
             e.preventDefault();
             changeTabs(e.target);
         }
 
-        if(e.target.getAttribute('type') == 'submit' && e.target.closest('.ajax-form-pay')){
-            let form = e.target.closest('.ajax-form-pay');
-            getAjaxFormPay(form);
-        }
-
-        if(e.target.getAttribute('type') == 'submit' && e.target.closest('.ajax-form-tracking')){
-            let form = e.target.closest('.ajax-form-tracking');
-            getAjaxFormTracking(form); 
+        if(e.target.getAttribute('type') == 'submit'){
+            if(e.target.closest('.ajax-form-pay')){
+                let form = e.target.closest('.ajax-form-pay');
+                getAjaxFormPay(form);
+            }
+    
+            if(e.target.closest('.ajax-form-tracking')){
+                let form = e.target.closest('.ajax-form-tracking');
+                getAjaxFormTracking(form); 
+            }
         }
     });
 
     buttonClickRedirect.forEach(btn => btn.addEventListener('click', function(e) {
         let target_btn = btn.querySelector('.btn_get_js');
-        target_btn.click();
+
+        if(e.target.classList.contains('btn_span_js')){
+            target_btn.click();
+        }
+
+        target_btn.setAttribute('disabled', 'true');
+        setTimeout(() => target_btn.removeAttribute('disabled') ,1000);
     }));
 });
 
@@ -197,17 +203,6 @@ function getAjaxFormPay(form) {
                 }).show();
             }
         }).catch(error => {console.error(error)}).finally(() => {clearForm(form)});
-
-        // postJS(params_get_token + query + comment).then(response =>  {
-        //     let result = JSON.parse(response);
-        //     if(result.success == true){
-        //         new systemModal({
-        //             type:'success',
-        //             title: 'Спасибо!',
-        //             text: 'Ваша заявка принята, наш менеджер свяжется с вами в ближайшее время'
-        //         }).show();
-        //     }
-        // }).catch(error => console.error(error)).finally(() => {clearForm(form);});
     }
 }; 
 
